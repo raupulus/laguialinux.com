@@ -8,7 +8,7 @@
     </h1>
 
     <p>
-      En nombre de Rúl Caro Pastorino creador de este sitio web, accesible desde
+      En nombre de Raúl Caro Pastorino creador de este sitio web, accesible desde
       <NuxtLink to="/">
         del formulario de contacto,
       </NuxtLink>
@@ -63,7 +63,7 @@
     <h2>8. Contacto</h2>
     <p>
       Si tienes alguna pregunta sobre esta Política de Privacidad, puedes contactarnos a través
-      <NuxtLink to="/contact">
+      <NuxtLink to="https://raupulus.dev/contact" target="_blank">
         del formulario de contacto
       </NuxtLink>
     </p>
@@ -74,9 +74,9 @@
 const runtimeConfig = useRuntimeConfig()
 
 const url = runtimeConfig.public.app.url;
-const title = 'Política de Privacidad - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend';
-const description = 'Lee la política de privacidad de Raúl Caro Pastorino para entender cómo se recopila, usa y protege tu información personal en este sitio web de portfolio profesional.';
-const keywords = 'política de privacidad, Raúl Caro Pastorino, desarrollador web, privacidad, protección de datos, información personal';
+const title = 'Política de Privacidad - La Guía Linux | Proyecto para compartir software libre';
+const description = 'Lee la política de privacidad de La Guía Linux para entender cómo se recopila, usa y protege tu información personal en este sitio web de portfolio profesional.';
+const keywords = 'política de privacidad, Raúl Caro Pastorino, desarrollador web, privacidad, protección de datos, la guía linux';
 
 useHead({
   title: title,

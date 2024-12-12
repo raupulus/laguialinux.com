@@ -1,72 +1,3 @@
-<script lang="ts" setup>
-const responsiveMenuActive = ref(false);
-const emit = defineEmits(['disablescroll'])
-
-
-const scrollDisabled = useScrollDisabled();
-
-/**
- * @description Check the dimensions of the window to close the menu
- */
-const checkDimensions = () => {
-    if (window.innerWidth > 690) {
-        responsiveMenuActive.value = false;
-        //emit('disablescroll', responsiveMenuActive.value);
-        scrollDisabled.value = responsiveMenuActive.value;
-        window.removeEventListener("resize", checkDimensions)
-    }
-};
-
-//onMounted(() => {
-//window.addEventListener("resize", checkDimensions);
-//});
-
-//onUnmounted(() => window.removeEventListener("resize", checkDimensions));
-
-
-/**
- * @description Toggle the responsive menu
- */
-const toggleMenu = () => {
-    responsiveMenuActive.value = !responsiveMenuActive.value;
-
-    scrollDisabled.value = responsiveMenuActive.value;
-    //emit('disablescroll', responsiveMenuActive.value);
-
-    if (!responsiveMenuActive.value) {
-        //console.log('Evento eliminado, quitando el listener')
-        window.removeEventListener("resize", checkDimensions);
-    } else {
-        //console.log('Evento agregado, agregando el listener')
-        window.addEventListener("resize", checkDimensions);
-    }
-}
-
-const buttons = [
-    {
-        text: '🏠/',
-        to: '/',
-        title: 'Página principal del Portfolio',
-    },
-    {
-        text: '🌐Actualidad',
-        to: '/projects',
-        title: 'Mis proyectos',
-    },
-    {
-        text: '📖Guías',
-        to: '/projects',
-        title: 'Guías sobre software libre',
-    },
-    {
-        text: '🎓Tutoriales',
-        to: '/blog',
-        title: 'Sitios Webs Propios',
-    },
-]
-
-</script>
-
 <template>
     <header class="header-container">
         <div class="box-header">
@@ -145,7 +76,79 @@ const buttons = [
     </header>
 </template>
 
+<script lang="ts" setup>
+const responsiveMenuActive = ref(false);
+const emit = defineEmits(['disablescroll'])
 
+
+const scrollDisabled = useScrollDisabled();
+
+/**
+ * @description Check the dimensions of the window to close the menu
+ */
+const checkDimensions = () => {
+    if (window.innerWidth > 690) {
+        responsiveMenuActive.value = false;
+        //emit('disablescroll', responsiveMenuActive.value);
+        scrollDisabled.value = responsiveMenuActive.value;
+        window.removeEventListener("resize", checkDimensions)
+    }
+};
+
+//onMounted(() => {
+//window.addEventListener("resize", checkDimensions);
+//});
+
+//onUnmounted(() => window.removeEventListener("resize", checkDimensions));
+
+
+/**
+ * @description Toggle the responsive menu
+ */
+const toggleMenu = () => {
+    responsiveMenuActive.value = !responsiveMenuActive.value;
+
+    scrollDisabled.value = responsiveMenuActive.value;
+    //emit('disablescroll', responsiveMenuActive.value);
+
+    if (!responsiveMenuActive.value) {
+        //console.log('Evento eliminado, quitando el listener')
+        window.removeEventListener("resize", checkDimensions);
+    } else {
+        //console.log('Evento agregado, agregando el listener')
+        window.addEventListener("resize", checkDimensions);
+    }
+}
+
+const buttons = [
+    {
+        text: '🏠 /',
+        to: '/',
+        title: 'Página principal del Portfolio',
+    },
+    {
+        text: '🌐 Actualidad',
+        to: '/news',
+        title: 'Noticias sobre software libre',
+    },
+    {
+        text: '📖 Guías',
+        to: '/guides',
+        title: 'Guías sobre software libre',
+    },
+    {
+        text: '🎓 Tutoriales',
+        to: '/tutorials',
+        title: 'Tutoriales de software libre',
+    },
+    {
+        text: '✍️ Blog',
+        to: '/blog',
+        title: 'Blog de opiniones',
+    },
+]
+
+</script>
 
 <style lang="css" scoped>
 .header-container {

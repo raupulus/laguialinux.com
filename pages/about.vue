@@ -5,9 +5,9 @@ import type { GalleryPathType } from '@/types/GalleryPathType';
 const config = useRuntimeConfig();
 
 const url = config.public.app.url;
-const title = 'Sobre mí - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend';
-const description = 'Conoce a Raúl Caro Pastorino, un experimentado desarrollador web full stack especializado en backend. Descubre mi trayectoria profesional, habilidades destacadas y proyectos realizados.';
-const keywords = 'sobre mí, Raúl Caro Pastorino, desarrollador web, full stack, backend, proyectos, experiencia, habilidades';
+const title = 'Sobre La Guía Linux | Proyecto para compartir software libre';
+const description = 'Conoce a La Guía Linux, un proyecto que pretende compartir conocimiento sobre Software Libre y Tecnología ';
+const keywords = 'la guía linux, Raúl Caro Pastorino, desarrollador web, full stack, backend, proyectos, experiencia, habilidades';
 
 useHead({
     title: title,

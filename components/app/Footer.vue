@@ -124,6 +124,12 @@
 
                 <div>
                     <p>
+                        <NuxtLink to="/about" title="Sobre Nosotros" class="footer-btn-link">
+                            Sobre Nosotros
+                        </NuxtLink>
+                    </p>
+
+                    <p>
                         <a href="https://raupulus.dev" target="_blank" title="Web del autor del proyecto"
                             class="footer-btn-link">
                             Web del Autor
@@ -140,14 +146,14 @@
 
                 <div>
                     <p>
-                        <a href="https://gitlab.com/raupulus/www.laguialinux.com.git" target="_blank"
+                        <a href="https://gitlab.com/raupulus/laguialinux.com.git" target="_blank"
                             title="Enlace a repositorio de código para esta web en gitlab" class="footer-btn-link">
                             Código en GitLab
                         </a>
                     </p>
 
                     <p>
-                        <a href="https://github.com/raupulus/www.laguialinux.com.git" target="_blank"
+                        <a href="https://github.com/raupulus/laguialinux.com.git" target="_blank"
                             title="Enlace a repositorio de código para esta web en github" class="footer-btn-link">
                             Código en GitHub
                         </a>
@@ -163,7 +169,7 @@
                 <div>
                     <BtnGeneric text="Redes Sociales"
                         title="Enlace a nuestras redes sociales sobre programación, software libre, tecnología, IOT y también inteligencia artificial"
-                        to="/about" />
+                        to="/social" />
                 </div>
             </div>
         </div>
