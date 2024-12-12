@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F3F3F3;
+    min-height: 100vh;
+}
+
+#app {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    font-family: 'OpenSans', sans-serif;
+    box-sizing: border-box;
+    column-gap: 0;
+}
+
+#app-box-content {
+    margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

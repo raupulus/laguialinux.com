@@ -1,0 +1,28 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev -p 3020",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@dargmuesli/nuxt-cookie-control": "^8.4.13",
+    "@nuxt/devtools": "^1.4.1",
+    "@nuxt/image": "^1.5.0",
+    "@nuxtjs/sitemap": "^6.1.0",
+    "@types/node": "^20.16.10",
+    "nuxt": "^3.13.1",
+    "nuxt-gtag": "^3.0.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.3",
+    "vue-tsc": "^2.1.6"
+  },
+  "dependencies": {
+    "@vue/devtools": "^7.4.4",
+    "vue-recaptcha-v3": "^2.0.1"
+  }
+}
