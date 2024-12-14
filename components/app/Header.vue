@@ -171,11 +171,12 @@ const buttons = [
     justify-self: start;
     vertical-align: middle;
     border-radius: 8px;
+    gap: 5px;
 }
 
 .header-section-left-img img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     object-position: center;
 }

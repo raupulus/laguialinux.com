@@ -111,7 +111,7 @@ export default defineNuxtConfig({
         typeCheck: true,
     },
 
-    modules: ["@nuxt/image", '@nuxtjs/sitemap', 'nuxt-gtag', '@dargmuesli/nuxt-cookie-control'],
+    modules: ["@nuxt/image", '@nuxtjs/sitemap', 'nuxt-gtag', '@dargmuesli/nuxt-cookie-control', 'nuxt-swiper'],
 
     image: {
         provider: 'ipx',

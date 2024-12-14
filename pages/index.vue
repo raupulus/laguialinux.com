@@ -1,12 +1,6 @@
 <template>
+    <Slide :slides="Array.from({ length: 19 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
 
-    <!--
-    <HeaderImage />
-    -->
-
-    <p>
-        Slide de imágenes (Pinguinos caminando con cielo estrellado???????)
-    </p>
 
     <p>
         Cards: Videotutoriales (Youtube) - Guías de Linux - ????
