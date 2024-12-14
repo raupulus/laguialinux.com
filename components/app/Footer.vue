@@ -185,7 +185,7 @@
 <style lang="css" scoped>
 .footer-container {
     width: 100%;
-    background-color: #1F2937;
+    background-color: var(--black);
 }
 
 .footer-box {

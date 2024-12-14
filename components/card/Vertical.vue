@@ -1,3 +1,23 @@
+<template>
+    <div class="box" :style="'background-color: ' + background + ';'">
+        <div class="top">
+            <slot />
+        </div>
+
+        <div class="bottom">
+            <div class="tag">{{ tag }}</div>
+
+            <span class="title">
+                {{ title }}
+            </span>
+
+            <span class="description">
+                {{ description }}
+            </span>
+        </div>
+    </div>
+</template>
+
 <script setup>
 const props = defineProps({
     tag: {
@@ -22,26 +42,6 @@ const props = defineProps({
     }
 })
 </script>
-
-<template>
-    <div class="box" :style="'background-color: ' + background + ';'">
-        <div class="top">
-            <slot />
-        </div>
-
-        <div class="bottom">
-            <div class="tag">{{ tag }}</div>
-
-            <span class="title">
-                {{ title }}
-            </span>
-
-            <span class="description">
-                {{ description }}
-            </span>
-        </div>
-    </div>
-</template>
 
 <style scoped>
 .box {

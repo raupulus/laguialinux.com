@@ -125,7 +125,7 @@ export default defineComponent({
 }
 
 .btn-red {
-    background-color: #ff6347;
+    background-color: var(--danger);
     color: var(--white);
 }
 
@@ -144,7 +144,7 @@ export default defineComponent({
 }
 
 .router-link-active .btn-menu {
-    background-color: var(--warning);
+    background-color: var(--blue);
     color: var(--white);
 }
 </style>

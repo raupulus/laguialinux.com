@@ -113,16 +113,16 @@ onMounted(() => {
   padding: 70px 60px; /* Agregamos padding para dar espacio al cubo */
 }
 
-swiper-container {
+.box-slide swiper-container {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  display: block; /* Aseguramos que no haya desbordes horizontales */
+  display: block;
   box-sizing: border-box;
 }
 
-swiper-slide {
-  width: 100% !important; /* Asegura que el slide no exceda el 100% del contenedor */
+.box-slide swiper-slide {
+  width: 100% !important;
   height: 100%;
   text-align: center;
   font-size: 18px;
@@ -132,10 +132,10 @@ swiper-slide {
   align-items: center;
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Asegura que el padding no se salga del contenedor */
+  box-sizing: border-box;
 }
 
-swiper-slide img {
+.box-slide swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;
@@ -149,15 +149,15 @@ swiper-slide img {
   }
 
   .box-slide.cube-effect swiper-container {
-    padding: 50px 0; /* Agregamos padding para dar espacio al cubo */
+    padding: 50px 0; /* Agrego padding para dar espacio al cubo */
   }
 
-  swiper-container {
+  .box-slide swiper-container {
     width: 100%;
     height: 100%;
   }
 
-  swiper-slide {
+  .box-slide swiper-slide {
     font-size: 16px;
   }
 }

@@ -1,15 +1,19 @@
 <template>
+    <span style="right: 15px; margin: 0; padding: 0; position: absolute;">
+        Creando contenido desde 2001
+    </span>
+
     <Slide :slides="Array.from({ length: 19 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
 
+    <GridSection />
 
-    <p>
-        Cards: Videotutoriales (Youtube) - Guías de Linux - ????
-    </p>
+    <!--
+    <Banner title="TITLE" image="/images/banners/1.webp" description="description" url="/about"/>
+    -->
 
-    <p style="background: red; width: 100%; height: 100px; text-align: center;">
-        <span style="text-align: left; color: white; font-size:2rem; display: inline-block">&lt;</span>
-        <span style="text-align: right; color: white; font-size:2rem; display: inline-block">&gt;</span>
-    </p>
+    <section class="mt-1" style="width: 100%;">
+        <SlideBanner :banners="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+    </section>
 
     <div>
         Cards: 3 últimas noticias
