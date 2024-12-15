@@ -7,37 +7,40 @@
 
     <GridSection />
 
-    <!--
-    <Banner title="TITLE" image="/images/banners/1.webp" description="description" url="/about"/>
-    -->
-
-    <section class="mt-1" style="width: 100%;">
+    <!-- Banner para Destacados -->
+    <section class="mt-2" style="width: 100%;">
         <SlideBanner :banners="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
     </section>
 
-    <div>
-        Cards: 3 últimas noticias
-    </div>
+    <!-- Últimas noticias slide -->
+    <section class="mt-2" style="width: 100%;">
+        <h2 class="text-center">Últimas noticias</h2>
+        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+    </section>
 
-    <div>
-        Cards: 3 últimas entradas
-    </div>
+    <div class="section-separator"></div>
 
+    <!-- Últimas entradas para el blog -->
+    <section class="mt-1" style="width: 100%;">
+        <h2 class="text-center">Últimas entradas en el blog</h2>
+        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+    </section>
 
+    <div class="section-separator"></div>
 
     <!-- Cards SoftSkills -->
     <section class="mt-2">
         <div class="block text-center">
-            <CardVertical background="#2F3239" title="Estudiar, Practicar" tag="Autodidacta"
-                description="Formación constante, poder ser autodidacta es maravilloso">
+            <CardVertical background="#2F3239" title="Aprender, Compartir" tag="LGL"
+                description="Creamos contenido para compartirlo a la vez que aprendemos">
 
                 <NuxtImg src="/images/soft-skills/logotipo.webp" format="webp" width="250" height="250" quality="90"
-                    title="Formación Autodidacta" alt="Formación Autodidacta" loading="lazy" />
+                    title="Creamos contenido para compartirlo a la vez que aprendemos" alt="Creamos contenido para compartirlo a la vez que aprendemos" loading="lazy" />
             </CardVertical>
 
-            <CardVertical background="#005db5" title="Lógica API REST" tag="Backend"
-                description="Especilizándome en apis. Destreza creando lógica y estructuras ">
-                <NuxtImg src="/images/soft-skills/cloud.webp" format="webp" width="250" height="250" quality="90"
+            <CardVertical background="#005db5" title="Actualidad y Eventos" tag="Noticias"
+                description="Información sobre lo que ocurre en el mundo del software libre">
+                <NuxtImg src="/images/soft-skills/logotipo.webp" format="webp" width="250" height="250" quality="90"
                     title="Backend Web Developer" alt="Backend Web Developer" loading="lazy" />
             </CardVertical>
 
@@ -47,22 +50,13 @@
                     title="Open Source Developer" alt="Open Source Developer" loading="lazy" />
             </CardVertical>
         </div>
-
-        <div class="section-separator"></div>
-
     </section>
 
+    <div class="section-separator"></div>
 
     <!-- Redes Sociales -->
     <section class="mt-2">
         <div class="block text-center">
-
-            <div>
-                <h2 class="text-center">
-                    Redes Sociales
-                </h2>
-            </div>
-
             <div class="box-social-icons inline-block">
                 <div class="inline-block">
                     <IconsYoutube size="80px" :decored="true" />
@@ -91,14 +85,21 @@
         </div>
     </section>
 
+    <div class="section-separator"></div>
 
-    <div class="mt-2">
-        Cards: 12 últimas noticias con paginación para ver las 12 siguientes/anteriores
-    </div>
+    <!-- Grid Noticias destacadas -->
+    <section class="mt-1" style="width: 100%;">
+        <h2 class="text-center">Noticias Destacadas</h2>
+        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
+    </section>
 
-    <div>
-        Cards: 12 últimas entradas con paginación para ver las 12 siguientes/anteriores
-    </div>
+
+    <!-- Grid Entradas destacadas -->
+    <section class="mt-1" style="width: 100%;">
+        <h2 class="text-center">Entradas destacadas</h2>
+        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
+    </section>
+
 
     <div>
         Sobre Nosotros:

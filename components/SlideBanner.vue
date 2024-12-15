@@ -26,6 +26,8 @@ const swiper = useSwiper(containerRefBanner, {
   effect: 'coverflow', // creative, cube, coverflow, flip, cards, fade
   loop: true,
   grabCursor: true,
+  slidesPerView: 1,
+  centeredSlides: true,
   pagination: {
     enabled: false,
     el: '.swiper-pagination',
