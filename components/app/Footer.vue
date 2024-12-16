@@ -137,8 +137,7 @@
                     </p>
 
                     <p>
-                        <a href="#" target="_blank" title="Listado de webs amigas del proyecto"
-                            class="footer-btn-link">
+                        <a href="#" target="_blank" title="Listado de webs amigas del proyecto" class="footer-btn-link">
                             Otras Webs Amigas
                         </a>
                     </p>
@@ -157,6 +156,12 @@
                             title="Enlace a repositorio de código para esta web en github" class="footer-btn-link">
                             Código en GitHub
                         </a>
+                    </p>
+
+                    <p>
+                        <NuxtLink class="footer-btn-link" to="https://raupulus.dev/contact" title="Contactar con el autor" target="_blank">
+                            Contactar con el autor
+                        </NuxtLink>
                     </p>
                 </div>
             </div>

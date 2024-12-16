@@ -1,7 +1,7 @@
 <template>
     <div class="grid-container">
         <CardBlog v-for="(card, index) in data" :key="index" :title="card.title" :image="card.image" :excerpt="card.excerpt"
-            :url="card.url" :date="card.date"/>
+            :url="card.url" :date="card.date" :categories="card.categories"/>
     </div>
 </template>
 
@@ -9,7 +9,7 @@
 
 const props = defineProps({
     data: {
-        type: Array as PropType<Array<{ title: string; excerpt: string; image: string; url?: string; date?: string; }>>,
+        type: Array as PropType<Array<{ title: string; excerpt: string; image: string; url?: string; date?: string; categories?: Array<String>; }>>,
     }
 });
 

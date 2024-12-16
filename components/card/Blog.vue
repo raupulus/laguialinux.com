@@ -1,15 +1,27 @@
 <template>
   <div class="blog-card">
-    <NuxtImg :src="image" :alt="title" class="blog-card-image" loading="lazy"/>
+    <h2 class="blog-card-title">{{ title }}</h2>
+    <NuxtImg :src="image" :alt="title" class="blog-card-image" loading="lazy" />
+
+    <div class="blog-card-badges" v-if="categories && categories.length">
+      <span v-for="category in categories" :key="String(category)" class="blog-card-badge">{{ category }}</span>
+    </div>
 
     <div class="blog-card-content">
       <div class="blog-card-meta" v-if="date">
         <time :datetime="date">{{ formattedDate }}</time>
       </div>
-
-      <h2 class="blog-card-title">{{ title }}</h2>
       <p class="blog-card-excerpt">{{ excerpt }}</p>
-      <NuxtLink :to="url" class="blog-card-button">Leer artículo</NuxtLink>
+
+      <div class="blog-card-footer">
+        <span class="blog-card-comments">
+          <svg class="icon-comments" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7l-4 4v-4H5a2 2 0 0 1-2-2V5z"/>
+          </svg>
+          {{ comments || 0 }}
+        </span>
+        <NuxtLink :to="url" class="blog-card-button">Leer artículo</NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +47,16 @@ const props = defineProps({
   date: {
     type: String,
     required: false
+  },
+  categories: {
+    type: Array,
+    required: false,
+    default: () => []
+  },
+  comments: {
+    type: Number,
+    required: false,
+    default: 0
   }
 });
 
@@ -51,14 +73,17 @@ const formattedDate = computed(() => {
 
 <style scoped>
 .blog-card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
   background-color: var(--white);
   color: var(--darkblue);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  min-height: 300px;
 }
 
 .blog-card:hover {
@@ -66,10 +91,35 @@ const formattedDate = computed(() => {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+.blog-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 16px;
+  margin: 0;
+  background-color: var(--white);
+  color: var(--blue);
+}
+
 .blog-card-image {
   width: 100%;
   height: 250px;
   object-fit: cover;
+}
+
+.blog-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  gap: 8px;
+  margin: 8px 16px 0;
+}
+
+.blog-card-badge {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
 }
 
 .blog-card-content {
@@ -85,16 +135,25 @@ const formattedDate = computed(() => {
   font-weight: 500;
 }
 
-.blog-card-title {
-  font-size: 1.5rem;
-  margin: 0;
-  font-weight: bold;
-}
-
 .blog-card-excerpt {
   font-size: 1rem;
   color: var(--darkblue);
   line-height: 1.5;
+}
+
+.blog-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.blog-card-comments {
+  font-size: 0.875rem;
+  color: var(--darkblue);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .blog-card-button {
@@ -122,7 +181,7 @@ const formattedDate = computed(() => {
   }
 
   .blog-card-title {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .blog-card-excerpt {

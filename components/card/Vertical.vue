@@ -74,7 +74,7 @@ const props = defineProps({
     width: 100%;
     height: 45%;
     color: var(--white);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     text-align: left;
 }
 
@@ -84,11 +84,11 @@ const props = defineProps({
     margin-left: 25px;
     width: 128px;
     padding: 5px;
-    color: var(--primary);
+    color: var(--white);
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
-    background-color: var(--gray);
+    background-color: var(--primary);
     border-radius: 25px;
     z-index: 1;
 }

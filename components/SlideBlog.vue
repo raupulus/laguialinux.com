@@ -5,7 +5,7 @@
         <swiper-slide
           v-for="(card, idx) in data":key="idx">
         <CardBlog :title="card.title" :image="card.image" :excerpt="card.excerpt"
-        :url="card.url" :date="card.date"/>
+        :url="card.url" :date="card.date" :categories="card.categories"/>
         </swiper-slide>
       </swiper-container>
     </ClientOnly>
@@ -22,7 +22,7 @@ const props = defineProps({
     default: 'coverflow', // creative, cube, coverflow, flip, cards, fade
   },
     data: {
-        type: Array as PropType<Array<{ title: string; excerpt: string; image: string; url?: string; date?: string; }>>,
+        type: Array as PropType<Array<{ title: string; excerpt: string; image: string; url?: string; date?: string; categories?: Array<String>; }>>,
     }
 });
 
@@ -116,7 +116,7 @@ const swiper = useSwiper(containerRef, {
 }
 
 .box-slide-blog swiper-slide {
-  padding: 10px 0;
+  padding: 20px 0;
   box-sizing: border-box;
 }
 </style>

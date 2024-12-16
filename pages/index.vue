@@ -15,7 +15,7 @@
     <!-- Últimas noticias slide -->
     <section class="mt-2" style="width: 100%;">
         <h2 class="text-center">Últimas noticias</h2>
-        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
     </section>
 
     <div class="section-separator"></div>
@@ -23,7 +23,7 @@
     <!-- Últimas entradas para el blog -->
     <section class="mt-1" style="width: 100%;">
         <h2 class="text-center">Últimas entradas en el blog</h2>
-        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
     </section>
 
     <div class="section-separator"></div>
@@ -90,36 +90,17 @@
     <!-- Grid Noticias destacadas -->
     <section class="mt-1" style="width: 100%;">
         <h2 class="text-center">Noticias Destacadas</h2>
-        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
+        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
     </section>
 
 
     <!-- Grid Entradas destacadas -->
     <section class="mt-1" style="width: 100%;">
         <h2 class="text-center">Entradas destacadas</h2>
-        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
+        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
     </section>
 
-
-    <div>
-        Sobre Nosotros:
-
-        <NuxtLink to="/about" title="Sobre Nosotros">
-            Sobre Nosotros
-        </NuxtLink>
-    </div>
-
-    <div>
-        Contacto:
-
-        <NuxtLink to="https://raupulus.dev/contact" title="Contactar con el autor" target="_blank">
-            Contactar con el autor
-        </NuxtLink>
-    </div>
-
     <div class="mt-5"></div>
-
-
 </template>
 
 <style scoped>
