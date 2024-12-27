@@ -7,6 +7,8 @@ export type SearchParamsType = {
     technology_id?: number,
     category?: number,
     category_id?: number,
+    subcategory?: number,
+    subcategory_id?: number,
     orderBy?: [],
     orderDirection?: string,
 }
