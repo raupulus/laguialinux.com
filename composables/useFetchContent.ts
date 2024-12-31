@@ -20,9 +20,16 @@ const results = ref<ResponseContentType>({
     contents: [],
 });
 
+// Indica si está actualmente preparando el contenido o descargándolo
+const loadingContents = ref<boolean>(false);
+
 const fetchResults = async (page: number = 1, reset: boolean = false) => {
     if (fetchLocked.value) {
         return;
+    }
+
+    if (page === 1) {
+        loadingContents.value = true;
     }
 
     fetchLocked.value = true;
@@ -56,6 +63,7 @@ const fetchResults = async (page: number = 1, reset: boolean = false) => {
     }
 
     fetchLocked.value = false;
+    loadingContents.value = false;
 };
 
 export const useFetchContent = (type: string, category: string = '', subcategory: string = '') => {
@@ -65,7 +73,7 @@ export const useFetchContent = (type: string, category: string = '', subcategory
 
     fetchResults(1, true);
 
-    return {results, contentActions};
+    return {results, contentActions, loadingContents};
 }
 
 const setFilterCategory = (cat: string) => {

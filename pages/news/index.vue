@@ -1,11 +1,14 @@
 <template>
     <div>
+        <Loader :isLoading="loadingCategories"></Loader>
+        <Loader :isLoading="loadingContents && !loadingCategories"></Loader>
+
         <section>
             <h2 class="page-h2-title">Actualidad</h2>
         </section>
 
         <!-- Filtros -->
-        <section class="box-grid-filter">
+        <section class="box-grid-filter" v-if="!loadingCategories">
             <div>
                 <label for="category">Categorías</label>
                 <select id="category" v-model="categorySlug" @change="handleChangeCategory">
@@ -41,7 +44,7 @@
         </section>
 
         <!-- Noticias -->
-        <section>
+        <section v-if="!loadingContents">
             <section class="box-grid-news">
                 <CardBlogHorizontal
                     v-for="post in results.contents"
@@ -61,8 +64,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-
-// Manejo del scroll infinito
+/**
+ * Procesa la acción de scroll infinito
+ * @function handleScroll
+ */
 const handleScroll = () => {
     if (results.value.pagination?.hasNextPage) {
         const scrollTop = window.scrollY;
@@ -81,10 +86,13 @@ let subcategorySlug = ref('');
 
 
 const {categories, subcategories, currentCategory, currentSubcategory, categoryActions} = useFetchCategories();
-const {results, contentActions} = useFetchContent('new');
+const {results, contentActions, loadingContents} = useFetchContent('new');
 
 
-
+/**
+ * Procesa el cambio de categoría
+ * @function handleChangeCategory
+ */
 function handleChangeCategory() {
     categoryActions.setCurrentSubcategory('');
     categoryActions.setCurrentCategory(categorySlug.value);
@@ -95,7 +103,10 @@ function handleChangeCategory() {
     contentActions.fetchResults(1, true);
 }
 
-
+/**
+ * Procesa el cambio de subcategoría
+ * @function handleChangeSubCategory
+ */
 function handleChangeSubCategory() {
     categoryActions.setCurrentSubcategory(subcategorySlug.value);
 
@@ -109,9 +120,14 @@ function handleChangeSubCategory() {
     contentActions.fetchResults(1, true);
 }
 
+const loadingCategories = ref<boolean>(true);
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
+
+    if (categories.value) {
+        loadingCategories.value = false;
+    }
 });
 </script>
 

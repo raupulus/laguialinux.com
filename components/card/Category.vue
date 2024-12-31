@@ -5,8 +5,7 @@
   >
     <div class="category-content">
       <NuxtImg
-        v-if="icon || true"
-        :src="icon || 'logo_512x512.webp'"
+        :src="icon || 'logo_128x128.webp'"
         alt="Category Icon"
         class="category-icon"
       />
@@ -37,7 +36,6 @@ const props = defineProps({
 })
 
 const goToCategory = () => {
-  // Lógica de navegación, por ahora redirige a # (se puede actualizar más tarde)
   window.location.href = `/news/${props.category?.slug}/${props.subcategory.slug}`
 }
 </script>
@@ -46,7 +44,7 @@ const goToCategory = () => {
 .category-card {
   width: 95%;
   margin: auto;
-  background-color: #2d3748; /* Fondo oscuro para el componente */
+  background-color: #2d3748;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
@@ -59,7 +57,7 @@ const goToCategory = () => {
 
 .category-card:hover {
   transform: scale(1.05);
-  background-color: var(--danger); /* Color de fondo al hacer hover (verde Material Design) */
+  background-color: var(--danger);
 }
 
 .category-content {
