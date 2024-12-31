@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import { type ContentType } from '@/types/ContentType';
 import { type MetadataType } from '@/types/MetadataType';
 import { type PaginationType } from '@/types/PaginationType';
@@ -66,8 +65,25 @@ export const useFetchContent = (type: string, category: string = '', subcategory
 
     fetchResults(1, true);
 
-    return results;
+    return {results, contentActions};
 }
+
+const setFilterCategory = (cat: string) => {
+    contentCategory.value = cat ?? '';
+}
+
+const setFilterSubCategory = (subcat: string) => {
+    contentSubcategory.value = subcat ?? '';
+}
+
+
+const contentActions = {
+    setFilterCategory,
+    setFilterSubCategory,
+    fetchResults,
+}
+
+
 
 export const useFetchContentNext = () => {
     if (results.value.pagination?.hasNextPage) {

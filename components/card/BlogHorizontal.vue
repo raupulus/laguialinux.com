@@ -6,7 +6,10 @@
       <h2 class="blog-card-title">{{ title }}</h2>
 
       <div class="blog-card-badges" v-if="categories && categories.length">
-        <span v-for="category in categories" :key="String(category)" class="blog-card-badge">{{ category }}</span>
+        <NuxtLink :to="`/${path}/${category.slug}`"
+                  v-for="category in categories" :key="category.slug" class="blog-card-badge">
+          {{ category.name }}
+        </NuxtLink>
       </div>
 
       <div class="blog-card-meta" v-if="date">
@@ -29,6 +32,9 @@
 </template>
 
 <script setup lang="ts">
+
+import { type CategoryType } from '@/types/CategoryType';
+
 const props = defineProps({
   title: {
     type: String,
@@ -51,9 +57,13 @@ const props = defineProps({
     required: false
   },
   categories: {
-    type: Array,
+    type: Array as PropType<CategoryType[]>,
     required: false,
     default: () => []
+  },
+  path: {
+    type: String,
+    default: () => '',
   },
   comments: {
     type: Number,
@@ -126,6 +136,7 @@ const formattedDate = computed(() => {
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 0.875rem;
+  text-decoration: none;
 }
 
 .blog-card-meta {

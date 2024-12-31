@@ -1,5 +1,6 @@
 import { type MetadataType } from "@/types/MetadataType"
 import { type TechnologyType } from "@/types/TechnologyType"
+import type { CategoryType } from "./CategoryType"
 
 export type ContentType = {
     title: string,
@@ -13,7 +14,7 @@ export type ContentType = {
     updated_at?: string,
     created_at_human?: string,
     total_pages?: number,
-    categories?: string[],
+    categories?: CategoryType[],
     tags?: string[],
     metadata?: MetadataType,
     technologies?: TechnologyType[],

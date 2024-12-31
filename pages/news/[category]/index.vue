@@ -1,15 +1,28 @@
 <template>
     <div>
         <section>
-            <h1>Categoría: {{ slugCategory }}</h1>
-            <p>example: <NuxtLink to="/news/cat-1/subcat-4">subcat-4</NuxtLink></p>
+            <h1>Categoría: {{ currentCategory?.name }}</h1>
+        </section>
+
+        <section>
+            <h2>Subcategorías</h2>
+            <ul>
+                <li v-for="subcategory in currentCategory?.subcategories">
+                    <NuxtLink :to="`/news/${currentCategory?.slug}/${subcategory.slug}`">
+                    {{subcategory.name}}
+                    </NuxtLink>
+                </li>
+            </ul>
         </section>
     </div>
 </template>
 
 <script setup lang="ts">
+
 const route = useRoute();
-const slugCategory = ref(route.params.category);
+const slugCategory = ref<string>(route.params.category as string);
+
+const {categories, subcategories, currentCategory, currentSubcategory, categoryActions} = useFetchCategory(slugCategory.value);
 </script>
 
 <style scoped>

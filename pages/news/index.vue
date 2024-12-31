@@ -8,27 +8,32 @@
         <section class="box-grid-filter">
             <div>
                 <label for="category">Categorías</label>
-                <select id="category" v-model="filters.category">
-                    <option value="">Cualquiera</option>
-                    <option value="cat-1">cat-1</option>
-                    <option value="cat-2">cat-2</option>
-                    <option value="cat-3">cat-3</option>
+                <select id="category" v-model="categorySlug" @change="handleChangeCategory">
+                    <option value="" :selected="categorySlug === ''">Cualquiera</option>
+
+                    <option v-for="category in categories" :id="category.slug"
+                        :selected="category.slug === categorySlug"
+                        :value="category.slug">
+                        {{category.name}}
+                    </option>
                 </select>
             </div>
 
             <div>
                 <label for="topic">Tema</label>
-                <select id="topic" v-model="filters.topic">
-                    <option value="">Cualquiera</option>
-                    <option value="topic-1">topic-1</option>
-                    <option value="topic-2">topic-2</option>
-                    <option value="topic-3">topic-3</option>
+                <select id="topic" v-model="subcategorySlug" @change="handleChangeSubCategory">
+                    <option value="" :selected="subcategorySlug === ''">Cualquiera</option>
+                    <option v-for="subcategory in subcategories" :id="subcategory.slug"
+                        :selected="subcategory.slug === subcategorySlug"
+                        :value="subcategory.slug">
+                        {{subcategory.name}}
+                    </option>
                 </select>
             </div>
 
             <div>
                 <label for="sort">Ordenar</label>
-                <select id="sort" v-model="filters.sort">
+                <select id="sort">
                     <option value="recent">Más Recientes</option>
                     <option value="popular">Más Leídas</option>
                 </select>
@@ -45,6 +50,7 @@
                     :excerpt="post.excerpt"
                     :image="post.urlImageMedium"
                     :url="'#'"
+                    path="news"
                     :categories="post.categories"
                 />
             </section>
@@ -54,17 +60,10 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import useNews from '@/composables/useNews';
-import {type ResponseContentType} from '@/types/ResponseContentType';
 
-// Estático para pruebas
-const { news, filters, loadMore } = useNews();
 
 // Manejo del scroll infinito
-
 const handleScroll = () => {
-
-    console.log('results.value.pagination?.hasNextPage:', results.value.pagination?.hasNextPage);
     if (results.value.pagination?.hasNextPage) {
         const scrollTop = window.scrollY;
         const windowHeight = window.innerHeight;
@@ -77,9 +76,38 @@ const handleScroll = () => {
 
 };
 
+let categorySlug = ref('');
+let subcategorySlug = ref('');
 
 
-const results = useFetchContent('new');
+const {categories, subcategories, currentCategory, currentSubcategory, categoryActions} = useFetchCategories();
+const {results, contentActions} = useFetchContent('new');
+
+
+
+function handleChangeCategory() {
+    categoryActions.setCurrentSubcategory('');
+    categoryActions.setCurrentCategory(categorySlug.value);
+    subcategorySlug.value = '';
+
+    contentActions.setFilterCategory(categorySlug.value);
+    contentActions.setFilterSubCategory('');
+    contentActions.fetchResults(1, true);
+}
+
+
+function handleChangeSubCategory() {
+    categoryActions.setCurrentSubcategory(subcategorySlug.value);
+
+    if (subcategorySlug.value !== '') {
+        categorySlug.value = currentCategory.value?.slug ?? '';
+    } else {
+        contentActions.setFilterCategory(categorySlug.value);
+    }
+
+    contentActions.setFilterSubCategory(subcategorySlug.value);
+    contentActions.fetchResults(1, true);
+}
 
 
 onMounted(() => {
