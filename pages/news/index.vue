@@ -10,28 +10,86 @@
         <!-- Filtros -->
         <section class="box-grid-filter" v-if="!loadingCategories">
             <div>
-                <label for="category">Categoría</label>
-                <select id="category" v-model="categorySlug" @change="handleChangeCategory">
-                    <option value="" :selected="categorySlug === ''">Cualquiera</option>
+                <div class="grid-select-group">
+                    <!-- Agregar la "X" para limpiar -->
+                    <span v-if="selectCategory" @click="selectCategory = undefined; handleChangeCategory()"
+                        class="clear-button">
+                        ✖
+                    </span>
+                    <span v-else></span>
 
-                    <option v-for="category in categories" :id="category.slug"
-                        :selected="category.slug === categorySlug"
-                        :value="category.slug">
-                        {{category.name}}
-                    </option>
-                </select>
+                    <multiselect v-model="selectCategory" :options="categories" :allow-empty="true"
+                        @update:model-value="handleChangeCategory" label="name" track-by="slug" :preserveSearch="true"
+                        :clearOnSelect="true" :clearable="true" selectLabel="Pulsa Intro para seleccionar"
+                        selectedLabel="Seleccionado" deselectLabel="Pulsa Intro para quitar"
+                        placeholder="Selecciona una categoría">
+
+                        <!-- Single selected label (cuando se selecciona una categoría) -->
+                        <template #singleLabel="props">
+                            <div class="option__container">
+                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
+                                    class="option__image" />
+                                <span class="option__name">{{ props.option.name }}</span>
+
+                            </div>
+                        </template>
+
+                        <!-- Option when selecting (when dropdown is expanded) -->
+                        <template #option="props">
+                            <div class="option__container">
+                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
+                                    class="option__image" />
+                                <div class="option__desc">
+                                    <span class="option__title">{{ props.option.name }}</span>
+                                    <span class="option__small">{{ props.option.description }}</span>
+                                </div>
+                            </div>
+                        </template>
+                    </multiselect>
+                </div>
             </div>
 
             <div>
-                <label for="topic">Tema</label>
-                <select id="topic" v-model="subcategorySlug" @change="handleChangeSubCategory">
-                    <option value="" :selected="subcategorySlug === ''">Cualquiera</option>
-                    <option v-for="subcategory in subcategories" :id="subcategory.slug"
-                        :selected="subcategory.slug === subcategorySlug"
-                        :value="subcategory.slug">
-                        {{subcategory.name}}
-                    </option>
-                </select>
+                <div class="grid-select-group">
+                    <!-- Agregar la "X" para limpiar -->
+                    <span v-if="selectSubcategory" @click="selectSubcategory = undefined; handleChangeSubCategory()"
+                        class="clear-button">
+                        ✖
+                    </span>
+                    <span v-else></span>
+                    <multiselect v-model="selectSubcategory" :options="subcategories" :allow-empty="true"
+                        @update:model-value="handleChangeSubCategory" label="name" track-by="slug"
+                        :preserveSearch="true" :clearOnSelect="true" selectLabel="Pulsa Intro para seleccionar"
+                        selectedLabel="Seleccionado" deselectLabel="Pulsa Intro para quitar"
+                        placeholder="Selecciona un tema">
+                        <!-- Single selected label (cuando se selecciona un tema) -->
+                        <template #singleLabel="props">
+                            <div class="option__container">
+                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
+                                    class="option__image" />
+                                <span class="option__name">{{ props.option.name }}</span>
+                            </div>
+                        </template>
+
+                        <!-- Option when selecting (when dropdown is expanded) -->
+                        <template #option="props">
+                            <div class="option__container">
+                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
+                                    class="option__image" />
+                                <div class="option__desc">
+                                    <span class="option__title">{{ props.option.name }}</span>
+                                    <span class="option__small">{{ props.option.description }}</span>
+                                </div>
+                            </div>
+                        </template>
+
+
+                        <!-- No hay resultados -->
+                        <template #noOptions>
+                            <span>No hay Temas</span>
+                        </template>
+                    </multiselect>
+                </div>
             </div>
 
             <!--
@@ -48,16 +106,9 @@
         <!-- Noticias -->
         <section v-if="!loadingContents">
             <section class="box-grid-news">
-                <CardBlogHorizontal
-                    v-for="post in results.contents"
-                    :key="post.slug"
-                    :title="post.title"
-                    :excerpt="post.excerpt"
-                    :image="post.urlImageMedium"
-                    :url="'#'"
-                    path="news"
-                    :categories="post.categories"
-                />
+                <CardBlogHorizontal v-for="post in results.contents" :key="post.slug" :title="post.title"
+                    :excerpt="post.excerpt" :image="post.urlImageMedium" :url="'#'" path="news"
+                    :categories="post.categories" />
             </section>
         </section>
     </div>
@@ -65,6 +116,9 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import Multiselect from 'vue-multiselect';
+import 'vue-multiselect/dist/vue-multiselect.css';
+import { type CategoryType } from '@/types/CategoryType';
 
 /**
  * Procesa la acción de scroll infinito
@@ -82,13 +136,11 @@ const handleScroll = () => {
     }
 };
 
-let categorySlug = ref('');
-let subcategorySlug = ref('');
+let selectCategory = ref<CategoryType>();
+let selectSubcategory = ref<CategoryType>();
 
-
-const {categories, subcategories, currentCategory, currentSubcategory, categoryActions} = useFetchCategories();
-const {results, contentActions, loadingContents} = useFetchContent('new');
-
+const { categories, subcategories, currentCategory, currentSubcategory, categoryActions } = useFetchCategories();
+const { results, contentActions, loadingContents } = useFetchContent('new');
 
 /**
  * Procesa el cambio de categoría
@@ -96,10 +148,10 @@ const {results, contentActions, loadingContents} = useFetchContent('new');
  */
 function handleChangeCategory() {
     categoryActions.setCurrentSubcategory('');
-    categoryActions.setCurrentCategory(categorySlug.value);
-    subcategorySlug.value = '';
+    categoryActions.setCurrentCategory(selectCategory.value?.slug ?? '');
+    selectSubcategory.value = undefined;
 
-    contentActions.setFilterCategory(categorySlug.value);
+    contentActions.setFilterCategory(selectCategory.value?.slug ?? '');
     contentActions.setFilterSubCategory('');
     contentActions.fetchResults(1, true);
 }
@@ -109,15 +161,15 @@ function handleChangeCategory() {
  * @function handleChangeSubCategory
  */
 function handleChangeSubCategory() {
-    categoryActions.setCurrentSubcategory(subcategorySlug.value);
+    categoryActions.setCurrentSubcategory(selectSubcategory.value?.slug ?? '');
 
-    if (subcategorySlug.value !== '') {
-        categorySlug.value = currentCategory.value?.slug ?? '';
-    } else {
-        contentActions.setFilterCategory(categorySlug.value);
+    if (selectSubcategory.value?.slug !== '') {
+        selectCategory.value = currentCategory.value;
     }
 
-    contentActions.setFilterSubCategory(subcategorySlug.value);
+    contentActions.setFilterCategory(selectCategory.value?.slug ?? '');
+
+    contentActions.setFilterSubCategory(selectSubcategory.value?.slug ?? '');
     contentActions.fetchResults(1, true);
 }
 
@@ -154,5 +206,65 @@ onMounted(() => {
     font-size: 1rem;
     border-radius: 4px;
     border: 1px solid var(--gray);
+}
+
+.option__container {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.option__image {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.option__name {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.option__desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.option__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.option__small {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.option__desc span {
+    display: block;
+}
+
+.clear-button {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: right;
+    color: var(--danger);
+    cursor: pointer;
+    padding-right: 5px;
+}
+
+.grid-select-group {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    height: 100%;
 }
 </style>
