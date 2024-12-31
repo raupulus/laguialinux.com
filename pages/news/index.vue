@@ -10,7 +10,7 @@
         <!-- Filtros -->
         <section class="box-grid-filter" v-if="!loadingCategories">
             <div>
-                <label for="category">Categorías</label>
+                <label for="category">Categoría</label>
                 <select id="category" v-model="categorySlug" @change="handleChangeCategory">
                     <option value="" :selected="categorySlug === ''">Cualquiera</option>
 
@@ -34,6 +34,7 @@
                 </select>
             </div>
 
+            <!--
             <div>
                 <label for="sort">Ordenar</label>
                 <select id="sort">
@@ -41,6 +42,7 @@
                     <option value="popular">Más Leídas</option>
                 </select>
             </div>
+            -->
         </section>
 
         <!-- Noticias -->
@@ -78,7 +80,6 @@ const handleScroll = () => {
             useFetchContentNext()
         }
     }
-
 };
 
 let categorySlug = ref('');
@@ -142,7 +143,7 @@ onMounted(() => {
 .box-grid-filter {
     display: grid;
     margin-top: 2.3rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
     text-align: center;
 }
