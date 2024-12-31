@@ -1,7 +1,7 @@
 <template>
     <div>
         <section>
-            <h2 class="font-bold text-center font-w-3">Actualidad</h2>
+            <h2 class="page-h2-title">Actualidad</h2>
         </section>
 
         <!-- Filtros -->

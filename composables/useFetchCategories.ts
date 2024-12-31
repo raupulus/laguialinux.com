@@ -4,11 +4,11 @@ import { type CategoryType } from '@/types/CategoryType'
 const PLATFORM: string = 'laguialinux';
 
 const categories = ref<CategoryType[]>([]);
-const currentCategory = ref<CategoryType | null>(null);
+const currentCategory = ref<CategoryType | undefined>(undefined);
 
 const allSubcategories = ref<CategoryType[]>([]);
 const subcategories = ref<CategoryType[]>([]);
-const currentSubcategory = ref<CategoryType | null>(null);
+const currentSubcategory = ref<CategoryType | undefined>(undefined);
 
 const prepareVars = async () => {
     allSubcategories.value = categories.value.map((category: CategoryType) => {
@@ -27,7 +27,7 @@ const prepareVars = async () => {
 
 }
 
-const fecthCategories = async () => {
+const fecthCategories = async (slugCurrent: string|null = null, slugSubCategoryCurrent: string|null = null) => {
     const runtimeConfig = useRuntimeConfig();
     const API_BASE = runtimeConfig.public.api.base;
 
@@ -42,6 +42,14 @@ const fecthCategories = async () => {
 
         await prepareVars();
     }
+
+    if (slugCurrent) {
+        await setCurrentCategory(slugCurrent);
+    }
+
+    if (slugSubCategoryCurrent) {
+        await setCurrentSubcategory(slugSubCategoryCurrent);
+    }
 }
 
 
@@ -53,12 +61,13 @@ export const useFetchCategories = () => {
     return {categories, subcategories, currentCategory, currentSubcategory, categoryActions} ;
 }
 
-export const useFetchCategory = (slug: string) => {
+export const useFetchCategory = (slug: string, slugSubcategory: string|null = null) => {
     if (!categories.value.length) {
-        fecthCategories();
+        fecthCategories(slug, slugSubcategory);
+    } else {
+        setCurrentCategory(slug);
+        setCurrentSubcategory(slugSubcategory ?? '');
     }
-
-    setCurrentCategory(slug);
 
     return {categories, subcategories, currentCategory, currentSubcategory, categoryActions} ;
 }
@@ -67,7 +76,7 @@ export const useFetchCategory = (slug: string) => {
 const setCurrentCategory = (slug: string) => {
     const cat = categories.value.find((category: CategoryType) => category.slug === slug);
 
-    currentCategory.value = cat ?? null;
+    currentCategory.value = cat ?? undefined;
 
     if (currentCategory.value && currentCategory.value.subcategories) {
         subcategories.value = currentCategory.value.subcategories.map((subcategory: CategoryType) => {
@@ -87,10 +96,10 @@ const setCurrentCategory = (slug: string) => {
 const setCurrentSubcategory = (slug: string) => {
     const cat = subcategories.value.find((category: CategoryType) => category.slug === slug);
 
-    currentSubcategory.value = cat ?? null;
+    currentSubcategory.value = cat ?? undefined;
 
     if (currentSubcategory.value) {
-        currentCategory.value = categories.value.find((c: CategoryType) => c.slug === currentSubcategory.value?.parent) ?? null;
+        currentCategory.value = categories.value.find((c: CategoryType) => c.slug === currentSubcategory.value?.parent) ?? undefined;
     } else {
         subcategories.value = [...allSubcategories.value];
     }
