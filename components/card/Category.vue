@@ -5,13 +5,13 @@
   >
     <div class="category-content">
       <NuxtImg
-        :src="icon || 'logo_128x128.webp'"
+        :src="category?.urlImageMicro || 'logo_128x.webp'"
         alt="Category Icon"
         class="category-icon"
       />
       <div class="category-text">
-        <h3 class="category-title">{{ name }}</h3>
-        <p class="category-description">{{ description }}</p>
+        <h3 class="category-title">{{ category.name }}</h3>
+        <p class="category-description">{{ category.description }}</p>
       </div>
     </div>
   </div>
@@ -21,22 +21,23 @@
 import { type CategoryType } from '@/types/CategoryType';
 
 const props = defineProps({
-  category: {
+  parent: {
     type: Object as PropType<CategoryType> || undefined,
     required: false,
     default: () => undefined,
   },
-  subcategory: {
+  category: {
     type: Object as PropType<CategoryType> || undefined,
     required: true
   },
-  name: String,
-  description: String,
-  icon: String
+  platform: {
+    type: String,
+    required: true,
+  }
 })
 
 const goToCategory = () => {
-  window.location.href = `/news/${props.category?.slug}/${props.subcategory.slug}`
+  window.location.href = props.category?.path ? `/${props.platform}/${props.category.path}` : '#';
 }
 </script>
 
@@ -70,7 +71,7 @@ const goToCategory = () => {
 .category-icon {
   width: 64px;
   height: 64px;
-  border-radius: 50%;
+  border-radius: 8px;
   object-fit: cover;
   margin-right: 16px;
 }

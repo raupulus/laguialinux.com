@@ -3,12 +3,14 @@ import { type MetadataType } from '@/types/MetadataType';
 import { type PaginationType } from '@/types/PaginationType';
 import { type SearchParamsType } from '@/types/SearchParamsType';
 import { type ResponseContentType } from '@/types/ResponseContentType'
+import type { CategoryType } from '@/types/CategoryType';
+import { prepareDataCategory } from '@/utils/CategoryUtils';
 
 const PLATFORM: string = 'laguialinux';
 
 let fetchLocked = ref<boolean>(false);
 
-let contentType = ref<string>('new');
+let contentType = ref<string>('news');
 let contentCategory = ref('');
 let contentSubcategory = ref('');
 let quantityForPage = ref<number>(10);
@@ -56,9 +58,35 @@ const fetchResults = async (page: number = 1, reset: boolean = false) => {
             results.value.contents = [];
         }
 
-        results.value.contents = results.value.contents?.concat(data.contents ?? []) ??  [];
         results.value.pagination = data.pagination ?? undefined;
         results.value.search_params = data.search_params ?? undefined;
+
+        data.contents?.forEach((content: ContentType) => {
+            content.metadata = prepareDataMetadata(content.metadata as MetadataType);
+
+            const contentCategorySlug = content.categories?.length ? content.categories[0].slug : 'general';
+            let contentSubcategoryMain = content.subcategories?.find(sub => sub.is_main);
+
+            if (!contentSubcategoryMain) {
+                contentSubcategoryMain = content.categories?.length ? content.categories[0] : undefined;
+            }
+
+            const contentSubcategorySlug = contentSubcategoryMain ? contentSubcategoryMain.slug : 'misc';
+
+            content.url = `/${contentType.value}/${contentCategorySlug}/${contentSubcategorySlug}/${content.slug}`;
+
+            content.categories = content.categories?.map((cat: CategoryType) => {
+                return prepareDataCategory(cat);
+            });
+
+            content.subcategories = content.subcategories?.map((cat: CategoryType) => {
+                return prepareDataCategory(cat);
+            })
+
+
+            results.value.contents?.push(content);
+        })
+
         results.value.status = data.status ?? 'ok';
     }
 

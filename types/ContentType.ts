@@ -15,8 +15,11 @@ export type ContentType = {
     created_at_human?: string,
     total_pages?: number,
     categories?: CategoryType[],
+    subcategories?: CategoryType[],
     tags?: string[],
     metadata?: MetadataType,
     technologies?: TechnologyType[],
     pages_slug?: string[],
+    url?: string,
+    comments?: number,
 }

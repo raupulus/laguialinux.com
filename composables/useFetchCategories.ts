@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { type CategoryType } from '@/types/CategoryType'
+import { prepareDataCategory } from '@/utils/CategoryUtils';
 
 const PLATFORM: string = 'laguialinux';
 
@@ -38,7 +39,9 @@ const fecthCategories = async (slugCurrent: string|null = null, slugSubCategoryC
     if (response.ok) {
         const res = await response.json();
 
-        categories.value = res.categories ?? [];
+        categories.value = res.categories?.map((category: CategoryType) => {
+            return prepareDataCategory(category);
+        }) ?? [];
 
         await prepareVars();
     }

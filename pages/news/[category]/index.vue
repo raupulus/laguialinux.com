@@ -3,12 +3,18 @@
         <Loader :isLoading="loading" />
 
         <section v-if="!loading">
-            <h2 class="page-h2-title">{{ currentCategory?.name }}</h2>
+
+
+            <h2 class="page-h2-title">
+                <NuxtImg v-if="currentCategory" :src="currentCategory?.urlImageMicro || 'logo_128x128.webp'"
+                    :alt="currentCategory?.name" style="border-radius: 8px; translate: 0 7px ;" />
+                {{ currentCategory?.name }}
+            </h2>
 
             <div class="grid-subcategories">
-                <CardCategory v-for="subcategory in currentCategory?.subcategories" :category="currentCategory"
-                    :subcategory="subcategory" :name="subcategory.name" :description="subcategory.description"
-                    :icon="subcategory?.icon" />
+                <CardCategory v-for="subcategory in currentCategory?.subcategories" :parent="currentCategory"
+                    platform="news"
+                    :category="subcategory" />
             </div>
         </section>
     </div>

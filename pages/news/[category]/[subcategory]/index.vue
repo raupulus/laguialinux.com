@@ -3,7 +3,10 @@
         <Loader :isLoading="loadingContents"></Loader>
 
         <section>
-            <h2 class="page-h2-title">{{ slugSubCategory }}</h2>
+            <h2 class="page-h2-title">
+                <NuxtImg v-if="currentSubcategory" :src="currentSubcategory?.urlImageMicro || 'logo_128x128.webp'" :alt="currentSubcategory?.name" style="border-radius: 8px; translate: 0 7px ;"/>
+                {{ currentSubcategory?.name }}
+            </h2>
         </section>
 
         <!-- Noticias -->
@@ -11,13 +14,9 @@
             <section class="box-grid-news">
                 <CardBlogHorizontal
                     v-for="post in results.contents"
+                    :content="post"
                     :key="post.slug"
-                    :title="post.title"
-                    :excerpt="post.excerpt"
-                    :image="post.urlImageMedium"
-                    :url="'#'"
-                    path="news"
-                    :categories="post.categories"
+                    platform="news"
                 />
             </section>
         </section>
@@ -28,6 +27,8 @@
 const route = useRoute();
 const slugCategory = ref(route.params.category as string);
 const slugSubCategory = ref(route.params.subcategory as string);
+
+const { categories, subcategories, currentCategory, currentSubcategory, categoryActions } = useFetchCategory(slugCategory.value, slugSubCategory.value);
 
 /**
  * Procesa la acción de scroll infinito
@@ -46,7 +47,7 @@ const slugSubCategory = ref(route.params.subcategory as string);
 };
 
 //const {categories, subcategories, currentCategory, currentSubcategory, categoryActions} = useFetchCategories();
-const {results, contentActions, loadingContents} = useFetchContent('new', slugCategory.value, slugSubCategory.value);
+const {results, contentActions, loadingContents} = useFetchContent('news', slugCategory.value, slugSubCategory.value);
 
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);

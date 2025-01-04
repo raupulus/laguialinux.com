@@ -22,13 +22,13 @@
                         @update:model-value="handleChangeCategory" label="name" track-by="slug" :preserveSearch="true"
                         :clearOnSelect="true" :clearable="true" selectLabel="Pulsa Intro para seleccionar"
                         selectedLabel="Seleccionado" deselectLabel="Pulsa Intro para quitar"
-                        placeholder="Selecciona una categoría">
+                        placeholder="Filtrar por una categoría">
 
                         <!-- Single selected label (cuando se selecciona una categoría) -->
                         <template #singleLabel="props">
                             <div class="option__container">
-                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
-                                    class="option__image" />
+                                <NuxtImg :src="props.option.urlImageMicro || 'logo_128x128.webp'"
+                                    :alt="props.option.name" class="option__image" />
                                 <span class="option__name">{{ props.option.name }}</span>
 
                             </div>
@@ -37,8 +37,8 @@
                         <!-- Option when selecting (when dropdown is expanded) -->
                         <template #option="props">
                             <div class="option__container">
-                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
-                                    class="option__image" />
+                                <NuxtImg :src="props.option.urlImageMicro || 'logo_128x128.webp'"
+                                    :alt="props.option.name" class="option__image" />
                                 <div class="option__desc">
                                     <span class="option__title">{{ props.option.name }}</span>
                                     <span class="option__small">{{ props.option.description }}</span>
@@ -61,12 +61,12 @@
                         @update:model-value="handleChangeSubCategory" label="name" track-by="slug"
                         :preserveSearch="true" :clearOnSelect="true" selectLabel="Pulsa Intro para seleccionar"
                         selectedLabel="Seleccionado" deselectLabel="Pulsa Intro para quitar"
-                        placeholder="Selecciona un tema">
+                        placeholder="Filtrar por un tema">
                         <!-- Single selected label (cuando se selecciona un tema) -->
                         <template #singleLabel="props">
                             <div class="option__container">
-                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
-                                    class="option__image" />
+                                <NuxtImg :src="props.option.urlImageMicro || 'logo_128x128.webp'"
+                                    :alt="props.option.name" class="option__image" />
                                 <span class="option__name">{{ props.option.name }}</span>
                             </div>
                         </template>
@@ -74,8 +74,8 @@
                         <!-- Option when selecting (when dropdown is expanded) -->
                         <template #option="props">
                             <div class="option__container">
-                                <NuxtImg :src="props.option.icon || 'logo_128x128.webp'" :alt="props.option.name"
-                                    class="option__image" />
+                                <NuxtImg :src="props.option.urlImageMicro || 'logo_128x128.webp'"
+                                    :alt="props.option.name" class="option__image" />
                                 <div class="option__desc">
                                     <span class="option__title">{{ props.option.name }}</span>
                                     <span class="option__small">{{ props.option.description }}</span>
@@ -106,9 +106,7 @@
         <!-- Noticias -->
         <section v-if="!loadingContents">
             <section class="box-grid-news">
-                <CardBlogHorizontal v-for="post in results.contents" :key="post.slug" :title="post.title"
-                    :excerpt="post.excerpt" :image="post.urlImageMedium" :url="'#'" path="news"
-                    :categories="post.categories" />
+                <CardBlogHorizontal v-for="post in results.contents" :key="post.slug" :content="post" platform="news"/>
             </section>
         </section>
     </div>
@@ -140,7 +138,7 @@ let selectCategory = ref<CategoryType>();
 let selectSubcategory = ref<CategoryType>();
 
 const { categories, subcategories, currentCategory, currentSubcategory, categoryActions } = useFetchCategories();
-const { results, contentActions, loadingContents } = useFetchContent('new');
+const { results, contentActions, loadingContents } = useFetchContent('news');
 
 /**
  * Procesa el cambio de categoría
