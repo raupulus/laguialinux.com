@@ -31,7 +31,7 @@ const props = defineProps({
 <template>
     <IconsGeneric v-if="legacy" :url="url" :title="title" :size="size" color="#0276b7">
         <img src="@/public/images/icons/linkedin.svg" width="24" style="width: 100%;"
-            alt="Logo de Youtube" />
+            alt="Logo de Linkedin" />
     </IconsGeneric>
 
     <IconsGenericSocial v-else-if="decored" :url="url" :title="title" :size="size" color="#0276b7">

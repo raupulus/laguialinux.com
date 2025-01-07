@@ -1,5 +1,7 @@
 <template>
     <div>
+        <BreadCrumb :breadcrumbs="breadcrumbs"/>
+
         <Loader :isLoading="loading" />
 
         <section v-if="!loading">
@@ -13,8 +15,7 @@
 
             <div class="grid-subcategories">
                 <CardCategory v-for="subcategory in currentCategory?.subcategories" :parent="currentCategory"
-                    platform="news"
-                    :category="subcategory" />
+                    platform="news" :category="subcategory" />
             </div>
         </section>
     </div>
@@ -27,6 +28,13 @@ const { categories, subcategories, currentCategory, currentSubcategory, category
 
 const loading = ref<boolean>(true);
 let loadTimeout: NodeJS.Timeout;
+
+
+const breadcrumbs = ref([
+    { name: 'Actualidad', slug: 'news' },
+    { name: currentCategory.value?.name, slug: currentCategory.value?.slug },
+]);
+
 
 /**
  * Función para gestionar el cambio de loading después de 300ms

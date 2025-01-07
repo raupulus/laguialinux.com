@@ -1,5 +1,7 @@
 <template>
     <div>
+        <BreadCrumb :breadcrumbs="breadcrumbs"/>
+
         <Loader :isLoading="loadingContents"></Loader>
 
         <section>
@@ -29,6 +31,21 @@ const slugCategory = ref(route.params.category as string);
 const slugSubCategory = ref(route.params.subcategory as string);
 
 const { categories, subcategories, currentCategory, currentSubcategory, categoryActions } = useFetchCategory(slugCategory.value, slugSubCategory.value);
+
+const breadcrumbs = ref([
+    { name: 'Actualidad', slug: 'news' },
+    { name: currentCategory.value?.name, slug: currentCategory.value?.slug },
+    { name: currentSubcategory.value?.name, slug: currentSubcategory.value?.slug },
+]);
+
+
+watch(currentCategory, (newVal) => {
+    breadcrumbs.value[1] = { name: newVal?.name, slug: newVal?.slug };
+});
+
+watch(currentSubcategory, (newVal) => {
+    breadcrumbs.value[2] = { name: newVal?.name, slug: newVal?.slug };
+});
 
 /**
  * Procesa la acción de scroll infinito

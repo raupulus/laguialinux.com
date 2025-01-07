@@ -9,6 +9,5 @@ export type CategoryType = {
     urlImageSmall?: string,
     color?: string,
     is_main?: boolean,
-    url?: string
     path?: string
 }

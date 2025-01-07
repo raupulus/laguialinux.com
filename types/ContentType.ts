@@ -21,5 +21,6 @@ export type ContentType = {
     technologies?: TechnologyType[],
     pages_slug?: string[],
     url?: string,
+    path?: string,
     comments?: number,
 }

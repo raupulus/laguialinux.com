@@ -1,10 +1,7 @@
 import { type ContentType } from '@/types/ContentType';
-import { type MetadataType } from '@/types/MetadataType';
-import { type PaginationType } from '@/types/PaginationType';
-import { type SearchParamsType } from '@/types/SearchParamsType';
 import { type ResponseContentType } from '@/types/ResponseContentType'
-import type { CategoryType } from '@/types/CategoryType';
-import { prepareDataCategory } from '@/utils/CategoryUtils';
+import { prepareContentData } from '@/utils/ContentUtils';
+import type { ContentPageType } from '@/types/ContentPageType';
 
 const PLATFORM: string = 'laguialinux';
 
@@ -21,6 +18,13 @@ const results = ref<ResponseContentType>({
     search_params: undefined,
     contents: [],
 });
+
+// Contenido actual, normalmente usado al visualizar un contenido concreto
+const currentContent = ref<ContentType>();
+
+// Páginas del contenido actual
+const currentContentPages = ref<ContentPageType[]>([]);
+
 
 // Indica si está actualmente preparando el contenido o descargándolo
 const loadingContents = ref<boolean>(false);
@@ -62,27 +66,7 @@ const fetchResults = async (page: number = 1, reset: boolean = false) => {
         results.value.search_params = data.search_params ?? undefined;
 
         data.contents?.forEach((content: ContentType) => {
-            content.metadata = prepareDataMetadata(content.metadata as MetadataType);
-
-            const contentCategorySlug = content.categories?.length ? content.categories[0].slug : 'general';
-            let contentSubcategoryMain = content.subcategories?.find(sub => sub.is_main);
-
-            if (!contentSubcategoryMain) {
-                contentSubcategoryMain = content.categories?.length ? content.categories[0] : undefined;
-            }
-
-            const contentSubcategorySlug = contentSubcategoryMain ? contentSubcategoryMain.slug : 'misc';
-
-            content.url = `/${contentType.value}/${contentCategorySlug}/${contentSubcategorySlug}/${content.slug}`;
-
-            content.categories = content.categories?.map((cat: CategoryType) => {
-                return prepareDataCategory(cat);
-            });
-
-            content.subcategories = content.subcategories?.map((cat: CategoryType) => {
-                return prepareDataCategory(cat);
-            })
-
+            content = prepareContentData(content, contentType.value);
 
             results.value.contents?.push(content);
         })
@@ -101,7 +85,7 @@ export const useFetchContent = (type: string, category: string = '', subcategory
 
     fetchResults(1, true);
 
-    return {results, contentActions, loadingContents};
+    return { results, contentActions, loadingContents };
 }
 
 const setFilterCategory = (cat: string) => {
@@ -120,7 +104,9 @@ const contentActions = {
 }
 
 
-
+/**
+ * Obtiene la siguiente página si existiera y la añade a la lista de contenido.
+ */
 export const useFetchContentNext = () => {
     if (results.value.pagination?.hasNextPage) {
         let currentPage = results.value.pagination.currentPage
@@ -128,72 +114,76 @@ export const useFetchContentNext = () => {
     }
 }
 
+
+async function fetchContentBySlug(type:string, slug: string, withPages = false) {
+    fetchLocked.value = true;
+    contentType.value = type;
+
+    const runtimeConfig = useRuntimeConfig();
+    const API_BASE = runtimeConfig.public.api.base;
+    const API_URL = `${API_BASE}/content/${contentType.value}/${slug}/get`;
+
+    const response = await fetch(API_URL);
+
+    if (response.ok) {
+        const res = await response.json();
+
+        if (res.content) {
+            currentContent.value = prepareContentData(res.content, type) ?? null;
+        }
+
+        if (withPages && currentContent.value?.pages_slug) {
+            const pages = currentContent.value?.pages_slug.length ?? 0
+
+            for (let i = 1; i <= pages; i++) {
+                await fetchContentPageByOrder(currentContent.value.slug, i);
+            }
+        }
+    } else {
+        console.error('FETCH useFetchPageBySlug ERROR', response);
+    }
+
+    fetchLocked.value = false;
+}
+
 /**
- * Busca un contenido de por el slug
+ * Busca una página por su slug
  *
  * @param slug
  * @returns
  */
-export async function getPageBySlug(slug: string): Promise<ContentType | null> {
+export const useFetchContentBySlug = (type:string, slug: string) => {
+    fetchContentBySlug(type, slug, true);
+
+    return {currentContent, currentContentPages, loadingContents};
+}
+
+
+async function fetchContentPageByOrder(contentSlug: string, order: number) {
     const runtimeConfig = useRuntimeConfig();
     const API_BASE = runtimeConfig.public.api.base;
-    const API_URL = `${API_BASE}/content/${contentType}/${slug}/get`;
+    const API_URL = `${API_BASE}/content/${contentSlug}/get/page/${order}`;
 
-    let content: ContentType | null = null;
+    let page: ContentPageType | null = null;
 
-    const response = await fetch(API_URL);
-    if (response.ok) {
-        const res = await response.json();
-        if (res.content) {
-            content = prepareDataContentResponse(res.content) ?? null;
-        }
-    } else {
-        console.error('FETCH getPageBySlug ERROR', response);
-    }
+    fetch(API_URL)
+        .then(response => response.json())
+        .then(data => {
 
-    return content;
-}
+            const page = data.page;
 
-function prepareDataMetadata(metadata: MetadataType) {
-    const priority: (keyof MetadataType)[] = [
-        'web', 'youtube_channel', 'youtube_video', 'youtube', 'gitlab', 'github',
-        'twitter', 'linkedin', 'mastodon', 'twitch',
-        'telegram_channel',
-    ];
-
-    let results: MetadataType = {};
-    let counter = 0;
-
-    if (metadata) {
-        priority.forEach(p => {
-            if ((p === 'youtube_channel') || (p === 'youtube_video')) {
-                if (metadata[p] && counter < 4) {
-                    if (!results.youtube) {
-                        counter++;
-                    }
-                    results.youtube = metadata[p];
-                }
-            } else if (counter < 4 && metadata[p]) {
-                counter++;
-                results[p] = metadata[p];
+            if (page && page.content) {
+                page.content = JSON.parse(page.content);
+                currentContentPages.value?.push(page);
             }
+        })
+        .catch(error => {
+            console.error('FETCH useFetchPageBySlug ERROR', error);
         });
-    }
-
-    return results;
 }
 
-function prepareDataContentResponse(contentRaw: ContentType) {
-    if (contentRaw) {
-        return prepareDataContent(contentRaw);
-    }
+export const useFetchContentPageByOrder = (contentSlug: string, order: number) => {
+    fetchContentPageByOrder(contentSlug, order);
 
-    return null;
-}
-
-function prepareDataContent(content: ContentType) {
-    if (content.metadata) {
-        content.metadata = prepareDataMetadata(content.metadata);
-    }
-    return content;
+    return currentContentPages;
 }
