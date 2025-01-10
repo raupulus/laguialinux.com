@@ -14,6 +14,10 @@
                 <IconsMeneame :decored="true" title="Compartir en Menéame" :url="`https://meneame.net/submit.php?url=${url}&title=${title}`" size="44px"/>
             </div>
 
+            <div>
+                <IconsTwitter :decored="true" title="Compartir en Twitter" :url="`https://twitter.com/intent/tweet?url=${url}&text=${title}`" size="44px"/>
+            </div>
+
             <!--
             <div>
                 <IconsMastodon :decored="true" title="Compartir en Mastodon" url="#" size="44px"/>
@@ -54,25 +58,24 @@ const props = defineProps({
         required: true
     }
 })
-
-
 </script>
 
 <style scoped>
 .box-share-social-horizontal {
-    border: 1px solid #ccc;
+    border: 1px solid var(--white);
     border-radius: 0.5rem;
-    margin: 1rem 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .box-share-social-horizontal-title {
-    background-color: #ccc;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem 0.5rem 0 0;
-    box-sizing: border-box;
     color: var(--blue);
     font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: var(--white);
+    box-sizing: border-box;
 }
 
 .box-share-social-horizontal-links {
@@ -82,6 +85,7 @@ const props = defineProps({
     align-items: center;
     gap: 1rem;
     padding: 1rem;
+    background-color: var(--blue);
     box-sizing: border-box;
 }
 </style>

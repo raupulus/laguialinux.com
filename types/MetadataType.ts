@@ -5,6 +5,7 @@ export type MetadataType = {
     youtube_channel?: string,
     youtube?: string,
     youtube_video?: string,
+    youtube_video_id?: string,
     gitlab?: string,
     github?: string,
     mastodon?: string,

@@ -89,13 +89,15 @@ const formatBytes = (bytes: number, precision: number = 2) => {
 
 .r-attaches-info {
   display: grid;
+  padding-left: 0.3rem;
   grid-gap: 4px;
   max-width: calc(100% - 80px);
   margin: auto 0;
   flex-grow: 2;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #2d3748;
+  word-break: break-word;
 }
 
 .r-attaches-info .r-attaches-info-size {

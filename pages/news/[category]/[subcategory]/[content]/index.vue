@@ -41,28 +41,24 @@
 
                 <!-- Datos principales del contenido -->
                 <div>
-                    <NuxtImg v-if="currentContent?.urlImage" :src="currentContent?.urlImage" :alt="currentContent?.title" class="content-image"/>
+                    <NuxtImg v-if="currentContent?.has_image && currentContent?.urlImage" :src="currentContent?.urlImage" :alt="currentContent?.title" class="content-image"/>
                     <p>{{currentContent?.excerpt}}</p>
 
-                    <div>
-                        Si hay vídeo de youtube [INSERTAR AQUÍ]!!!
-                    </div>
+                    <!-- En caso de tener vídeo de youtube -->
+                    <VideoYoutube v-if="currentContent.metadata?.youtube_video_id" :videoId="currentContent.metadata?.youtube_video_id" />
                 </div>
 
                 <!-- Páginas -->
                 <section v-for="page in currentContentPages" class="box-page">
                     <h2 class="page-title">{{page.title}}</h2>
 
-                    <NuxtImg v-if="page.images?.medium && !page.images.medium.includes('images/default/medium')" :src="page.images?.medium" :alt="page.title" class="content-image"/>
+                    <NuxtImg v-if="page.has_image && page.images?.medium" :src="page.images.medium" :alt="page.title" class="content-image"/>
 
                     <ContentBlocksBlock v-for="block in page.content.blocks" :block="block" />
 
-
                     <!-- Publicidad -->
-                    <NuxtImg src="logo_128x128.webp" alt="Nombre del autor" width="220" height="220"/>
-
-                    <div style="background-color: yellow;">
-                        Publicidad
+                    <div class="mt-1">
+                        <Advertisement type="in-article"/>
                     </div>
                 </section>
 
@@ -74,44 +70,49 @@
 
             <!-- Barra lateral -->
             <aside class="box-aside">
-                <ShareHorizontal v-if="currentContent" :title="currentContent.title" :description="currentContent.excerpt"
-                :url="currentContent?.url ?? '#'"/>
-
-                <br />
-
-                <NuxtImg src="logo_128x128.webp" alt="Nombre del autor" width="220" height="220"/>
-                Publicidad
-
-                <br />
-
-                <!-- Suscribirse a la newsletter -->
-                <div style="background-color: red;">
-                    Suscríbete / (icono email)
+                <!-- Botones para compartir contenido -->
+                <div>
+                    <ShareHorizontal v-if="currentContent" :title="currentContent.title" :description="currentContent.excerpt"
+                    :url="currentContent?.url ?? '#'"/>
                 </div>
 
                 <!-- Listado de tags -->
-                <div>
-                    Tags
-                    <ul>
-                        <li v-for="tag in currentContent?.tags">
+                <div v-if="currentContent?.tags && currentContent.tags.length" class="box-tags mt-1">
+                    <div class="box-tags-title">
+                        Tags
+                    </div>
+
+                    <div class="box-tags-content">
+                        <span v-for="tag in currentContent?.tags">
                             {{tag}}
-                        </li>
-                    </ul>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Suscribirse a la newsletter -->
+                <div class="mt-1">
+                    <Newsletter />
+                </div>
+
+                <!-- Anuncio -->
+                <div class="mt-1">
+                    <Advertisement type="display" />
                 </div>
 
                 <!-- Lo más Leído -->
-                <div>
+                <div class="mt-1">
                     Lo más Leído
                 </div>
 
-                <NuxtImg src="logo_128x128.webp" alt="Nombre del autor" width="220" height="220"/>
-                Publicidad
-
-                <!-- Contenido Relacionado -->
-                <div>
-                    Contenido Relacionado
+                <!-- Anuncio -->
+                <div class="mt-1">
+                    <Advertisement type="display" />
                 </div>
 
+                <!-- Contenido Relacionado -->
+                <div class="mt-1">
+                    Contenido Relacionado
+                </div>
             </aside>
         </div>
 
@@ -123,6 +124,10 @@
             &lt;Anterior - Sigiente &gt;
         </section>
 
+        <!-- Anuncio -->
+        <div class="mt-1">
+            <Advertisement type="multiplex" />
+        </div>
 
         <!-- Comentarios -->
         <section style="background-color: red;">
@@ -132,6 +137,10 @@
             user X - fecha X - comentario X
         </section>
 
+        <!-- Anuncio -->
+        <div class="mt-1">
+            <Advertisement type="multiplex" />
+        </div>
 
         <!-- Contenido Relacionado -->
         <section style="background-color: gray;">
@@ -140,6 +149,11 @@
             <br />
             4 tarjetas verticales (imagen, título, fecha)
         </section>
+
+        <!-- Anuncio -->
+        <div class="mt-1">
+            <Advertisement type="multiplex" />
+        </div>
     </div>
 </template>
 
@@ -229,10 +243,10 @@ watch(currentContent, (newVal) => {
 
 .box-columns {
     display: grid;
+    padding-top: 1rem;
     grid-template-columns: 1fr 360px;
     gap: 1rem;
     box-sizing: border-box;
-    padding-top: 1rem;
 }
 
 .box-content {
@@ -240,10 +254,11 @@ watch(currentContent, (newVal) => {
     padding: 0.3rem;
     flex-direction: column;
     gap: 1rem;
-    box-sizing: border-box;
     color: var(--black);
     background-color: var(--white);
     border-radius: 0.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .content-image {
@@ -277,5 +292,51 @@ watch(currentContent, (newVal) => {
     background-color: #2d3748;
     border-radius: 0.5rem;
     padding: 0.5rem;
+}
+
+.box-tags {
+    margin-top: 1rem;
+    background-color: var(--blue);
+    border-radius: 0.5rem;
+    border: 1px solid var(--white);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.box-tags-title {
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--blue);
+    background-color: var(--white);
+    box-sizing: border-box;
+
+}
+
+.box-tags-content {
+    display: flex;
+    padding: 0.5rem;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.box-tags-content > span {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: var(--black);
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 890px) {
+    .box-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .box-categories {
+        display: none;
+    }
 }
 </style>

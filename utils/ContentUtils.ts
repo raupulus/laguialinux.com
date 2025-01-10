@@ -4,6 +4,12 @@ import type { ContentType } from "@/types/ContentType";
 import { prepareDataCategory } from '@/utils/CategoryUtils';
 
 function prepareContentDataMetadata(metadata: MetadataType) {
+  return metadata;
+
+  // TODO: Adaptar la lógica para no descartar todo lo demás, si no para poner en orden y así
+  // poder tomar los primeros según la cantidad que necesite
+
+  /*
   const priority: (keyof MetadataType)[] = [
       'web', 'youtube_channel', 'youtube_video', 'youtube', 'gitlab', 'github',
       'twitter', 'linkedin', 'mastodon', 'twitch',
@@ -30,6 +36,7 @@ function prepareContentDataMetadata(metadata: MetadataType) {
   }
 
   return results;
+  */
 }
 
 

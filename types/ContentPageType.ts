@@ -6,6 +6,7 @@ export type ContentPageType = {
     title: string,
     slug: string,
     order?: number,
+    has_image?: boolean,
     images?: ContentPageImageType,
 }
 

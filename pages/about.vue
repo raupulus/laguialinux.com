@@ -1,13 +1,209 @@
+<template>
+    <section>
+        <div>
+            <h1 class="text-center">
+                Sobre La
+                <span class="text-primary font-bold">
+                    Guía
+                </span>
+                Linux
+            </h1>
+        </div>
+
+        <div class="box-about-content">
+            <div>
+                        <p>
+                            La <strong>Guía Linux</strong> es una iniciativa dirigida a facilitar la adopción y el uso de sistemas operativos basados en Linux, proporcionando información accesible tanto para novatos como para usuarios más experimentados.
+                        </p>
+
+                        <p>
+                            El proyecto tiene como objetivo ser una fuente de aprendizaje y referencia en español, promoviendo la comprensión de los diferentes aspectos del sistema operativo Linux, desde la instalación hasta su uso avanzado en servidores, escritorios y dispositivos embebidos.
+                        </p>
+
+                        <p>
+                            Intentamos plantear contenido accesible y cuidadosamente organizado, con tutoriales, artículos y guías que cubren algunas de las principales distribuciones de Linux, herramientas esenciales, y técnicas de administración del sistema.
+                        </p>
+
+                        <p>
+                            Además, abordamos temas como la seguridad, la optimización del sistema y la personalización del entorno de trabajo, pretendiendo conseguir que exista una guía útil tanto para quienes comienzan con Linux como para aquellos que ya tienen experiencia en su uso.
+                        </p>
+                    </div>
+        </div>
+
+        <div class="box-about-information">
+            <p>
+                Nunca tendremos como objetivo recopilar datos del usuario para ningún fin, todo el contenido estará siempre público y accesible para cualquiera que lo necesite.
+            </p>
+
+            <p>
+                Implementamos sistemas de ingresos mínimos hasta cubrir costes del proyecto cada mes, principalmente mediante anuncios en lugares que no interfieran con el contenido principal y donaciones directas. De esta forma se pretende amortiguar el coste en mantenimiento (dominio, vps, proxy...) que sale de mi bolsillo.
+            </p>
+
+            <p>
+                Puedes compartir, redistribuir y adaptar cualquiera de nuestro contenido mientras tenga una referencia al proyecto como autor del contenido orginial.
+            </p>
+        </div>
+
+        <div class="box-about-skills box-about-card">
+            <div class="about-skills about-card">
+                <h3 class="about-card-title">Objetivos</h3>
+
+                <div class="about-card-content">
+                    <ul>
+                        <li>Dar visibilidad a proyectos Open Source</li>
+                        <li>Vídeotutoriales por cada entrada para que sea más dinámica la consulta y pueda verse un ejemplo sobre el tema a tratar en ella</li>
+                        <li>Unificar publicaciones de todas las redes sociales para publicar contenido más constantemente y no dedicar tanto tiempo en compartirlo</li>
+                        <li>Centrar más esfuerzos en la creación de entradas y vídeos que en el desarrollo del sitio (automatizando tareas)</li>
+                        <li>Crear canal de difusión para englobar muchos (ojalá todos) los proyectos web similares en un único medio de noticias</li>
+                        <li>Desarrollar ciertas herramientas para facilitar los primeros pasos de usuarios que comienzan en linux</li>
+                        <li>Crear un sistema de cursos, manuales de introducción y acceso por pasos lo suficientemente dinámico para parecer un juego, que sea interactivo y permita explorar de un primer vistazo una distribución amigable</li>
+                        <li>Desarrollar herramientas de administración, limpieza y personalización fácilmente actualizable mediante repositorios</li>
+                        <li>Crear una zona en un subdominio para la comunidad, donde cualquier persona podrá publicar sin censura (mientras cumpla unos requisitos básicos como que el contenido sea original, esté documentado para no perjudicar a terceros, sea legible)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="about-passions about-card">
+                <h3 class="about-card-title">Contenido</h3>
+
+                <div class="about-card-content">
+                    <ul>
+                        <li>Actualidad</li>
+                        <li>Resolución de Problemas comunes</li>
+                        <li>Administración de sistemas</li>
+                        <li>Administración de servidores</li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Imagen con callout para ver la web del autor -->
+        <div class="box-about-work-environment">
+            <div class="box-about-work-environment-image">
+
+            </div>
+
+            <div class="box-about-work-environment-callout">
+                <div>
+                    <NuxtImg src="/logo_128x128.webp" alt="Logotipo de La Guía Linux"
+                        title="Logotipo de La Guía Linux" />
+                </div>
+
+                <div>
+                    <BtnGeneric to="https://curriculum.laguialinux.com" text="Web del Autor" target="_blank"
+                        title="Enlace a mi web personal" />
+                </div>
+            </div>
+        </div>
+
+        <div class="box-about-motivation">
+            <h3>Motivación</h3>
+
+            <p>
+                El movimiento que hizo nacer a La Guía Linux fue algo involuntario.
+            </p>
+
+            <p>
+                Hace ya unos añitos
+                <NuxtLink to="https://raupulus.dev" title="Portfolio de Raúl Caro Pastorino (@raupulus)">
+                    Raúl Caro Pastorino (@raupulus)
+                </NuxtLink>
+                siendo un estudiante y comenzando en el mundo de GNU LINUX con un flamante Debian 3 necesitado de muchos módulos compilados externos sin saber ni si quiera que era eso (poca documentación accesible en los principios de internet en la zona), decidió crear una especie de wiki prehistórica donde anotar sus avances, descubrimientos, resumenes y en general todo lo que pudiera necesitar en el futuro para ahorrar tiempo posteriormente aprendiendo durante el proceso.
+            </p>
+
+            <p>
+                Ha llovido ya bastante, embebido en la era digital de lleno y comenzando en ese momento a estudiar programación decidió compartir todos esos conocimientos al mundo.
+            </p>
+
+            <p>
+                Este proyecto trata de reunir toda la información que vamos aprendiendo sobre software libre y tecnología para plasmarla en internet y que esta fuese accesible a todo el que pudiera necesitarla, en algunos casos como apuntes para nosotros mismos y bueno nunca se sabe a quien le será útil en qué momento.
+            </p>
+        </div>
+
+        <div class="box-about-history">
+            <h3>Historia de La Guía Linux</h3>
+
+            El proyecto La Guía Linux realmente comienza antes de 2005 sin una fecha concreta que pueda recordar o deducir (tampoco es demasiado relevante).
+
+            En sus orígenes pretendía ser un espacio de apuntes personales que acabó compartiéndose al resto del mundo.
+
+            Poco a poco ha pasado por distintas etapas intentando mejorar y con ciertas colaboraciones esporádicas de personas afines a la causa y desinteresadamente (tanto que no desean revelar su identidad por motivos personales).
+
+            La evolución sería algo parecido a esto:
+
+
+            - Apuntes en cuadernos (teníamos que pasarnos fotocopias…)
+            - Apuntes pasados a Digital y quedando cada unas semanas para copiarnoslos entre amigos
+            - Una intranet privada con antenas de largo alcance y directorios compartidos
+            - Cuando llegó internet accesible y soluciones sencillas de publicación, blogger fue durante un tiempo nuestra plataforma de publicación de contenido más o menos por el año 2005
+            - Llegó el momento de los CMS y Drupal nos acompañó desde 2009 hasta 2015
+            - En Septiembre de 2015 Lanzamos un nuevo sitio web más claro y mejor organizado con wordpress
+            - Hoy día queda todo el desarrollo propio y open source en github/gitlab usando laravel, postgresql y nuxt 3
+
+            Es realmente 2013 cuando comienza a promoverse el proyecto aunque el dominio y algunas redes ya habían sido planteadas y/o creadas mucho antes.
+
+            El creador principal, administrador y desarrollador es
+
+            <NuxtLink to="https://raupulus.dev" title="Portfolio de Raúl Caro Pastorino">
+                Raúl Caro Pastorino (@raupulus)
+            </NuxtLink>
+            y es quien procura hasta el día de hoy se mantenga el sitio vivo, responde la mayoría de los mensajes en redes sociales, comentarios en la web y youtube.
+
+            En colaboración con este proyecto tengo 2 amigos que colaboran esporádicamente en proporción al tiempo que la familia y el trabajo les va dejando hacerlo.
+
+            Por petición de ellos quedarán como "anónimos" ya que han tomado esa decisión en pro de su privacidad.
+
+            Cada uno tenemos una especialización distinta y usamos software diferente en la mayoría de los casos, por lo que puede decirse que entre todos conocemos bastante diversidad de software y soluciones.
+
+        </div>
+
+        <div class="box-about-current-status">
+            <h3>Estado Actual</h3>
+
+            El proyecto se encuentra en un estado de desarrollo constante, aunque no es un proyecto que se mantenga en un solo año, sino que se va actualizando cada año, cada mes y si la vida lo posibilita cada semana.
+
+            Sabemos y pedimos comprensión que toda esta plataforma no está perféctamente optimizada en cuanto a organización y diseño gráfico pero también es cierto que no paramos de dedicarle tiempo en su mejora y atención a nuestros seguidores que parecen ir en aumento, lo cual nos anima mucho a continuar con el proyecto y sobre todo lo hace cobrar sentido. Cada cambio en la plataforma, guía o vídeotutorial intentamos mejorar en lo que nos váis reportando como feedback.
+        </div>
+
+        <div class="box-about-future">
+            <h3>Planes de Futuro</h3>
+
+            Tenemos planes de futuro, incluso demasiados planes para el futuro y planes inmediatos por lo que sin tentar a la cordura os mencionaré los primeros en los que nos vamos a centrar:
+
+            - 1 de Enero de 2025 hemos relanzado el proyecto con nuevo logotipo y código 100% open source creado por nosotros
+            - Planteamos sistemas de automatizaciones para dedicarnos exclusivamente a crear contenido
+            - Reagrupar todo el sistema de búsquedas por categorías y subcategorías mejorando la precisión al buscar contenido
+            - Revisar contenido obsoleto
+            - Creación de nuevo contenido actualizado
+            - Rehacer vídeos que tienen demasiados años y no son tan precisos hoy día
+        </div>
+
+        <div class="box-about-future">
+            <h3>¿Te gustaría colaborar?</h3>
+
+            Aunque no te quieras involucrar por tiempo o cualquier otro motivo, hay tres factores muy importantes, rápidos y sencillos con los que puedes colaborar ayudándonos mucho:
+
+            - Compartir
+            - Tus Comentarios
+            - Feedback
+
+            Más adelante abriremos un repositorio comunitario dónde podrás colaborar en tus propias publicaciones si te apeteciera.
+        </div>
+
+        <div style="margin-top: 1.3rem;"></div>
+    </section>
+</template>
+
 <script lang="ts" setup>
-
-import type { GalleryPathType } from '@/types/GalleryPathType';
-
 const config = useRuntimeConfig();
 
 const url = config.public.app.url;
 const title = 'Sobre La Guía Linux | Proyecto para compartir software libre';
 const description = 'Conoce a La Guía Linux, un proyecto que pretende compartir conocimiento sobre Software Libre y Tecnología ';
-const keywords = 'la guía linux, Raúl Caro Pastorino, desarrollador web, full stack, backend, proyectos, experiencia, habilidades';
+const keywords = 'la guía linux, lgl, laguialinux, guialinux, Raúl Caro Pastorino, software libre, open source, guías, tutoriales';
 
 useHead({
     title: title,
@@ -27,253 +223,7 @@ useHead({
     ]
 });
 
-const domainApi = config.public.api.domain;
-const urlToPdfCv = domainApi + '/cv/get/pdf/raupulus/default';
-
-
-// Initialize galleryPaths with the type
-const galleryPaths: GalleryPathType[] = [];
-
-// Function to generate gallery paths
-const generateGalleryPaths = (): GalleryPathType[] => {
-    const basePath = '/images/pages/about/gallery/';
-
-    // Cantidad de imágenes en la galería
-    const quantity = 50;
-
-    for (let i = 0; i < quantity; i++) {
-        galleryPaths.push({
-            thumbnail: `${basePath}${i + 1}_250px.webp`,
-            image: `${basePath}${i + 1}_1280px.webp`,
-        });
-    }
-
-    return galleryPaths;
-};
-
-// Call the function to generate paths
-generateGalleryPaths();
-
-const showImageModal = ref(false);
-const selectedIndex = ref(0);
-
-const showImageSlide = (idx: number) => {
-    selectedIndex.value = idx;
-    showImageModal.value = true;
-};
-
 </script>
-
-<template>
-    <section>
-        <div>
-            <h1 class="text-center">
-                Sobre
-                <span class="text-primary font-bold">
-                    Mi
-                </span>
-            </h1>
-        </div>
-
-
-        <div class="box-about-content">
-            <div class="box-about-main">
-                <div class="about-description">
-                    <div>
-                        <p>
-                            Soy un desarrollador backend con amplia experiencia en PHP,
-                            <strong>Laravel</strong>, Javascript y
-                            PostgreSQL.
-                        </p>
-
-                        <p>
-                            A lo largo de mi carrera he trabajado en una variedad de proyectos, desde pequeños sitios
-                            web hasta grandes aplicaciones empresariales.
-                        </p>
-
-                        <p>
-                            Tengo un profundo conocimiento con el stack sobre <strong>linux</strong> desde
-                            <strong>terminal</strong> y
-                            con
-                            paneles de gestión, stockage de productos, tiendas, web empresariales,
-                            <strong>apis</strong>, bases de datos,
-                            optimización de rendimiento, servidores vps, <strong>consumo de servicios</strong>
-                            (streaming,
-                            plataformas de
-                            pago, AI...), sistemas de caché...
-                        </p>
-                    </div>
-                </div>
-
-                <div class="about-callout">
-                    <div>
-                        <BtnGeneric :to="urlToPdfCv" text="Descargar CV" class="btn-red"
-                            title="Enlace a mi Curriculum Vitae en PDF" width="100%" target="_blank">
-                            <template #before>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff" width="30px"
-                                    style="display: block; text-align: center; margin: auto;">
-                                    <path
-                                        d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z" />
-                                </svg>
-                            </template>
-                        </BtnGeneric>
-
-                        <BtnGeneric to="https://curriculum.laguialinux.com" text="Ver CV" target="_blank"
-                            title="Enlace a mi Curriculum Vitae" width="100%" />
-                    </div>
-
-                    <div class="box-two-buttons">
-                        <BtnGeneric to="https://www.linkedin.com/in/raulcaropastorino" text="Linkedin"
-                            class="btn-color-blue-linkedin" title="Enlace a mi Linkedin" width="100%" target="_blank">
-                            <template #before>
-                                <svg class="fill-current social-icon-card text-color-blue"
-                                    style="height: 22px; translate: -4px 4px;" viewBox="0 0 448 512" version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-                                    <defs id="defs1" />
-                                    <path
-                                        d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
-                                        id="path1" style="fill:#fff;fill-opacity:1" />
-                                </svg>
-                            </template>
-                        </BtnGeneric>
-
-                        <BtnGeneric to="https://github.com/raupulus" class="btn-black" text="Github"
-                            title="Enlace a mi GitHub" width="100%" target="_blank">
-                            <template #before>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="social-icon-card fill-black-800"
-                                    style="height: 22px; translate: -4px 4px;" viewBox="0 0 496 512" fill="#fff">
-                                    <path
-                                        d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
-                                    </path>
-                                </svg>
-                            </template>
-                        </BtnGeneric>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="box-about-information">
-            <p>
-                En este
-                <strong>portfolio/portal</strong>, encontrará mi currículum vitae, las vías para contactarme, una
-                selección de
-                mis proyectos más recientes y algunos trabajos que puedo publicar.
-            </p>
-
-            <p>
-                Muchos trabajos elaborados para empresas privadas o junto a otros freelances no puedo publicarlos o
-                adjuntarlos por confidencialidad.
-            </p>
-
-            <p>
-                Le invito a explorar mi trabajo y a ponerse en contacto conmigo si tiene alguna pregunta o consultar
-                sobre algún proyecto.
-            </p>
-        </div>
-
-        <div class="box-about-skills box-about-card">
-            <div class="about-skills about-card">
-                <h3 class="about-card-title">Skills</h3>
-
-                <div class="about-card-content">
-                    <ul>
-                        <li>Desarrollo backend principalmente con PHP, Laravel, javascript, vuejs</li>
-                        <li>Creación de APIs</li>
-                        <li>Gestión de bases de datos MySQL y PostgreSQL</li>
-                        <li>Optimización del rendimiento</li>
-                        <li>Implementación de prácticas de seguridad</li>
-                        <li>Trabajo en equipo y comunicación</li>
-                        <li>He trabajado antes con otros stacks y me adapto rápido</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="about-passions about-card">
-                <h3 class="about-card-title">Pasiones</h3>
-
-                <div class="about-card-content">
-                    <ul>
-                        <li>Crear aplicaciones web robustas y escalables</li>
-                        <li>Aprender nuevas tecnologías</li>
-                        <li>Resolver problemas complejos</li>
-                        <li>Ayudar a otros a tener éxito</li>
-                        <li>La experiencia de trabajar y compartir proyecto con otros desarrolladores</li>
-                        <li>Inteligencia Artificial</li>
-                        <li>IOT (Internet de las cosas)</li>
-                        <li>Automatizaciones</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Imagen del entorno de trabajo con callout para ver CV -->
-        <div class="box-about-work-environment">
-            <div class="box-about-work-environment-image">
-
-            </div>
-
-            <div class="box-about-work-environment-callout">
-                <div>
-                    <NuxtImg src="/logo_128x128.webp" alt="Logotipo de Raúl Caro Pastorino"
-                        title="Logotipo de Raúl Caro Pastorino" />
-                </div>
-
-                <div>
-                    <BtnGeneric to="https://curriculum.laguialinux.com" text="Ver CV Online" target="_blank"
-                        title="Enlace a mi Curriculum Vitae" />
-                </div>
-            </div>
-        </div>
-
-        <!-- Hobbies y pasatiempos -->
-        <div class="box-about-hobbies box-about-card">
-            <div class="about-hobbies about-card">
-                <h3 class="about-card-title">Hobbies</h3>
-
-                <div class="about-card-content">
-                    <ul>
-                        <li>Electrónica</li>
-                        <li>Raspberry Pi</li>
-                        <li>Inteligencia Artificial</li>
-                        <li>Planificar nuevos proyectos</li>
-                        <li>IOT con microcontroladores y sensores</li>
-                        <li>Automatizar tareas en Linux y MacOS con scripts</li>
-                        <li>Probar nuevas tecnologías software/hardware (nuevos microcontroladores, frameworks...)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="about-hobbies2 about-card">
-                <h3 class="about-card-title">Pasatiempos</h3>
-
-                <div class="about-card-content">
-                    <ul>
-                        <li>Fotografía</li>
-                        <li>Diseño gráfico 2D</li>
-                        <li>Correr por la Playa</li>
-                        <li>Libros de fantasía, terror, historia...</li>
-                        <li>Diseño y modelado 3D para proyectos</li>
-                        <li>Ver Streamings de otros programadores y makers</li>
-                        <li>Creación de contenido (Entradas en blogs/foros y vídeos)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="box-about-gallery">
-            <div v-for="(galleryPath, idx) in galleryPaths" :key="idx" class="about-gallery-item">
-                <NuxtImg class="about-gallery-image" loading="lazy" :src="galleryPath.thumbnail"
-                    @click="() => showImageSlide(idx)" />
-            </div>
-        </div>
-
-        <ModalsImageSlide :show="showImageModal" :galleryPaths="galleryPaths" :selectedIndex="selectedIndex"
-            @update:show="showImageModal = $event" />
-
-        <div style="margin-top: 1.3rem;"></div>
-    </section>
-</template>
 
 <style scoped>
 /* Caja principal para todo */

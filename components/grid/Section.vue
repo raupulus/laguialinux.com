@@ -13,21 +13,21 @@ export default {
             cards: [
                 {
                     title: 'Vídeo Tutoriales',
-                    image: '/images/sections/youtube.png',
+                    image: '/images/sections/youtube_440px.webp',
+                    text: 'Guías en un formato más digerible',
+                    url: '/video-tutorials'
+                },
+                {
+                    title: 'Compromiso',
+                    image: '/images/sections/about_440px.webp',
                     text: 'Descubre más sobre este proyecto.',
                     url: '/about'
                 },
                 {
-                    title: 'Guías de software libre',
-                    image: '/images/sections/guides.png',
-                    text: 'Más detalles sobre el software.',
-                    url: '/about'
-                },
-                {
-                    title: 'Software Libre 3',
-                    image: '/images/sections/youtube.png',
-                    text: 'Explora este recurso.',
-                    url: '/about'
+                    title: 'Síguenos',
+                    image: '/images/sections/social_440px.webp',
+                    text: 'Mantente al día con nuestras redes.',
+                    url: '/social'
                 }
             ]
         };

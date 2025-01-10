@@ -7,6 +7,7 @@ export type ContentType = {
     slug: string,
     excerpt: string,
     is_featured?: string,
+    has_image?: boolean,
     urlImageSmall?: string,
     urlImageMedium: string,
     urlImage: string,
