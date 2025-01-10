@@ -1,21 +1,12 @@
 <template>
-  <nav aria-label="Breadcrumb" class="bg-[#1f2937] p-4 rounded-lg shadow-md">
-    <ul class="breadcrumb">
-      <li>
-        <NuxtLink to="/" class="breadcrumb-item">Home</NuxtLink>
-      </li>
+  <nav class="box-breadcrumb">
+      <div class="breadcrumb-item" v-for="(crumb, index) in breadcrumbs" :key="index">
+          <NuxtLink v-if="index < breadcrumbs.length - 1" :to="getPathTo(index)" class="breadcrumb-content">
+              {{ crumb.name }}
+          </NuxtLink>
 
-      <li v-for="(crumb, index) in breadcrumbs" :key="index">
-        <NuxtLink
-          v-if="index < breadcrumbs.length - 1"
-          :to="getPathTo(index)"
-          class="breadcrumb-item">
-          {{ crumb.name }}
-        </NuxtLink>
-
-        <span v-else class="breadcrumb-item breadcrumb-item-current">{{ crumb.name }}</span>
-      </li>
-    </ul>
+          <span v-else class="breadcrumb-content-current">{{ crumb.name }}</span>
+      </div>
   </nav>
 </template>
 
@@ -23,58 +14,55 @@
 import { defineProps } from 'vue'
 
 type Breadcrumb = {
-  name?: string;
-  slug?: string;
+name?: string;
+slug?: string;
 }
 
 const props = defineProps({
-  breadcrumbs: {
-    type: Array as () => Breadcrumb[],
-    required: true
-  }
+breadcrumbs: {
+  type: Array as () => Breadcrumb[],
+  required: true
+}
 })
 
 const getPathTo = (index: number): string => {
-  return '/' + props.breadcrumbs.slice(0, index + 1).map(crumb => crumb.slug).join('/')
+return '/' + props.breadcrumbs.slice(0, index + 1).map(crumb => crumb.slug).join('/')
 }
 </script>
 
 <style scoped>
-.breadcrumb {
+.box-breadcrumb {
   position: relative;
-  list-style: none;
-  display: flex;
-  padding: 0;
-  margin: 0;
-  align-items: center;
-  box-sizing: border-box;
+  width: 100%;
 }
+
 
 .breadcrumb-item {
   position: relative;
-  background: #2d3748;
-  color: #fff;
-  height: 30px;
-  padding: 0 10px 0 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 1;
-  font-size: 0.9rem;
-  font-weight: 300;
-  text-decoration: none;
-  box-sizing: border-box
+  height: 10px;
+  display: inline-block;
+  padding: 1px 10px 9px 25px;
+  color: var(--white);
+  background-color: #2d3748;
+  font-size: 0.8rem;
+  line-height: 1rem;
 }
 
-.breadcrumb-item-current {
+.breadcrumb-content {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.breadcrumb-content-current {
   color: #485a71;
+  font-weight: bold;
 }
 
 .breadcrumb-item::after {
   content: '';
   position: absolute;
   width: 1rem;
-  height: 15px;
+  height: 10px;
   background: #2d3748;
   top: 0;
   right: -0.5rem;
@@ -87,21 +75,12 @@ const getPathTo = (index: number): string => {
   content: '';
   position: absolute;
   width: 1rem;
-  height: 15px;
+  height: 10px;
   background: #2d3748;
   bottom: 0;
   right: -0.5rem;
   z-index: 9;
   border-right: 3px solid #fff;
   transform: skewX(-52deg);
-}
-
-.breadcrumb-item a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.breadcrumb-item a:hover {
-  color: var(--danger);
 }
 </style>
