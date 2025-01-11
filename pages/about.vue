@@ -1,33 +1,31 @@
 <template>
     <section>
         <div>
-            <h1 class="text-center">
+            <h2 class="text-center">
                 Sobre La
                 <span class="text-primary font-bold">
                     Guía
                 </span>
                 Linux
-            </h1>
+            </h2>
         </div>
 
         <div class="box-about-content">
-            <div>
-                        <p>
-                            La <strong>Guía Linux</strong> es una iniciativa dirigida a facilitar la adopción y el uso de sistemas operativos basados en Linux, proporcionando información accesible tanto para novatos como para usuarios más experimentados.
-                        </p>
+            <p>
+                La <strong>Guía Linux</strong> es una iniciativa dirigida a facilitar la adopción y el uso de sistemas operativos basados en Linux, proporcionando información accesible tanto para novatos como para usuarios más experimentados.
+            </p>
 
-                        <p>
-                            El proyecto tiene como objetivo ser una fuente de aprendizaje y referencia en español, promoviendo la comprensión de los diferentes aspectos del sistema operativo Linux, desde la instalación hasta su uso avanzado en servidores, escritorios y dispositivos embebidos.
-                        </p>
+            <p>
+                El proyecto tiene como objetivo ser una fuente de aprendizaje y referencia en español, promoviendo la comprensión de los diferentes aspectos del sistema operativo Linux, desde la instalación hasta su uso avanzado en servidores, escritorios y dispositivos embebidos.
+            </p>
 
-                        <p>
-                            Intentamos plantear contenido accesible y cuidadosamente organizado, con tutoriales, artículos y guías que cubren algunas de las principales distribuciones de Linux, herramientas esenciales, y técnicas de administración del sistema.
-                        </p>
+            <p>
+                Intentamos plantear contenido accesible y cuidadosamente organizado, con tutoriales, artículos y guías que cubren algunas de las principales distribuciones de Linux, herramientas esenciales, y técnicas de administración del sistema.
+            </p>
 
-                        <p>
-                            Además, abordamos temas como la seguridad, la optimización del sistema y la personalización del entorno de trabajo, pretendiendo conseguir que exista una guía útil tanto para quienes comienzan con Linux como para aquellos que ya tienen experiencia en su uso.
-                        </p>
-                    </div>
+            <p>
+                Además, abordamos temas como la seguridad, la optimización del sistema y la personalización del entorno de trabajo, pretendiendo conseguir que exista una guía útil tanto para quienes comienzan con Linux como para aquellos que ya tienen experiencia en su uso.
+            </p>
         </div>
 
         <div class="box-about-information">
@@ -50,15 +48,14 @@
 
                 <div class="about-card-content">
                     <ul>
-                        <li>Dar visibilidad a proyectos Open Source</li>
-                        <li>Vídeotutoriales por cada entrada para que sea más dinámica la consulta y pueda verse un ejemplo sobre el tema a tratar en ella</li>
-                        <li>Unificar publicaciones de todas las redes sociales para publicar contenido más constantemente y no dedicar tanto tiempo en compartirlo</li>
-                        <li>Centrar más esfuerzos en la creación de entradas y vídeos que en el desarrollo del sitio (automatizando tareas)</li>
-                        <li>Crear canal de difusión para englobar muchos (ojalá todos) los proyectos web similares en un único medio de noticias</li>
-                        <li>Desarrollar ciertas herramientas para facilitar los primeros pasos de usuarios que comienzan en linux</li>
-                        <li>Crear un sistema de cursos, manuales de introducción y acceso por pasos lo suficientemente dinámico para parecer un juego, que sea interactivo y permita explorar de un primer vistazo una distribución amigable</li>
-                        <li>Desarrollar herramientas de administración, limpieza y personalización fácilmente actualizable mediante repositorios</li>
-                        <li>Crear una zona en un subdominio para la comunidad, donde cualquier persona podrá publicar sin censura (mientras cumpla unos requisitos básicos como que el contenido sea original, esté documentado para no perjudicar a terceros, sea legible)</li>
+                        <li>Promover proyectos Open Source</li>
+                        <li>Incluir vídeotutoriales para una consulta más dinámica</li>
+                        <li>Automatizar tareas para enfocarnos más en crear contenido</li>
+                        <li>Canal de difusión de proyectos similares</li>
+                        <li>Herramientas para facilitar primeros pasos en Linux</li>
+                        <li>Sistema interactivo de cursos y manuales</li>
+                        <li>Herramientas de administración y personalización</li>
+                        <li>Espacio comunitario</li>
                     </ul>
                 </div>
             </div>
@@ -68,13 +65,15 @@
 
                 <div class="about-card-content">
                     <ul>
-                        <li>Actualidad</li>
-                        <li>Resolución de Problemas comunes</li>
+                        <li>Noticias y Actualidad</li>
+                        <li>Solución de problemas comunes</li>
                         <li>Administración de sistemas</li>
                         <li>Administración de servidores</li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>Personalización y Optimización</li>
+                        <li>Seguridad en Linux</li>
+                        <li>Software y Herramientas útiles</li>
+                        <li>Orientación para principiantes</li>
+                        <li>Vídeotutoriales</li>
                     </ul>
                 </div>
             </div>
@@ -93,13 +92,13 @@
                 </div>
 
                 <div>
-                    <BtnGeneric to="https://curriculum.laguialinux.com" text="Web del Autor" target="_blank"
+                    <BtnGeneric to="https://raupulus.dev" text="Web del Autor" target="_blank"
                         title="Enlace a mi web personal" />
                 </div>
             </div>
         </div>
 
-        <div class="box-about-motivation">
+        <div class="box-about-motivation box-about-section-card">
             <h3>Motivación</h3>
 
             <p>
@@ -123,74 +122,109 @@
             </p>
         </div>
 
-        <div class="box-about-history">
+        <div class="box-about-history box-about-section-card">
             <h3>Historia de La Guía Linux</h3>
 
+            <p>
             El proyecto La Guía Linux realmente comienza antes de 2005 sin una fecha concreta que pueda recordar o deducir (tampoco es demasiado relevante).
+            </p>
 
+            <p>
             En sus orígenes pretendía ser un espacio de apuntes personales que acabó compartiéndose al resto del mundo.
+            </p>
 
+            <p>
             Poco a poco ha pasado por distintas etapas intentando mejorar y con ciertas colaboraciones esporádicas de personas afines a la causa y desinteresadamente (tanto que no desean revelar su identidad por motivos personales).
+            </p>
 
+            <div style="text-align: center">
+                <NuxtImg src="/images/pages/about/laguialinux-2001.webp" alt="La Guía Linux original" style="max-width: 100%;"/>
+            </div>
+
+            <p>
             La evolución sería algo parecido a esto:
+            </p>
 
+            <ul>
+                <li>Apuntes en cuadernos (teníamos que pasarnos fotocopias…)</li>
+                <li>Apuntes pasados a Digital y quedando cada unas semanas para copiarnoslos entre amigos</li>
+                <li>Una intranet privada con antenas de largo alcance y directorios compartidos</li>
+                <li>Cuando llegó internet accesible y soluciones sencillas de publicación, blogger fue durante un tiempo nuestra plataforma de publicación de contenido más o menos por el año 2005</li>
+                <li>Llegó el momento de los CMS y Drupal nos acompañó desde 2009 hasta 2015</li>
+                <li>En Septiembre de 2015 Lanzamos un nuevo sitio web más claro y mejor organizado con wordpress</li>
+                <li>Hoy día queda todo el desarrollo propio y open source en github/gitlab usando laravel, postgresql y nuxt 3</li>
+            </ul>
 
-            - Apuntes en cuadernos (teníamos que pasarnos fotocopias…)
-            - Apuntes pasados a Digital y quedando cada unas semanas para copiarnoslos entre amigos
-            - Una intranet privada con antenas de largo alcance y directorios compartidos
-            - Cuando llegó internet accesible y soluciones sencillas de publicación, blogger fue durante un tiempo nuestra plataforma de publicación de contenido más o menos por el año 2005
-            - Llegó el momento de los CMS y Drupal nos acompañó desde 2009 hasta 2015
-            - En Septiembre de 2015 Lanzamos un nuevo sitio web más claro y mejor organizado con wordpress
-            - Hoy día queda todo el desarrollo propio y open source en github/gitlab usando laravel, postgresql y nuxt 3
-
+            <p>
             Es realmente 2013 cuando comienza a promoverse el proyecto aunque el dominio y algunas redes ya habían sido planteadas y/o creadas mucho antes.
+            </p>
 
+            <p>
             El creador principal, administrador y desarrollador es
-
             <NuxtLink to="https://raupulus.dev" title="Portfolio de Raúl Caro Pastorino">
                 Raúl Caro Pastorino (@raupulus)
             </NuxtLink>
             y es quien procura hasta el día de hoy se mantenga el sitio vivo, responde la mayoría de los mensajes en redes sociales, comentarios en la web y youtube.
+            </p>
 
+            <p>
             En colaboración con este proyecto tengo 2 amigos que colaboran esporádicamente en proporción al tiempo que la familia y el trabajo les va dejando hacerlo.
+            </p>
 
+            <p>
             Por petición de ellos quedarán como "anónimos" ya que han tomado esa decisión en pro de su privacidad.
+            </p>
 
+            <p>
             Cada uno tenemos una especialización distinta y usamos software diferente en la mayoría de los casos, por lo que puede decirse que entre todos conocemos bastante diversidad de software y soluciones.
-
+            </p>
         </div>
 
-        <div class="box-about-current-status">
+        <div class="box-about-current-status box-about-section-card">
             <h3>Estado Actual</h3>
 
-            El proyecto se encuentra en un estado de desarrollo constante, aunque no es un proyecto que se mantenga en un solo año, sino que se va actualizando cada año, cada mes y si la vida lo posibilita cada semana.
+            <p>
+            El proyecto sigue en constante desarrollo, aunque no es un proyecto que se mantenga en un solo año, sino que se va actualizando cada año, cada mes y si la vida lo posibilita cada semana.
+            </p>
 
+            <p>
             Sabemos y pedimos comprensión que toda esta plataforma no está perféctamente optimizada en cuanto a organización y diseño gráfico pero también es cierto que no paramos de dedicarle tiempo en su mejora y atención a nuestros seguidores que parecen ir en aumento, lo cual nos anima mucho a continuar con el proyecto y sobre todo lo hace cobrar sentido. Cada cambio en la plataforma, guía o vídeotutorial intentamos mejorar en lo que nos váis reportando como feedback.
+            </p>
         </div>
 
-        <div class="box-about-future">
+        <div class="box-about-future box-about-section-card">
             <h3>Planes de Futuro</h3>
 
+            <p>
             Tenemos planes de futuro, incluso demasiados planes para el futuro y planes inmediatos por lo que sin tentar a la cordura os mencionaré los primeros en los que nos vamos a centrar:
+            </p>
 
-            - 1 de Enero de 2025 hemos relanzado el proyecto con nuevo logotipo y código 100% open source creado por nosotros
-            - Planteamos sistemas de automatizaciones para dedicarnos exclusivamente a crear contenido
-            - Reagrupar todo el sistema de búsquedas por categorías y subcategorías mejorando la precisión al buscar contenido
-            - Revisar contenido obsoleto
-            - Creación de nuevo contenido actualizado
-            - Rehacer vídeos que tienen demasiados años y no son tan precisos hoy día
+            <ul>
+                <li>1 de Enero de 2025 hemos relanzado el proyecto con nuevo logotipo y código 100% open source creado por nosotros</li>
+                <li>Planteamos sistemas de automatizaciones para dedicarnos exclusivamente a crear contenido</li>
+                <li>Reagrupar todo el sistema de búsquedas por categorías y subcategorías mejorando la precisión al buscar contenido</li>
+                <li>Revisar contenido obsoleto</li>
+                <li>Creación de nuevo contenido actualizado</li>
+                <li>Rehacer vídeos que tienen demasiados años y no son tan precisos hoy día</li>
+            </ul>
         </div>
 
-        <div class="box-about-future">
+        <div class="box-about-future box-about-section-card">
             <h3>¿Te gustaría colaborar?</h3>
 
+            <p>
             Aunque no te quieras involucrar por tiempo o cualquier otro motivo, hay tres factores muy importantes, rápidos y sencillos con los que puedes colaborar ayudándonos mucho:
+            </p>
 
-            - Compartir
-            - Tus Comentarios
-            - Feedback
+            <ul>
+                <li>Compartir</li>
+                <li>Tus Comentarios</li>
+                <li>Feedback</li>
+            </ul>
 
-            Más adelante abriremos un repositorio comunitario dónde podrás colaborar en tus propias publicaciones si te apeteciera.
+            <p>
+                Más adelante abriremos un repositorio comunitario dónde podrás colaborar en tus propias publicaciones si te apeteciera.
+            </p>
         </div>
 
         <div style="margin-top: 1.3rem;"></div>
@@ -226,34 +260,14 @@ useHead({
 </script>
 
 <style scoped>
-/* Caja principal para todo */
 .box-about-content {
     height: 100%;
 }
 
-/* Bloque principal para descripción genérica */
-.box-about-main {
-    display: grid;
-    padding: 10px 2rem;
-    grid-template-columns: 1fr 340px;
-    gap: 1.3rem;
-    align-items: center;
-    font-size: 1.3rem;
-    background-color: #dedede;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-.box-two-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 0.3rem;
-}
-
-/* Información sobre este porfolio */
+/* Información sobre este proyecto */
 .box-about-information {
     margin-top: 1.3rem;
-    padding: 10px 2rem;
+    padding: 0.5rem 2rem;
     background-color: rgba(50, 114, 184, 0.1);
     font-size: 1.3rem;
     border-radius: 5px;
@@ -299,6 +313,7 @@ useHead({
     position: relative;
     padding: 1.3rem;
     box-sizing: border-box;
+    color: var(--blue)
 }
 
 .box-about-card>.about-card>.about-card-content li {
@@ -315,14 +330,8 @@ useHead({
     position: absolute;
     left: 0;
     top: 3px;
-    /*top: 50%;*/
-    /*transform: translateY(-50%);*/
-
-    /* Ajustes adicionales */
     width: 22px;
-    /* Ajusta según el tamaño de tu imagen */
     height: 22px;
-    /* Ajusta según el tamaño de tu imagen */
 }
 
 /* Imagen del entorno de trabajo con callout */
@@ -335,9 +344,7 @@ useHead({
     text-align: center;
     grid-template-columns: 1fr;
     align-items: center;
-    text-align: center;
-    box-sizing: border-box;
-    background-image: url("/images/pages/about/work_environment.webp");
+    background-image: url("/images/pages/about/author.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -353,37 +360,33 @@ useHead({
     text-align: center;
 }
 
-/* Galería de imágenes */
-.box-about-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    grid-gap: 0.3rem;
-    justify-items: center;
-    align-items: center;
-}
 
-.about-gallery-item {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    /* La proporción de aspecto 16:9 (ajusta según necesites) */
+/** Secciones con estilos de tarjeta **/
+.box-about-section-card {
+    margin-top: 1.3rem;
+    background-color: var(--blue);
+    border: 2px solid var(--white);
+    border-radius: 0.5rem;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
-.about-gallery-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    background-color: #fff;
-    cursor: zoom-in;
+.box-about-section-card h3 {
+    margin: 0;
+    padding: 0.5rem;
+    text-align: center;
+    background-color: var(--white);
+    color: var(--blue);
 }
 
-.about-gallery-image:hover {
-    transform: scale(1.1);
+.box-about-section-card p {
+    padding: 0.5rem;
+}
+
+.box-about-section-card a {
+    color: var(--primary);
+    font-weight: bold;
+    font-style: italic;
 }
 
 @media (max-width: 920px) {
@@ -394,6 +397,11 @@ useHead({
     .box-about-card {
         grid-template-columns: 1fr;
         padding: 0.3rem;
+    }
+
+    .box-about-skills .about-card-content ul,
+    .about-passions .about-card-content ul {
+        padding-left: 1.3rem;
     }
 }
 </style>

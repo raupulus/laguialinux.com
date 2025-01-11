@@ -3,7 +3,7 @@
         Creando contenido desde 2001
     </span>
 
-    <Slide :slides="Array.from({ length: 19 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
+    <Slide :slides="Array.from({ length: 9 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
 
     <GridSection />
 
