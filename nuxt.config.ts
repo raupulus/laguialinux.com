@@ -1,12 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { type ContentType } from '@/types/ContentType';
-import { usefetchProjectsPaginated } from './composables/projectsData';
-import fs from 'fs';
-import path from 'path';
-
-// Define la ruta del archivo JSON donde se almacenarán las rutas
-const cachedRoutesPath = path.resolve('cachedRoutes.json');
-
 export default defineNuxtConfig({
     ssr: true,
     devtools: { enabled: true },
@@ -105,7 +97,6 @@ export default defineNuxtConfig({
         '@/assets/css/styles.css',
     ],
 
-    //plugins: [{ src: '~/plugins/vuejs-medium-editor', ssr: false }]
     typescript: {
         strict: true,
         typeCheck: true,
@@ -120,38 +111,12 @@ export default defineNuxtConfig({
     },
     nitro: {
         preset: 'static',
-        prerender: {
-            routes: [],
+        //prerender: {
+        //    routes: [],
             //routes: ['/projects/slug-contenido/slug-page1',],
-        },
+        //},
         hooks: {
-            async 'prerender:routes'(routes: Set<string>) {
-                console.log('Generando rutas dinámicas');
 
-                // Obtener los proyectos paginados
-                const projects = await usefetchProjectsPaginated();
-                const urls = projects.flatMap((project) => {
-                    const mainProjectUrl = `/projects/${project.slug}`;
-                    const pageUrls = project.pages_slug?.map((pageSlug) =>
-                        `/projects/${project.slug}/${pageSlug}`
-                    ) ?? [];
-                    return [mainProjectUrl, ...pageUrls];
-                });
-
-                // Si el archivo ya existe, se eliminará antes de generar uno nuevo
-                if (fs.existsSync(cachedRoutesPath)) {
-                    fs.unlinkSync(cachedRoutesPath);
-                }
-
-                // Escribir las rutas generadas en el archivo JSON
-                fs.writeFileSync(cachedRoutesPath, JSON.stringify(['/', ...urls], null, 2));
-
-                // Añadir cada URL generada a las rutas de prerender
-                urls.forEach(url => routes.add(url));
-
-                console.log('Rutas generadas:');
-                urls.forEach(url => console.log(url));
-            },
         },
 
     },
@@ -164,35 +129,6 @@ export default defineNuxtConfig({
             '/admin/**',
             '/login'
         ],
-        urls: async (): Promise<any> => {
-            const projects: ContentType[] = await usefetchProjectsPaginated();
-
-            const urls = projects.flatMap((project: ContentType) => {
-                // URL para el proyecto principal
-                const mainProjectUrl = {
-                    loc: `/projects/${project.slug}`,
-                    changefreq: 'weekly',
-                    priority: 0.9,
-                    lastmod: project.updated_at
-                };
-
-                // URLs para las páginas del proyecto
-                let pageUrls = project.pages_slug?.map((pageSlug: string) => ({
-                    loc: `/projects/${project.slug}/${pageSlug}`,
-                    changefreq: 'weekly',
-                    priority: 0.7,
-                    lastmod: project.updated_at
-                }));
-
-                if (!pageUrls) {
-                    pageUrls = [];
-                }
-
-                return [mainProjectUrl, ...pageUrls];
-            });
-
-            return urls;
-        },
         defaults: {
             changefreq: 'weekly',
             priority: 0.5,
@@ -315,5 +251,5 @@ export default defineNuxtConfig({
         }
     },
 
-    compatibilityDate: '2024-09-10'
+    compatibilityDate: '2025-01-15'
 })

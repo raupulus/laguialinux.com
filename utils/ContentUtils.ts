@@ -4,68 +4,62 @@ import type { ContentType } from "@/types/ContentType";
 import { prepareDataCategory } from '@/utils/CategoryUtils';
 
 function prepareContentDataMetadata(metadata: MetadataType) {
-  return metadata;
+    const priority: (keyof MetadataType)[] = [
+        'web', 'youtube_channel', 'youtube_video', 'youtube', 'gitlab', 'github',
+        'twitter', 'linkedin', 'mastodon', 'twitch',
+        'telegram_channel',
+    ];
 
-  // TODO: Adaptar la lógica para no descartar todo lo demás, si no para poner en orden y así
-  // poder tomar los primeros según la cantidad que necesite
+    let results: MetadataType = {};
 
-  /*
-  const priority: (keyof MetadataType)[] = [
-      'web', 'youtube_channel', 'youtube_video', 'youtube', 'gitlab', 'github',
-      'twitter', 'linkedin', 'mastodon', 'twitch',
-      'telegram_channel',
-  ];
+    if (metadata) {
+        priority.forEach(p => {
+            if (((p === 'youtube_channel') || (p === 'youtube_video')) && metadata[p]) {
+                results.youtube = metadata[p];
+            } else if (metadata[p]) {
+                results[p] = metadata[p];
+            }
+        });
+    }
 
-  let results: MetadataType = {};
-  let counter = 0;
-
-  if (metadata) {
-      priority.forEach(p => {
-          if ((p === 'youtube_channel') || (p === 'youtube_video')) {
-              if (metadata[p] && counter < 4) {
-                  if (!results.youtube) {
-                      counter++;
-                  }
-                  results.youtube = metadata[p];
-              }
-          } else if (counter < 4 && metadata[p]) {
-              counter++;
-              results[p] = metadata[p];
-          }
-      });
-  }
-
-  return results;
-  */
+    return results;
 }
 
 
 export function prepareContentData(content: ContentType, contentType: string) {
-  if (content.metadata) {
-      content.metadata = prepareContentDataMetadata(content.metadata as MetadataType);
-  }
+    if (content.metadata) {
+        content.metadata = prepareContentDataMetadata(content.metadata as MetadataType);
+    }
 
-  const contentCategorySlug = content.categories?.length ? content.categories[0].slug : 'general';
-  let contentSubcategoryMain = content.subcategories?.find(sub => sub.is_main);
+    const contentCategorySlug = content.categories?.length ? content.categories[0].slug : 'general';
+    let contentSubcategoryMain = content.subcategories?.find(sub => sub.is_main);
 
-  if (!contentSubcategoryMain) {
-      contentSubcategoryMain = content.categories?.length ? content.categories[0] : undefined;
-  }
+    if (!contentSubcategoryMain) {
+        contentSubcategoryMain = content.categories?.length ? content.categories[0] : undefined;
+    }
 
-  const contentSubcategorySlug = contentSubcategoryMain ? contentSubcategoryMain.slug : 'misc';
+    const contentSubcategorySlug = contentSubcategoryMain ? contentSubcategoryMain.slug : 'misc';
 
-  const config = useRuntimeConfig();
+    const isClient = process.client;
+    let APP_URL: string = '';
 
-  content.url = `${config.public.app.url}/${contentType}/${contentCategorySlug}/${contentSubcategorySlug}/${content.slug}`;
-  content.path = `${contentCategorySlug}/${contentSubcategorySlug}/${content.slug}`;
+    if (isClient) {
+        const runtimeConfig = useRuntimeConfig();
+        APP_URL = runtimeConfig.public.app.url;
+    } else {
+        APP_URL = process.env.APP_URL || '';
+    }
 
-  content.categories = content.categories?.map((cat: CategoryType) => {
-      return prepareDataCategory(cat);
-  });
+    content.url = `${APP_URL}/${contentType}/${contentCategorySlug}/${contentSubcategorySlug}/${content.slug}`;
+    content.path = `${contentCategorySlug}/${contentSubcategorySlug}/${content.slug}`;
 
-  content.subcategories = content.subcategories?.map((cat: CategoryType) => {
-      return prepareDataCategory(cat);
-  })
+    content.categories = content.categories?.map((cat: CategoryType) => {
+        return prepareDataCategory(cat);
+    });
 
-  return content;
+    content.subcategories = content.subcategories?.map((cat: CategoryType) => {
+        return prepareDataCategory(cat);
+    })
+
+    return content;
 }

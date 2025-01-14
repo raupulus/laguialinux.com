@@ -1,41 +1,8 @@
-<script lang="ts" setup>
-import type { ContentType } from '@/types/ContentType';
-
-const props = defineProps({
-  data: {
-    type: Object as PropType<ContentType>,
-    required: true
-  },
-});
-
-const emit = defineEmits(['projecteventshow']);
-
-const componentNames = {
-  gitlab: 'IconsGitlab',
-  github: 'IconsGithub',
-  linkedin: 'IconsLinkedin',
-  twitter: 'IconsTwitter',
-  mastodon: 'IconsMastodon',
-  twitch: 'IconsTwitch',
-  youtube: 'IconsYoutube',
-  web: 'IconsEarth',
-  telegram: 'IconsTelegram',
-}
-
-const currentImgSrc = ref(props.data.urlImageSmall);
-
-const onImageLoaded = () => {
-  currentImgSrc.value = props.data.urlImage;
-};
-
-</script>
-
 <template>
   <div class="card-project-box">
     <div class="card-project-content">
       <div class="card-project-img">
-        <NuxtImg :src="currentImgSrc" width="440" height="300" :alt="data.title" :title="data.title"
-          @click="emit('projecteventshow', data)" @load="onImageLoaded" />
+        <NuxtImg :src="currentImgSrc" width="440" height="300" :alt="data.title" :title="data.title" @load="onImageLoaded" />
       </div>
 
       <div class="card-project-info">
@@ -50,9 +17,9 @@ const onImageLoaded = () => {
         </div>
 
         <div class="card-project-readmore">
-          <span @click="emit('projecteventshow', data)">
-            Ver Proyecto
-          </span>
+          <NuxtLink :to="data.url" :title="data.title">
+            Leer
+          </NuxtLink>
         </div>
       </div>
 
@@ -64,8 +31,8 @@ const onImageLoaded = () => {
     </div>
 
     <div class="card-project-footer" v-if="data.metadata">
-      <div v-for="key, idx in Object.keys(data.metadata)"
-        :class="(idx > 0 && (idx) < Object.keys(data.metadata).length) ? 'link-margin' : ''">
+      <div v-for="key, idx in Object.keys(data.metadata).slice(0,4)"
+        :class="(idx > 0 && (idx) < Object.keys(data.metadata).slice(0,4).length) ? 'link-margin' : ''">
 
         <IconsYoutube v-if="key === 'youtube'" :margin="0" :url="data.metadata.youtube" :grayscale="true"
           display="block" :legacy="true" />
@@ -95,6 +62,23 @@ const onImageLoaded = () => {
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import type { ContentType } from '@/types/ContentType';
+
+const props = defineProps({
+  data: {
+    type: Object as PropType<ContentType>,
+    required: true
+  },
+});
+
+const currentImgSrc = ref(props.data.urlImageSmall);
+
+const onImageLoaded = () => {
+  currentImgSrc.value = props.data.urlImage;
+};
+</script>
 
 <style scoped>
 .card-project-box {
@@ -128,7 +112,7 @@ const onImageLoaded = () => {
 }
 
 .card-project-img:hover {
-  transform: scale(1.05) rotate(1.5deg);
+  transform: scale(1.15) rotate(1.5deg);
 }
 
 .card-project-img img {

@@ -2,7 +2,6 @@
     <div id="app">
         <AppHeader />
 
-
         <div id="app-box-content">
 
             <NuxtPage />
@@ -15,8 +14,6 @@
 </template>
 
 <script setup lang="ts">
-//import fetchCsrfToken from '@/composables/fetchPostData'
-
 const webTitle = 'La Guía Linux';
 const webDescription = 'La Guía Linux es un proyecto que pretende compartir conocimiento sobre Software Libre y Tecnología';
 
@@ -69,15 +66,7 @@ watch(scrollDisabled, (current) => {
 
 
 onNuxtReady(() => {
-
-    /*
-    if (!useCookie('XSRF-TOKEN').value) {
-        fetchCsrfToken()
-    }
-    */
-
     usePlatformData()
-    //useProjectsData()
 })
 
 

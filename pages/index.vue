@@ -3,7 +3,10 @@
         Creando contenido desde 2001
     </span>
 
+    <NewsBanner />
+
     <Slide :slides="Array.from({ length: 9 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
+
 
     <GridSection />
 

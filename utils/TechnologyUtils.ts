@@ -1,6 +1,8 @@
+import type { TechnologyType } from '@/types/TechnologyType';
+
 export const getTechnologyBySlug = (slug: string) => {
   return getPlatformData()
     .value
     ?.technologies
-    ?.find(t => t.slug === slug)
+    ?.find((t: TechnologyType) => t.slug === slug)
 }

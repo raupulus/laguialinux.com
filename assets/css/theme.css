@@ -22,10 +22,11 @@ body {
     padding: 16px;
     width: 100%;
     max-width: 1400px;
-    box-sizing: border-box;
     background-color: var(--darkblue); /* Fondo de página */
     color: var(--white); /* Texto blanco */
     border-radius: 8px;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .page-h2-title {

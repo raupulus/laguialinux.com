@@ -29,8 +29,15 @@ const prepareVars = async () => {
 }
 
 const fecthCategories = async (slugCurrent: string|null = null, slugSubCategoryCurrent: string|null = null) => {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
+    const isClient = process.client;
+    let API_BASE: string = '';
+
+    if (isClient) {
+        const runtimeConfig = useRuntimeConfig();
+        API_BASE = runtimeConfig.public.api.base;
+    } else {
+        API_BASE = process.env.API_BASE_URL || '';
+    }
 
     const API_URL = `${API_BASE}/platform/${PLATFORM}/get/categories`;
 

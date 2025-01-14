@@ -4,7 +4,9 @@
         <Loader :isLoading="loadingContents && !loadingCategories"></Loader>
 
         <section>
-            <h2 class="page-h2-title">Actualidad</h2>
+            <h2 class="page-h2-title">
+                <span class="text-primary font-bold">Actual</span>idad
+            </h2>
         </section>
 
         <!-- Filtros -->

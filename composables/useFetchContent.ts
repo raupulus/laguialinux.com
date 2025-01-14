@@ -40,8 +40,16 @@ const fetchResults = async (page: number = 1, reset: boolean = false) => {
 
     fetchLocked.value = true;
 
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
+    const isClient = process.client;
+
+    let API_BASE: string = '';
+
+    if (isClient) {
+        const runtimeConfig = useRuntimeConfig();
+        API_BASE = runtimeConfig.public.api.base;
+    } else {
+        API_BASE = process.env.API_BASE_URL || '';
+    }
 
     const API_URL = `${API_BASE}/platform/${PLATFORM}/content/type/${contentType.value}`;
 
@@ -119,8 +127,16 @@ async function fetchContentBySlug(type:string, slug: string, withPages = false) 
     fetchLocked.value = true;
     contentType.value = type;
 
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
+    const isClient = process.client;
+    let API_BASE: string = '';
+
+    if (isClient) {
+        const runtimeConfig = useRuntimeConfig();
+        API_BASE = runtimeConfig.public.api.base;
+    } else {
+        API_BASE = process.env.API_BASE_URL || '';
+    }
+
     const API_URL = `${API_BASE}/content/${contentType.value}/${slug}/get`;
 
     const response = await fetch(API_URL);
@@ -160,11 +176,19 @@ export const useFetchContentBySlug = (type:string, slug: string) => {
 
 
 async function fetchContentPageByOrder(contentSlug: string, order: number) {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
+    const isClient = process.client;
+    let API_BASE: string = '';
+
+    if (isClient) {
+        const runtimeConfig = useRuntimeConfig();
+        API_BASE = runtimeConfig.public.api.base;
+    } else {
+        API_BASE = process.env.API_BASE_URL || '';
+    }
+
     const API_URL = `${API_BASE}/content/${contentSlug}/get/page/${order}`;
 
-    let page: ContentPageType | null = null;
+    //let page: ContentPageType | null = null;
 
     fetch(API_URL)
         .then(response => response.json())
@@ -178,7 +202,7 @@ async function fetchContentPageByOrder(contentSlug: string, order: number) {
             }
         })
         .catch(error => {
-            console.error('FETCH useFetchPageBySlug ERROR', error);
+            console.error('FETCH fetchContentPageByOrder ERROR', error);
         });
 }
 
