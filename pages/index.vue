@@ -3,17 +3,23 @@
         Creando contenido desde 2001
     </span>
 
-    <NewsBanner />
 
+    <!-- falla useFetch o yo que sé... mirar docu: https://nuxt.com/docs/getting-started/data-fetching -->
+
+    <NewsBanner v-if="!loadingContentFeatured && contentFeatured?.featured" :data="contentFeatured?.featured"/>
+
+    <!--
     <Slide :slides="Array.from({ length: 9 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
+    -->
 
-
-    <GridSection />
 
     <!-- Banner para Destacados -->
     <section class="mt-2" style="width: 100%;">
         <SlideBanner :banners="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
     </section>
+
+    <GridSection class="mt-2"/>
+
 
     <!-- Últimas noticias slide -->
     <section class="mt-2" style="width: 100%;">
@@ -105,6 +111,11 @@
 
     <div class="mt-5"></div>
 </template>
+
+
+<script type="ts" setup>
+const { contentFeatured, loadingContentFeatured } = useFetchContentFeatured();
+</script>
 
 <style scoped>
 .box-my-history {

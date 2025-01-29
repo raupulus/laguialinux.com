@@ -1,5 +1,5 @@
 <template>
-    <div class="box-nb">
+    <div class="box-nb" v-if="data">
         <div class="box-nb-banner">
             <NuxtImg src="/images/banners/reading.png" alt="banner" style="width: 100%;"/>
         </div>
@@ -12,7 +12,9 @@
                 </div>
 
                 <div class="nb-card-title">
-                    <NuxtLink to="/" title="desc">Desc 1</NuxtLink>
+                    <NuxtLink to="/" title="desc">
+                        {{ featured1?.title }}
+                    </NuxtLink>
                 </div>
             </article>
 
@@ -22,7 +24,9 @@
                 </div>
 
                 <div class="nb-card-title">
-                    <NuxtLink to="/" title="desc">Desc 2</NuxtLink>
+                    <NuxtLink to="/" title="desc">
+                        {{ featured2?.title }}
+                    </NuxtLink>
                 </div>
             </article>
 
@@ -32,7 +36,9 @@
                 </div>
 
                 <div class="nb-card-title">
-                    <NuxtLink to="/" title="desc">Desc 3</NuxtLink>
+                    <NuxtLink to="/" title="desc">
+                        {{ featured3?.title }}
+                    </NuxtLink>
                 </div>
             </article>
         </div>
@@ -40,6 +46,45 @@
 </template>
 
 <script lang="ts" setup>
+import type { ContentFeatured} from '@/types/ContentFeaturedType';
+
+const props = defineProps({
+    data: {
+        type: Object as PropType<ContentFeatured> || undefined,
+        required: true,
+    }
+});
+
+const getDataByPos = (pos: number) => {
+    // Arrays con los datos a mezclar: news, posts, guides
+    const arrays = [
+        { data: props.data.news, priority: 'news' },
+        { data: props.data.posts, priority: 'posts' },
+        { data: props.data.guides, priority: 'guides' },
+    ];
+
+    // Filtramos los arrays para eliminar aquellos que están vacíos
+    const availableArrays = arrays.filter(arr => arr.data.length > 0);
+
+    // Buscamos el índice relativo en los arrays disponibles según la posición
+    const adjustedPos = pos - 1; // Convertimos la posición de 1-based a 0-based
+
+    // Comprobamos que la posición solicitada esté dentro del rango de los arrays disponibles
+    if (adjustedPos < 0 || adjustedPos >= availableArrays.length) {
+        return null; // Si no hay ningún array disponible para esa posición, devolvemos null
+    }
+
+    // Retornamos el primer elemento disponible en el orden de las prioridades
+    const selectedArray = availableArrays[adjustedPos % availableArrays.length];
+
+    return selectedArray.data[adjustedPos % selectedArray.data.length];
+};
+
+const featured1 = getDataByPos(1);
+const featured2 = getDataByPos(2);
+const featured3 = getDataByPos(3);
+const featured4 = getDataByPos(4);
+
 
 </script>
 
@@ -109,9 +154,11 @@
 }
 
 .nb-card-title a {
-    display: block;
+    display: grid;
+    padding: 0 0.3rem;
     width: 100%;
     height: 100%;
+    align-content: end;
     text-decoration: none;
     color: var(--white);
 }
