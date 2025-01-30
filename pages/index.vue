@@ -3,10 +3,7 @@
         Creando contenido desde 2001
     </span>
 
-
-    <!-- falla useFetch o yo que sé... mirar docu: https://nuxt.com/docs/getting-started/data-fetching -->
-
-    <NewsBanner v-if="!loadingContentFeatured && contentFeatured?.featured" :data="contentFeatured?.featured"/>
+    <NewsBanner v-if="!loadingContentFeatured && contentFeatured?.featured" :contents="contentFeatured?.featured" :loading="loadingContentFeatured" />
 
     <!--
     <Slide :slides="Array.from({ length: 9 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
@@ -15,7 +12,11 @@
 
     <!-- Banner para Destacados -->
     <section class="mt-2" style="width: 100%;">
-        <SlideBanner :banners="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+        <SlideBanner v-if="!loadingContentFeatured && contentFeatured?.trend" :contents="contentFeatured?.trend" :loading="loadingContentFeatured" />
+
+        <!--
+        <SlideBanner :contents="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+        -->
     </section>
 
     <GridSection class="mt-2"/>

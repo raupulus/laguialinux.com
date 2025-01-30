@@ -1,18 +1,20 @@
 import { type ContentType } from '@/types/ContentType';
 
 export type ContentFeatured = {
-    guides: Array<ContentType>,
-    news: Array<ContentType>,
-    posts: Array<ContentType>,
+    guides: ContentType[],
+    news: ContentType[],
+    blog: ContentType[],
 }
 
 export type ContentFeaturedData = {
-    featured?: ContentFeatured,
-    latest?: ContentFeatured,
+    featured: ContentFeatured | null,
+    latest: ContentFeatured | null,
+    trend: ContentFeatured | null,
 }
 
 export type ContentFeaturedRequest = {
     status: string,
-    featured?: ContentFeatured,
-    latest?: ContentFeatured,
+    featured: ContentFeatured | null,
+    latest: ContentFeatured | null,
+    trend: ContentFeatured | null,
 }

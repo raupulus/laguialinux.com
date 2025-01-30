@@ -1,95 +1,92 @@
 <template>
-    <div class="box-nb" v-if="data">
-        <div class="box-nb-banner">
-            <NuxtImg src="/images/banners/reading.png" alt="banner" style="width: 100%;"/>
+    <div class="box-nb" v-if="contents && !loading">
+        <div class="box-nb-banner" v-if="featuredItems.length && featuredItems[0]">
+            <article class="nb-card" v-if="featuredItems.length && featuredItems[0]">
+                <div class="nb-card-image">
+                    <NuxtImg
+                        :src="featuredItems[0]?.has_image ? featuredItems[0].urlImageMedium : '/images/banners/reading.webp'"
+                        :alt="featuredItems[0].title" style="width: 100%;" />
+                </div>
+
+                <div class="nb-card-title">
+                    <NuxtLink :to="featuredItems[0].url" :title="featuredItems[0].title">
+                        <span class="nb-main-title">{{ featuredItems[0].title }}</span>
+                    </NuxtLink>
+                </div>
+            </article>
         </div>
 
-
         <div class="box-nb-more-readers">
-            <article class="nb-card">
-                <div class="nb-card-image">
-                    <NuxtImg src="/images/banners/reading.png" alt="banner"/>
-                </div>
+            <template v-for="(n, index) in featuredItems" :key="index">
+                <article class="nb-card" v-if="n && index > 0">
+                    <div class="nb-card-image">
+                        <NuxtImg :src="n.has_image ? n.urlImageMedium : '/images/banners/reading.webp'" :alt="n.title" />
+                    </div>
 
-                <div class="nb-card-title">
-                    <NuxtLink to="/" title="desc">
-                        {{ featured1?.title }}
-                    </NuxtLink>
-                </div>
-            </article>
-
-            <article class="nb-card">
-                <div class="nb-card-image">
-                    <NuxtImg src="/images/banners/reading.png" alt="banner"/>
-                </div>
-
-                <div class="nb-card-title">
-                    <NuxtLink to="/" title="desc">
-                        {{ featured2?.title }}
-                    </NuxtLink>
-                </div>
-            </article>
-
-            <article class="nb-card">
-                <div class="nb-card-image">
-                    <NuxtImg src="/images/banners/reading.png" alt="banner"/>
-                </div>
-
-                <div class="nb-card-title">
-                    <NuxtLink to="/" title="desc">
-                        {{ featured3?.title }}
-                    </NuxtLink>
-                </div>
-            </article>
+                    <div class="nb-card-title">
+                        <NuxtLink :to="n.url" :title="n.title">
+                            <span>{{ n.title }}</span>
+                        </NuxtLink>
+                    </div>
+                </article>
+            </template>
         </div>
     </div>
 </template>
 
-<script lang="ts" setup>
-import type { ContentFeatured} from '@/types/ContentFeaturedType';
+<script setup lang="ts">
+import type { ContentFeatured } from '@/types/ContentFeaturedType';
 
-const props = defineProps({
-    data: {
-        type: Object as PropType<ContentFeatured> || undefined,
-        required: true,
+const props = defineProps<{
+    contents: ContentFeatured | null;
+    loading: boolean;
+}>();
+
+const featuredItems = computed(() => {
+    const items = [];
+    for (let i = 1; i <= 7; i++) {
+        items.push(getDataByPos(i));
     }
+    return items;
 });
 
+
+/**
+ * Devuelve el contenido preparado por posición de forma que baraja los tipos de contenido
+ * quedando prioridad noticia > blog > guía repitiendo este orden además ordenado según
+ * cada tipo por el actualizado más recientemente.
+ *
+ * @param pos
+ */
 const getDataByPos = (pos: number) => {
-    // Arrays con los datos a mezclar: news, posts, guides
     const arrays = [
-        { data: props.data.news, priority: 'news' },
-        { data: props.data.posts, priority: 'posts' },
-        { data: props.data.guides, priority: 'guides' },
+        { data: props.contents?.news ?? [], priority: 'news' },
+        { data: props.contents?.blog ?? [], priority: 'blog' },
+        { data: props.contents?.guides ?? [], priority: 'guides' },
     ];
 
-    // Filtramos los arrays para eliminar aquellos que están vacíos
-    const availableArrays = arrays.filter(arr => arr.data.length > 0);
+    const maxLength = Math.max(arrays[0].data.length, arrays[1].data.length, arrays[2].data.length);
+    const allItems = [];
 
-    // Buscamos el índice relativo en los arrays disponibles según la posición
-    const adjustedPos = pos - 1; // Convertimos la posición de 1-based a 0-based
-
-    // Comprobamos que la posición solicitada esté dentro del rango de los arrays disponibles
-    if (adjustedPos < 0 || adjustedPos >= availableArrays.length) {
-        return null; // Si no hay ningún array disponible para esa posición, devolvemos null
+    for (let i = 0; i < maxLength; i++) {
+        for (let j = 0; j < arrays.length; j++) {
+            if (arrays[j].data.length > i) {
+                allItems.push(arrays[j].data[i]);
+            }
+        }
     }
 
-    // Retornamos el primer elemento disponible en el orden de las prioridades
-    const selectedArray = availableArrays[adjustedPos % availableArrays.length];
+    // Compruebo si hay elementos en el array
+    if (allItems.length === 0) {
+        return null;
+    }
 
-    return selectedArray.data[adjustedPos % selectedArray.data.length];
+    const index = (pos - 1) % allItems.length;
+    return allItems[index];
 };
-
-const featured1 = getDataByPos(1);
-const featured2 = getDataByPos(2);
-const featured3 = getDataByPos(3);
-const featured4 = getDataByPos(4);
-
-
 </script>
 
 <style scoped>
-
 .box-nb {
     position: relative;
     margin: 0;
@@ -105,6 +102,7 @@ const featured4 = getDataByPos(4);
     width: 100%;
     box-sizing: border-box;
 }
+
 .box-nb-more-readers {
     margin: 0;
     padding: 0;
@@ -161,6 +159,14 @@ const featured4 = getDataByPos(4);
     align-content: end;
     text-decoration: none;
     color: var(--white);
+}
+
+.nb-card-title a span {
+    padding-bottom: 1rem;
+}
+
+.nb-main-title {
+    font-size: 2.3rem;
 }
 
 @media (max-width: 768px) {
