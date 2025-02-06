@@ -24,7 +24,7 @@ export default {
         },
         image: {
             type: String,
-            required: true
+            required: false
         },
         description: {
             type: String,

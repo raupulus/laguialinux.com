@@ -1,5 +1,9 @@
 <template>
-    <div class="box-nb" v-if="contents && !loading">
+    <div v-if="loading">
+
+    </div>
+
+    <div class="box-nb" v-if="!loading && contents && contents?.featured">
         <div class="box-nb-banner" v-if="featuredItems.length && featuredItems[0]">
             <article class="nb-card" v-if="featuredItems.length && featuredItems[0]">
                 <div class="nb-card-image">
@@ -35,12 +39,19 @@
 </template>
 
 <script setup lang="ts">
-import type { ContentFeatured } from '@/types/ContentFeaturedType';
+import type { ContentFeaturedData } from '~/types/ContentFeaturedType';
 
-const props = defineProps<{
-    contents: ContentFeatured | null;
-    loading: boolean;
-}>();
+const props = defineProps({
+    contents: {
+        type: Object as PropType<ContentFeaturedData>,
+        required: false,
+        default: null,
+    },
+    loading: {
+        type: Boolean,
+        default: true,
+    }
+});
 
 const featuredItems = computed(() => {
     const items = [];
@@ -60,9 +71,9 @@ const featuredItems = computed(() => {
  */
 const getDataByPos = (pos: number) => {
     const arrays = [
-        { data: props.contents?.news ?? [], priority: 'news' },
-        { data: props.contents?.blog ?? [], priority: 'blog' },
-        { data: props.contents?.guides ?? [], priority: 'guides' },
+        { data: props.contents?.featured?.news ?? [], priority: 'news' },
+        { data: props.contents?.featured?.blog ?? [], priority: 'blog' },
+        { data: props.contents?.featured?.guides ?? [], priority: 'guides' },
     ];
 
     const maxLength = Math.max(arrays[0].data.length, arrays[1].data.length, arrays[2].data.length);
@@ -134,7 +145,9 @@ const getDataByPos = (pos: number) => {
     margin: 0;
     padding: 0;
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
+    object-fit: cover;
 }
 
 .nb-card-title {

@@ -59,16 +59,8 @@ function scrollToggle(disabled: boolean) {
 
 
 watch(scrollDisabled, (current) => {
-    //console.log('Valor actual: ', current);
     scrollToggle(current);
 });
-
-
-
-onNuxtReady(() => {
-    usePlatformData()
-})
-
 
 /* Cookies */
 const {

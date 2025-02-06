@@ -1,5 +1,7 @@
 import type { PlatformDataType } from "@/types/Platform/PlatformDataType";
 
+const PLATFORM: string = 'laguialinux';
+
 type PlaformDataRequest = {
     status: string,
     data: PlatformDataType
@@ -25,7 +27,18 @@ async function getPlatformInfo() {
         .catch(err => console.log('FETCH 1', err));
     */
 
-    const { data, error } = await useFetch<PlaformDataRequest>(API_BASE + '/platform/laguialinux/info');
+    //const { data, error } = await useFetch<PlaformDataRequest>(API_BASE + '/platform/laguialinux/info');
+
+    const {data, status, error} = await useAsyncData<PlaformDataRequest>(
+        'platformData',
+        () => $fetch(`${API_BASE}/platform/${PLATFORM}/info`), {
+            //watch: [page]
+            server: true,
+            lazy: false,
+            immediate: true,
+        },
+
+    );
 
     if (error.value) {
         console.error('Error fetching data:', error.value);

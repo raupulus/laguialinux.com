@@ -2,6 +2,7 @@ import type { MetadataType } from "@/types/MetadataType";
 import type { CategoryType } from "@/types/CategoryType";
 import type { ContentType } from "@/types/ContentType";
 import { prepareDataCategory } from '@/utils/CategoryUtils';
+import type { ContentFeaturedRequest } from "~/types/ContentFeaturedType";
 
 function prepareContentDataMetadata(metadata: MetadataType) {
     const priority: (keyof MetadataType)[] = [
@@ -62,4 +63,39 @@ export function prepareContentData(content: ContentType, contentType: string) {
     })
 
     return content;
+}
+
+
+export function prepareContentFeatured(data: ContentFeaturedRequest | null) {
+    if (! data) {
+        return null;
+    }
+
+    const featured = data?.featured ?? null;
+    const latest = data?.latest ?? null;
+    const trend = data?.trend ?? null;
+
+    if (featured) {
+        featured.blog = featured.blog?.map((content) => prepareContentData(content, 'blog'));
+        featured.news = featured.news?.map((content) => prepareContentData(content, 'news'));
+        featured.guides = featured.guides?.map((content) => prepareContentData(content, 'guides'));
+    }
+
+    if (latest) {
+        latest.blog = latest.blog?.map((content) => prepareContentData(content, 'blog'));
+        latest.news = latest.news?.map((content) => prepareContentData(content, 'news'));
+        latest.guides = latest.guides?.map((content) => prepareContentData(content, 'guides'));
+    }
+
+    if (trend) {
+        trend.blog = trend.blog?.map((content) => prepareContentData(content, 'blog'));
+        trend.news = trend.news?.map((content) => prepareContentData(content, 'news'));
+        trend.guides = trend.guides?.map((content) => prepareContentData(content, 'guides'));
+    }
+
+    return {
+        featured: featured,
+        latest: latest,
+        trend: trend,
+    }
 }

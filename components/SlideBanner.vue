@@ -5,7 +5,7 @@
                 <template v-for="(type, idx) in contents" :key="idx">
                     <swiper-slide v-for="(content, idx) in type" :key="idx">
                         <Banner :title="content.title" :description="content.excerpt" :url="content.url"
-                            :image="content.has_image ? content.urlImageSmall ?? '/images/banners/placeholder.webp' : '/images/banners/placeholder.webp'" />
+                            :image="content.has_image ? content.urlImageSmall : ''" />
                     </swiper-slide>
                 </template>
             </swiper-container>
@@ -49,7 +49,7 @@ const swiper = useSwiper(containerRefBanner, {
     },
 
     keyboard: {
-        enabled: true,
+        enabled: false,
         onlyInViewport: true,
     },
     coverflowEffect: {
@@ -60,12 +60,6 @@ const swiper = useSwiper(containerRefBanner, {
         slideShadows: true,
     },
 });
-
-/*
-onMounted(() => {
-  console.log(swiper.instance);
-});
-*/
 </script>
 
 <style lang="css">
@@ -84,7 +78,6 @@ onMounted(() => {
     display: block;
     box-sizing: border-box;
     overflow: hidden;
-    /* Esto asegura que el contenedor no se desborde */
 }
 
 .box-slide-banner swiper-slide {
@@ -94,9 +87,7 @@ onMounted(() => {
     margin: 0;
     padding: 8px 0 0 0;
     width: 100% !important;
-    /* El slide debe ocupar todo el espacio disponible */
     height: auto !important;
-    /* El alto se ajusta automáticamente */
     text-align: center;
     box-sizing: border-box;
 }
@@ -105,7 +96,6 @@ onMounted(() => {
     .box-slide-banner swiper-container {
         width: 100%;
         height: auto;
-        /* Ajustamos la altura del swiper container */
     }
 
     .box-slide-banner swiper-slide {

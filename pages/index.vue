@@ -3,7 +3,7 @@
         Creando contenido desde 2001
     </span>
 
-    <NewsBanner v-if="!loadingContentFeatured && contentFeatured?.featured" :contents="contentFeatured?.featured" :loading="loadingContentFeatured" />
+    <NewsBanner :contents="contentFeatured" :loading="loadingContentFeatured"/>
 
     <!--
     <Slide :slides="Array.from({ length: 9 }, (_, index) => ({ image: `/images/slides/home/${index + 1}.webp` }))"/>
@@ -11,29 +11,27 @@
 
 
     <!-- Banner para Destacados -->
-    <section class="mt-2" style="width: 100%;">
-        <SlideBanner v-if="!loadingContentFeatured && contentFeatured?.trend" :contents="contentFeatured?.trend" :loading="loadingContentFeatured" />
-
-        <!--
-        <SlideBanner :contents="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
-        -->
+    <section class="mt-2" style="width: 100%;" v-if="!loadingContentFeatured && contentFeatured?.trend">
+        <SlideBanner :contents="contentFeatured?.trend" :loading="loadingContentFeatured" />
     </section>
 
     <GridSection class="mt-2"/>
 
 
     <!-- Últimas noticias slide -->
-    <section class="mt-2" style="width: 100%;">
+    <section class="mt-2" style="width: 100%;" v-if="!loadingContentFeatured && contentFeatured?.latest?.news">
         <h2 class="text-center">Últimas noticias</h2>
-        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+
+        <SlideBlog :data="contentFeatured.latest.news" section="news"/>
     </section>
 
     <div class="section-separator"></div>
 
     <!-- Últimas entradas para el blog -->
-    <section class="mt-1" style="width: 100%;">
+    <section class="mt-2" style="width: 100%;" v-if="!loadingContentFeatured && contentFeatured?.latest?.blog">
         <h2 class="text-center">Últimas entradas en el blog</h2>
-        <SlideBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}]" />
+
+        <SlideBlog :data="contentFeatured.latest.blog" section="blog" />
     </section>
 
     <div class="section-separator"></div>
@@ -98,16 +96,17 @@
     <div class="section-separator"></div>
 
     <!-- Grid Noticias destacadas -->
-    <section class="mt-1" style="width: 100%;">
-        <h2 class="text-center">Noticias Destacadas</h2>
-        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
+    <section class="mt-2" style="width: 100%;" v-if="!loadingContentFeatured && contentFeatured?.featured?.news">
+        <h2 class="text-center">Noticias destacadas</h2>
+
+        <GridBlog :idx="idx" :data="contentFeatured.featured.news" section="news" />
     </section>
 
-
     <!-- Grid Entradas destacadas -->
-    <section class="mt-1" style="width: 100%;">
+    <section class="mt-2" style="width: 100%;" v-if="!loadingContentFeatured && contentFeatured?.featured?.blog">
         <h2 class="text-center">Entradas destacadas</h2>
-        <GridBlog :data="[{title: 'title 1', excerpt: 'des1', image: '/images/banners/1.webp', url: '/about', categories: ['cat1', 'cat2', 'cat3']}, {title: 'title 2', excerpt: 'des2', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 3', excerpt: 'des3', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 4', excerpt: 'des4', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 5', excerpt: 'des5', image: '/images/banners/1.webp', url: '/about'}, {title: 'title 6', excerpt: 'des6', image: '/images/banners/1.webp', url: '/about'}]" />
+
+        <GridBlog :data="contentFeatured.featured.blog" section="blog" />
     </section>
 
     <div class="mt-5"></div>
