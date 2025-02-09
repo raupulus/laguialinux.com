@@ -1,24 +1,101 @@
 <template>
     <div>
-        <h2 class="page-h2-title">
-            Nuestro
-            <span class="text-primary font-bold">
-                Blog
-            </span>
-        </h2>
+        <Loader :isLoading="loadingContents && !loadingCategories"></Loader>
 
         <section>
-            <GridProjects v-if="results.contents && !loadingContents" :projects="results.contents"/>
+            <h2 class="page-h2-title">
+                Nuestro <span class="text-primary font-bold">Blog</span>
+            </h2>
         </section>
+
+        <!-- Filtro por Categorías y Subcategorías -->
+        <FormFilterCategorySelect v-if="!loadingCategories" @clear-category="handleClearCategory"
+            @clear-subcategory="handleClearSubcategory" @change-category="handleChangeCategory"
+            @change-subcategory="handleChangeSubCategory" :categories="categories" :subcategories="subcategories"
+            :loadingCategories="loadingCategories" />
+
+        <!-- Noticias -->
+        <section v-if="!loadingContents">
+            <GridProjects v-if="results.contents && !loadingContents" :projects="results.contents" />
+        </section>
+
     </div>
 </template>
 
-<script type="ts" setup>
-//const { categories, subcategories, currentCategory, currentSubcategory, categoryActions } = useFetchCategories();
+<script setup lang="ts">
+/**
+ * Procesa la acción de scroll infinito
+ * @function handleScroll
+ */
+const handleScroll = () => {
+    if (results.value.pagination?.hasNextPage) {
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.body.scrollHeight;
+
+        if (scrollTop + windowHeight >= documentHeight - 100) {
+            useFetchContentNext()
+        }
+    }
+};
+
+const { categories, subcategories, currentCategory, currentSubcategory, categoryActions } = useFetchCategories();
 const { results, contentActions, loadingContents } = useFetchContent('blog');
 
+/**
+ * Procesa eliminar una categoría.
+ */
+function handleClearCategory() {
+    categoryActions.setCurrentSubcategory('');
+    categoryActions.setCurrentCategory('');
+
+    contentActions.setFilterCategory('');
+    contentActions.setFilterSubCategory('');
+    handleChangeCategory()
+}
+
+/**
+ * Procesa eliminar una subcategoría.
+ */
+function handleClearSubcategory() {
+    contentActions.setFilterCategory('');
+    contentActions.setFilterSubCategory('');
+    handleChangeSubCategory()
+}
+
+/**
+ * Procesa el cambio de categoría
+ * @function handleChangeCategory
+ */
+function handleChangeCategory(category: string = '') {
+    categoryActions.setCurrentSubcategory('');
+    categoryActions.setCurrentCategory(category);
+
+    contentActions.setFilterCategory(category);
+    contentActions.setFilterSubCategory('');
+    contentActions.fetchResults(1, true);
+}
+
+/**
+ * Procesa el cambio de subcategoría
+ * @function handleChangeSubCategory
+ */
+function handleChangeSubCategory(subcategory: string = '', parent: string = '') {
+    categoryActions.setCurrentSubcategory(subcategory);
+    contentActions.setFilterSubCategory(subcategory, parent ?? currentCategory.value?.slug);
+
+    contentActions.fetchResults(1, true);
+}
+
+const loadingCategories = ref<boolean>(true);
+
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    if (categories.value) {
+        loadingCategories.value = false;
+    }
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

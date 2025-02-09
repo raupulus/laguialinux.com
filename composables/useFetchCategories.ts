@@ -113,6 +113,12 @@ const setCurrentSubcategory = (slug: string) => {
     } else {
         subcategories.value = [...allSubcategories.value];
     }
+
+    // Establezco categoría asociada a la subcategoría al cambiar.
+    if (currentSubcategory && currentSubcategory.value?.parent) {
+        setCurrentCategory(currentSubcategory.value.parent);
+    }
+
 }
 
 const categoryActions = {

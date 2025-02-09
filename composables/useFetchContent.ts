@@ -100,8 +100,12 @@ const setFilterCategory = (cat: string) => {
     contentCategory.value = cat ?? '';
 }
 
-const setFilterSubCategory = (subcat: string) => {
+const setFilterSubCategory = (subcat: string, parent: string|null = null) => {
     contentSubcategory.value = subcat ?? '';
+
+    if (parent) {
+        setFilterCategory(parent);
+    }
 }
 
 
