@@ -69,17 +69,17 @@ const swiper = useSwiper(containerRef, {
     },
     cubeEffect: {
         slideShadows: true,
-        shadow: true,
+        shadow: false,
         shadowOffset: 20,
         shadowScale: 0.94,
     },
     creativeEffect: {
         prev: {
-            shadow: true,
+            shadow: false,
             translate: [0, 0, -400],
         },
         next: {
-            shadow: true,
+            shadow: false,
             translate: [0, 0, -400],
         },
     },
@@ -88,17 +88,17 @@ const swiper = useSwiper(containerRef, {
         stretch: 0,
         depth: 100,
         modifier: 1,
-        slideShadows: true,
+        slideShadows: false,
     },
     flipEffect: {
-        slideShadows: true,
+        slideShadows: false,
         limitRotation: true,
     },
     cardsEffect: {
-        slideShadows: true,
+        slideShadows: false,
     },
     fadeEffect: {
-        crossFade: true,
+        crossFade: false,
     },
 });
 </script>

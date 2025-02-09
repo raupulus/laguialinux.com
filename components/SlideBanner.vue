@@ -44,9 +44,12 @@ const swiper = useSwiper(containerRefBanner, {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
     },
+    autoplay: false,
+    /*
     autoplay: {
         delay: 10000,
     },
+    */
 
     keyboard: {
         enabled: false,
@@ -57,7 +60,7 @@ const swiper = useSwiper(containerRefBanner, {
         stretch: 0,
         depth: 100,
         modifier: 1,
-        slideShadows: true,
+        slideShadows: false,
     },
 });
 </script>
