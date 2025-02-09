@@ -58,7 +58,9 @@
                         class="clear-button">
                         ✖
                     </span>
+
                     <span v-else></span>
+
                     <multiselect v-model="selectSubcategory" :options="subcategories" :allow-empty="true"
                         @update:model-value="handleChangeSubCategory" label="name" track-by="slug"
                         :preserveSearch="true" :clearOnSelect="true" selectLabel="Pulsa Intro para seleccionar"
