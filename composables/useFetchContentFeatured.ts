@@ -24,7 +24,7 @@ async function fetchContentFeatured() {
         const response = await fetch(`${API_BASE}/platform/${PLATFORM}/content/featured`);
 
         if (response.ok) {
-            const data  = ref<ContentFeaturedRequest>(await response.json());
+            const data = ref<ContentFeaturedRequest>(await response.json());
             contentFeatured.value = prepareContentFeatured(data.value);
         }
     } else {
@@ -36,7 +36,6 @@ async function fetchContentFeatured() {
         );
 
         if (!error.value) {
-            console.error('Error fetching data:', error.value);
             contentFeatured.value = prepareContentFeatured(data.value);
         }
     }

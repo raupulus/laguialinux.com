@@ -11,11 +11,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
-
 type Breadcrumb = {
-name?: string;
-slug?: string;
+  name?: string;
+  slug?: string;
 }
 
 const props = defineProps({

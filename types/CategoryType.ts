@@ -11,3 +11,8 @@ export type CategoryType = {
     is_main?: boolean,
     path?: string
 }
+
+export type CategoryTypeRequest = {
+    status: string,
+    categories: CategoryType[],
+}

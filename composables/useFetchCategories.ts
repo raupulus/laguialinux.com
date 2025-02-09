@@ -1,6 +1,7 @@
 import { ref } from 'vue';
-import { type CategoryType } from '@/types/CategoryType'
+import type { CategoryType } from '@/types/CategoryType'
 import { prepareDataCategory } from '@/utils/CategoryUtils';
+import type { CategoryTypeRequest } from '@/types/CategoryType';
 
 const PLATFORM: string = 'laguialinux';
 
@@ -35,22 +36,30 @@ const fecthCategories = async (slugCurrent: string|null = null, slugSubCategoryC
     if (isClient) {
         const runtimeConfig = useRuntimeConfig();
         API_BASE = runtimeConfig.public.api.base;
+
+        const response = await fetch(`${API_BASE}/platform/${PLATFORM}/get/categories`);
+
+        if (response.ok) {
+            const res = await response.json();
+
+            categories.value = res.categories?.map((category: CategoryType) => {
+                return prepareDataCategory(category);
+            }) ?? [];
+
+            await prepareVars();
+        }
     } else {
         API_BASE = process.env.API_BASE_URL || '';
-    }
 
-    const API_URL = `${API_BASE}/platform/${PLATFORM}/get/categories`;
+        const { data, error } = await useAsyncData<CategoryTypeRequest>('contentCategories', () =>
+            $fetch(`${API_BASE}/platform/${PLATFORM}/get/categories`)
+        );
 
-    const response = await fetch(API_URL);
-
-    if (response.ok) {
-        const res = await response.json();
-
-        categories.value = res.categories?.map((category: CategoryType) => {
-            return prepareDataCategory(category);
-        }) ?? [];
-
-        await prepareVars();
+        if (!error.value) {
+            categories.value = data.value?.categories?.map((category: CategoryType) => {
+                return prepareDataCategory(category);
+            }) ?? [];
+        }
     }
 
     if (slugCurrent) {
