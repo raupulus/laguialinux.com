@@ -12,6 +12,8 @@ let contentCategory = ref('');
 let contentSubcategory = ref('');
 let quantityForPage = ref<number>(10);
 
+const currentPage = ref<number>(1);
+
 const results = ref<ResponseContentType>({
     status: 'ok',
     pagination: undefined,
@@ -27,7 +29,7 @@ const currentContentPages = ref<ContentPageType[]>([]);
 
 
 // Indica si está actualmente preparando el contenido o descargándolo
-const loadingContents = ref<boolean>(false);
+const loadingContents = ref<boolean>(true);
 
 const fetchResults = async (page: number = 1, reset: boolean = false) => {
     if (fetchLocked.value) {
@@ -40,18 +42,12 @@ const fetchResults = async (page: number = 1, reset: boolean = false) => {
 
     fetchLocked.value = true;
 
+    currentPage.value = page;
+
     const isClient = process.client;
 
     let API_BASE: string = '';
-
-    if (isClient) {
-        const runtimeConfig = useRuntimeConfig();
-        API_BASE = runtimeConfig.public.api.base;
-    } else {
-        API_BASE = process.env.API_BASE_URL || '';
-    }
-
-    const API_URL = `${API_BASE}/platform/${PLATFORM}/content/type/${contentType.value}`;
+    let dataResponse: ResponseContentType | null = null;
 
     const paramsDict = {
         page: page.toString(),
@@ -60,26 +56,49 @@ const fetchResults = async (page: number = 1, reset: boolean = false) => {
         subcategory: contentSubcategory.value,
     }
 
-    const params = new URLSearchParams(paramsDict);
-    const response = await fetch(`${API_URL}?${params}`);
+    if (isClient) {
+        const runtimeConfig = useRuntimeConfig();
+        API_BASE = runtimeConfig.public.api.base;
+        const API_URL = `${API_BASE}/platform/${PLATFORM}/content/type/${contentType.value}`;
 
-    if (response.ok) {
-        const data: ResponseContentType = await response.json();
+        const params = new URLSearchParams(paramsDict);
+        const response = await fetch(`${API_URL}?${params}`);
 
-        if (reset) {
-            results.value.contents = [];
+        if (response.ok) {
+            dataResponse = await response.json();
         }
+    } else {
+        API_BASE = process.env.API_BASE_URL || '';
+        const API_URL = `${API_BASE}/platform/${PLATFORM}/content/type/${contentType.value}`;
 
-        results.value.pagination = data.pagination ?? undefined;
-        results.value.search_params = data.search_params ?? undefined;
+        const { data, error } = await useAsyncData<ResponseContentType>('content',
+            () => $fetch(`${API_BASE}/platform/${PLATFORM}/content/type/${contentType.value}`, {
+                params: paramsDict,
+            }), {
+            watch: [currentPage]
+        }
+        );
 
-        data.contents?.forEach((content: ContentType) => {
+        if (!error.value) {
+            dataResponse = data.value;
+        }
+    }
+
+    if (reset) {
+        results.value.contents = [];
+    }
+
+    if (dataResponse) {
+        results.value.pagination = dataResponse.pagination ?? undefined;
+        results.value.search_params = dataResponse.search_params ?? undefined;
+
+        dataResponse.contents?.forEach((content: ContentType) => {
             content = prepareContentData(content, contentType.value);
 
             results.value.contents?.push(content);
         })
 
-        results.value.status = data.status ?? 'ok';
+        results.value.status = dataResponse.status ?? 'ok';
     }
 
     fetchLocked.value = false;
@@ -100,7 +119,7 @@ const setFilterCategory = (cat: string) => {
     contentCategory.value = cat ?? '';
 }
 
-const setFilterSubCategory = (subcat: string, parent: string|null = null) => {
+const setFilterSubCategory = (subcat: string, parent: string | null = null) => {
     contentSubcategory.value = subcat ?? '';
 
     if (parent) {
@@ -127,7 +146,7 @@ export const useFetchContentNext = () => {
 }
 
 
-async function fetchContentBySlug(type:string, slug: string, withPages = false) {
+async function fetchContentBySlug(type: string, slug: string, withPages = false) {
     fetchLocked.value = true;
     contentType.value = type;
 
@@ -172,10 +191,10 @@ async function fetchContentBySlug(type:string, slug: string, withPages = false) 
  * @param slug
  * @returns
  */
-export const useFetchContentBySlug = (type:string, slug: string) => {
+export const useFetchContentBySlug = (type: string, slug: string) => {
     fetchContentBySlug(type, slug, true);
 
-    return {currentContent, currentContentPages, loadingContents};
+    return { currentContent, currentContentPages, loadingContents };
 }
 
 
