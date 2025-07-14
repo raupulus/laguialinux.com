@@ -9,12 +9,12 @@
                     </NuxtLink>
                 </div>
 
-                <h1 class="inline-block text-primary m-0 font-title">
+                <p class="inline-block text-primary m-0 font-title">
                     La Guía Linux
                     <span class="block subtitle-header text-warning">
                         Versión 2.0 -Reborn-
                     </span>
-                </h1>
+                </p>
             </div>
 
 

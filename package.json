@@ -9,22 +9,22 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@dargmuesli/nuxt-cookie-control": "^8.4.13",
-    "@nuxt/devtools": "^1.4.1",
-    "@nuxt/image": "^1.5.0",
-    "@nuxtjs/sitemap": "^6.1.0",
-    "@types/node": "^20.16.10",
-    "nuxt": "^3.13.1",
-    "nuxt-gtag": "^3.0.1",
-    "nuxt-swiper": "^2.0.0",
+    "@dargmuesli/nuxt-cookie-control": "^8.6.1",
+    "@nuxt/devtools": "^1.7.0",
+    "@nuxt/image": "^1.10.0",
+    "@nuxtjs/sitemap": "^6.1.5",
+    "@types/node": "^20.19.7",
+    "nuxt": "^3.17.6",
+    "nuxt-gtag": "^3.0.3",
+    "nuxt-swiper": "^2.0.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.4.3",
-    "vue-tsc": "^2.1.6"
+    "typescript": "^5.8.3",
+    "vue-tsc": "^2.2.12"
   },
   "dependencies": {
-    "@vue/devtools": "^7.4.4",
-    "vue-multiselect": "^3.0.0-beta.3",
+    "@vue/devtools": "^7.7.7",
+    "vue-multiselect": "^3.2.0",
     "vue-recaptcha-v3": "^2.0.1"
   }
 }

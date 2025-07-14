@@ -25,6 +25,7 @@ export default defineNuxtConfig({
                 domain: process.env.API_DOMAIN_URL,
                 base: process.env.API_BASE_URL,
                 contact: process.env.API_PATH_CONTACT,
+                newsletter: process.env.API_PATH_NEWSLETTER,
             },
             captcha: {
                 siteKey: process.env.CAPTCHA_SITE_KEY,

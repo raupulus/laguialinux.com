@@ -1,6 +1,8 @@
 export type CategoryType = {
+    id?: number,
     slug: string,
     parent?: string,
+    parent_id?: number,
     name: string,
     subcategories?: CategoryType[],
     description?: string,

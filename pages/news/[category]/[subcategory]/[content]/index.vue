@@ -63,9 +63,12 @@
                 </section>
 
                 <!-- Autor -->
+                <!-- Esto en el futuro deberá llevar a una página con info del autor -->
+                <!--
                 <div>
                     <h3>autor</h3>
                 </div>
+                -->
             </div>
 
             <!-- Barra lateral -->
@@ -101,7 +104,7 @@
 
                 <!-- Lo más Leído -->
                 <div class="mt-1">
-                    Lo más Leído
+                    <MostRead/>
                 </div>
 
                 <!-- Anuncio -->
@@ -111,17 +114,14 @@
 
                 <!-- Contenido Relacionado -->
                 <div class="mt-1">
-                    Contenido Relacionado
+                    <RelatedContent :contentSlug="slugContent" contentType="news" />
                 </div>
             </aside>
         </div>
 
-        <!-- Contenido Relacionado -->
-        <section style="background-color: green;">
-            <h2>Contenido relacionado</h2>
-
-            <br />
-            &lt;Anterior - Sigiente &gt;
+        <!-- Contenido Relacionado Slider -->
+        <section class="mt-2">
+            <RelatedContentSlider :contentSlug="slugContent" contentType="news" />
         </section>
 
         <!-- Anuncio -->
@@ -130,25 +130,34 @@
         </div>
 
         <!-- Comentarios -->
+        <!--
         <section style="background-color: red;">
             <h2>Comentarios</h2>
 
             <br />
             user X - fecha X - comentario X
         </section>
+        -->
 
         <!-- Anuncio -->
+        <!--
         <div class="mt-1">
             <Advertisement type="multiplex" />
         </div>
+        -->
 
-        <!-- Contenido Relacionado -->
-        <section style="background-color: gray;">
-            <h2>Contenido Recomendado</h2>
-
-            <br />
-            4 tarjetas verticales (imagen, título, fecha)
+        <!-- Contenido Recomendado -->
+        <!--
+        <section>
+            <h2 class="text-center">Contenido Recomendado</h2>
+            <div v-if="recommendedContent && recommendedContent.length > 0">
+                <GridBlog :data="recommendedContent" section="guides" />
+            </div>
+            <div v-else class="text-center">
+                <p>Cargando recomendaciones...</p>
+            </div>
         </section>
+        -->
 
         <!-- Anuncio -->
         <div class="mt-1">

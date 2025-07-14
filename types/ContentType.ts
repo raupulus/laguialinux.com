@@ -6,6 +6,7 @@ export type ContentType = {
     title: string,
     slug: string,
     excerpt: string,
+    content?: string,
     is_featured?: string,
     has_image?: boolean,
     urlImageSmall?: string,
