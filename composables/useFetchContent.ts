@@ -307,7 +307,7 @@ async function fetchContentBySlug(type: string, slug: string, withPages = false)
     }
 
     // Construimos la URL para obtener el contenido específico
-    const API_URL = `${API_BASE}/content/${contentType.value}/${slug}/get`;
+    const API_URL = `${API_BASE}/content/${PLATFORM}/${slug}/get`;
 
     try {
         // Realizamos la petición a la API
