@@ -82,21 +82,25 @@ code, pre, .font-mono {
 }
 
 /* ==============================================================================
- * Swiper Coverflow 3D
+ * Carruseles Swiper (Guías: Noticias y Blog)
  * ============================================================================== */
-.swiper-news-coverflow, .swiper-blog-coverflow {
-  overflow: visible !important;
-  padding: 15px 0 45px 0 !important;
+.swiper-news, .swiper-blog {
+  overflow: hidden !important;
   width: 100%;
   box-sizing: border-box;
 }
-.swiper-news-coverflow .swiper-slide,
-.swiper-blog-coverflow .swiper-slide {
-  padding: 20px 0;
+.swiper-news .swiper-slide,
+.swiper-blog .swiper-slide {
+  height: auto !important;
+  display: flex !important;
   box-sizing: border-box;
-  height: auto;
 }
-.swiper-pagination-bullet-active {
+.swiper-pagination-news .swiper-pagination-bullet-active {
+  background: #f59e0b !important;
+  width: 24px !important;
+  border-radius: 9999px !important;
+}
+.swiper-pagination-blog .swiper-pagination-bullet-active {
   background: #10b981 !important;
   width: 24px !important;
   border-radius: 9999px !important;
@@ -105,12 +109,6 @@ code, pre, .font-mono {
   top: 50% !important;
   transform: translateY(-50%) !important;
   z-index: 20 !important;
-}
-.swiper-button-prev { left: -14px !important; }
-.swiper-button-next { right: -14px !important; }
-@media (min-width: 1024px) {
-  .swiper-button-prev { left: -22px !important; }
-  .swiper-button-next { right: -22px !important; }
 }
 
 /* ==============================================================================

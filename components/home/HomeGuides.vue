@@ -1,25 +1,24 @@
 <script setup lang="ts">
 import Swiper from 'swiper'
-import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules'
+import { Pagination, Navigation } from 'swiper/modules'
 
 onMounted(() => {
-  new Swiper('.swiper-news-coverflow', {
-    modules: [EffectCoverflow, Pagination, Navigation],
-    effect: 'coverflow',
+  new Swiper('.swiper-news', {
+    modules: [Pagination, Navigation],
     grabCursor: true,
     loop: true,
-    speed: 500,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: false,
-    },
+    speed: 450,
+    slidesPerView: 1,
+    spaceBetween: 16,
     breakpoints: {
-      320: { slidesPerView: 1, spaceBetween: 10, centeredSlides: true },
-      587: { slidesPerView: 2, spaceBetween: 14, centeredSlides: false },
-      1024: { slidesPerView: 3, spaceBetween: 16, centeredSlides: false },
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
     },
     pagination: {
       el: '.swiper-pagination-news',
@@ -31,23 +30,22 @@ onMounted(() => {
     },
   })
 
-  new Swiper('.swiper-blog-coverflow', {
-    modules: [EffectCoverflow, Pagination, Navigation],
-    effect: 'coverflow',
+  new Swiper('.swiper-blog', {
+    modules: [Pagination, Navigation],
     grabCursor: true,
     loop: true,
-    speed: 500,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: false,
-    },
+    speed: 450,
+    slidesPerView: 1,
+    spaceBetween: 16,
     breakpoints: {
-      320: { slidesPerView: 1, spaceBetween: 10, centeredSlides: true },
-      587: { slidesPerView: 2, spaceBetween: 14, centeredSlides: false },
-      1024: { slidesPerView: 3, spaceBetween: 16, centeredSlides: false },
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
     },
     pagination: {
       el: '.swiper-pagination-blog',
@@ -126,10 +124,10 @@ onMounted(() => {
         </a>
       </div>
 
-      <!-- CONTENEDOR SWIPER 3D COVERFLOW NOTICIAS -->
-      <div class="relative py-4">
-        <div class="swiper swiper-news-coverflow pb-12">
-          <div class="swiper-wrapper">
+      <!-- CONTENEDOR SWIPER NOTICIAS -->
+      <div class="relative py-4 px-2 sm:px-12">
+        <div class="swiper swiper-news overflow-hidden pb-12">
+          <div class="swiper-wrapper items-stretch">
             
             <!-- SLIDE 1 -->
             <div class="swiper-slide">
@@ -349,11 +347,13 @@ onMounted(() => {
 
           </div>
 
-          <!-- Navegación y Paginación Swiper -->
+          <!-- Paginación Swiper -->
           <div class="swiper-pagination swiper-pagination-news mt-4"></div>
-          <div class="swiper-button-prev swiper-button-prev-news !text-amber-400 !w-9 !h-9 !bg-slate-900/80 rounded-full border border-slate-700/80 after:!text-sm"></div>
-          <div class="swiper-button-next swiper-button-next-news !text-amber-400 !w-9 !h-9 !bg-slate-900/80 rounded-full border border-slate-700/80 after:!text-sm"></div>
         </div>
+
+        <!-- Botones de Navegación situados fuera del swiper con overflow:hidden -->
+        <button type="button" aria-label="Noticia anterior" class="swiper-button-prev swiper-button-prev-news !text-amber-400 !w-10 !h-10 !bg-slate-900/90 hover:!bg-slate-800 rounded-full border border-slate-700/80 shadow-xl after:!text-sm !left-0 sm:!-left-2 transition-all flex items-center justify-center cursor-pointer"></button>
+        <button type="button" aria-label="Noticia siguiente" class="swiper-button-next swiper-button-next-news !text-amber-400 !w-10 !h-10 !bg-slate-900/90 hover:!bg-slate-800 rounded-full border border-slate-700/80 shadow-xl after:!text-sm !right-0 sm:!-right-2 transition-all flex items-center justify-center cursor-pointer"></button>
       </div>
 
     </div>
@@ -572,10 +572,10 @@ onMounted(() => {
         </a>
       </div>
 
-      <!-- CONTENEDOR SWIPER 3D COVERFLOW BLOG -->
-      <div class="relative py-4">
-        <div class="swiper swiper-blog-coverflow pb-12">
-          <div class="swiper-wrapper">
+      <!-- CONTENEDOR SWIPER BLOG -->
+      <div class="relative py-4 px-2 sm:px-12">
+        <div class="swiper swiper-blog overflow-hidden pb-12">
+          <div class="swiper-wrapper items-stretch">
             
             <!-- BLOG 1 -->
             <div class="swiper-slide">
@@ -795,11 +795,13 @@ onMounted(() => {
 
           </div>
 
-          <!-- Navegación y Paginación Swiper -->
+          <!-- Paginación Swiper -->
           <div class="swiper-pagination swiper-pagination-blog mt-4"></div>
-          <div class="swiper-button-prev swiper-button-prev-blog !text-emerald-400 !w-9 !h-9 !bg-slate-900/80 rounded-full border border-slate-700/80 after:!text-sm"></div>
-          <div class="swiper-button-next swiper-button-next-blog !text-emerald-400 !w-9 !h-9 !bg-slate-900/80 rounded-full border border-slate-700/80 after:!text-sm"></div>
         </div>
+
+        <!-- Botones de Navegación situados fuera del swiper con overflow:hidden -->
+        <button type="button" aria-label="Entrada anterior" class="swiper-button-prev swiper-button-prev-blog !text-emerald-400 !w-10 !h-10 !bg-slate-900/90 hover:!bg-slate-800 rounded-full border border-slate-700/80 shadow-xl after:!text-sm !left-0 sm:!-left-2 transition-all flex items-center justify-center cursor-pointer"></button>
+        <button type="button" aria-label="Entrada siguiente" class="swiper-button-next swiper-button-next-blog !text-emerald-400 !w-10 !h-10 !bg-slate-900/90 hover:!bg-slate-800 rounded-full border border-slate-700/80 shadow-xl after:!text-sm !right-0 sm:!-right-2 transition-all flex items-center justify-center cursor-pointer"></button>
       </div>
 
     </div>
