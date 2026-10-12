@@ -18,6 +18,12 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+    optimizeDeps: {
+      include: [
+        'swiper',
+        'swiper/modules',
+      ],
+    },
   },
 
   css: ['~/assets/css/main.css'],
