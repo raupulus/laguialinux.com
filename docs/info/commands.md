@@ -18,6 +18,8 @@ El gestor de paquetes oficial del proyecto es **`pnpm`** (v10+). No utilizar `np
 | `pnpm build` | `nuxt build` | Compila la aplicación para producción generando los artefactos optimizados en `.output/`. |
 | `pnpm preview` | `nuxt preview` | Levanta el servidor local de producción emulando el entorno final a partir del build en `.output/`. |
 | `pnpm postinstall` | `nuxt prepare` | Genera los tipos de Nuxt y sincroniza `.nuxt/tsconfig.json` tras instalar dependencias. Se ejecuta automáticamente con `pnpm install`. |
+| `pnpm env:guias` | `cp .env-guias .env && nuxi cleanup` | Cambia el entorno a Guías (`laguialinux.com`) y limpia la caché de Nuxt/Nitro. |
+| `pnpm env:noticias` | `cp .env-noticias .env && nuxi cleanup` | Cambia el entorno a Noticias (`news.laguialinux.com`) y limpia la caché de Nuxt/Nitro. |
 
 ---
 
@@ -37,11 +39,11 @@ Para alternar entre los portales `laguialinux.com` y `news.laguialinux.com`:
 
 ```bash
 # Modo La Guía Linux (Portal Principal de Guías)
-cp .env.example .env
+pnpm env:guias
 pnpm dev
 
 # Modo La Guía Linux Noticias (Portal de Actualidad)
-cp .env.news.example .env
+pnpm env:noticias
 pnpm dev
 ```
 

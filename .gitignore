@@ -13,16 +13,26 @@ node_modules
 logs
 *.log
 
-# Misc
+# IDEs & Editors
+.vscode/
+.idea/
+.fleet/
+.zed/
+*.sublime-project
+*.sublime-workspace
+
+# OS & Misc
 .DS_Store
-.fleet
-.idea
+Thumbs.db
 
 # Local env files
 .env
 .env.*
+.env-*
 !.env.example
 !.env.news.example
+!.env-guias.example
+!.env-noticias.example
 
 # Documentación efímera (por desarrollador)
 /docs/planning/

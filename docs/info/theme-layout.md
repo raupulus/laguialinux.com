@@ -44,8 +44,9 @@ Consume `PlatformConfig` desde `usePlatform()`.
 ## 5. Dependencias
 
 - **Hacia adentro**:
+  - `components/AppHeader.vue`
+  - `components/AppFooter.vue`
   - `composables/usePlatform.ts`
-  - `@nuxt/icon`
   - `assets/css/main.css`
 - **Hacia afuera**:
   - `app.vue`
@@ -74,8 +75,9 @@ Consume `PlatformConfig` desde `usePlatform()`.
 
 ## 9. Pendiente real
 
-- [ ] Sustituir la cabecera básica temporal del layout por el componente modular definitivo `AppHeader.vue`.
-- [ ] Sustituir el footer básico temporal por el componente `AppFooter.vue` con animación SVG del stack tecnológico.
+- [x] Sustituir la cabecera básica temporal del layout por el componente modular definitivo `AppHeader.vue`.
+- [x] Sustituir el footer básico temporal por el componente `AppFooter.vue` con animación SVG del stack tecnológico.
+- [ ] Integrar el modal interactivo de búsqueda global (`SearchModal.vue`) cuando se pulse `Cmd+K`.
 
 ---
 > Creado: 2026-10-12 · Última revisión: 2026-10-12
