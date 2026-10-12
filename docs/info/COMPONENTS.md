@@ -37,10 +37,11 @@ Inventario verificado de componentes Vue/Nuxt implementados en el directorio `co
 - **Propósito**: Portada del portal principal de guías (`laguialinux.com`) con fidelidad total al prototipo aprobado.
 - **Secciones incluidas**:
   1. Hero principal con rejilla radial y terminal interactivo CLI con botones de copia rápida para comandos frecuentes (`systemctl`, `fdisk`, `iptables`, `chmod calc`, `btrfs snapshot`).
-  2. Carrusel Swiper de Últimas Noticias: exactamente 3 tarjetas visibles simultáneas en desktop (1 en móvil, 2 en tablet) en scroll infinito continuo (`loop: true`), estricta contención de desbordamiento (`overflow: hidden`) y navegación en los laterales exteriores del contenedor.
-  3. Los 3 Pilares Fundamentales (LGL Aprender Compartir, Noticias Actualidad y Eventos, Open Source Libertad en lo Digital) con badges flotantes `-mt-5` e ilustraciones temáticas.
-  4. Bloque de botones sociales 3D squircle con doble sombra táctil y relieve (YouTube, GitLab, GitHub, Telegram, Mastodon, X).
-  5. Carrusel Swiper de Bitácora & Artículos del Blog: exactamente 3 tarjetas visibles simultáneas en desktop en scroll infinito continuo (`loop: true`) con contención estricta sin desbordamiento.
+  2. Carrusel Swiper de Últimas Guías Técnicas: exactamente 3 tarjetas visibles simultáneas en desktop en scroll infinito continuo (`loop: true`), colores esmeralda de la plataforma, estricta contención de desbordamiento (`overflow: hidden`) y controles exteriores.
+  3. Carrusel Swiper de Últimas Noticias: exactamente 3 tarjetas visibles simultáneas en desktop (1 en móvil, 2 en tablet) en scroll infinito continuo (`loop: true`), estricta contención de desbordamiento (`overflow: hidden`) y navegación en los laterales exteriores del contenedor.
+  4. Los 3 Pilares Fundamentales (LGL Aprender Compartir, Noticias Actualidad y Eventos, Open Source Libertad en lo Digital) con badges flotantes `-mt-5` e ilustraciones temáticas.
+  5. Bloque de botones sociales 3D squircle con doble sombra táctil y relieve (YouTube, GitLab, GitHub, Telegram, Mastodon, X).
+  6. Carrusel Swiper de Bitácora & Artículos del Blog: exactamente 3 tarjetas visibles simultáneas en desktop en scroll infinito continuo (`loop: true`) con contención estricta sin desbordamiento.
 
 ### `HomeNews` (`components/home/HomeNews.vue`)
 - **Propósito**: Portada del portal de actualidad (`news.laguialinux.com`) con diseño editorial dark slate.

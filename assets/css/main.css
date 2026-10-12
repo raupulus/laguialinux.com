@@ -82,18 +82,24 @@ code, pre, .font-mono {
 }
 
 /* ==============================================================================
- * Carruseles Swiper (Guías: Noticias y Blog)
+ * Carruseles Swiper (Guías: Guías Técnicas, Noticias y Blog)
  * ============================================================================== */
-.swiper-news, .swiper-blog {
+.swiper-guides, .swiper-news, .swiper-blog {
   overflow: hidden !important;
   width: 100%;
   box-sizing: border-box;
 }
+.swiper-guides .swiper-slide,
 .swiper-news .swiper-slide,
 .swiper-blog .swiper-slide {
   height: auto !important;
   display: flex !important;
   box-sizing: border-box;
+}
+.swiper-pagination-guides .swiper-pagination-bullet-active {
+  background: #10b981 !important;
+  width: 24px !important;
+  border-radius: 9999px !important;
 }
 .swiper-pagination-news .swiper-pagination-bullet-active {
   background: #f59e0b !important;

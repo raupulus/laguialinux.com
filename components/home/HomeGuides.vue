@@ -3,6 +3,33 @@ import Swiper from 'swiper'
 import { Pagination, Navigation } from 'swiper/modules'
 
 onMounted(() => {
+  new Swiper('.swiper-guides', {
+    modules: [Pagination, Navigation],
+    grabCursor: true,
+    loop: true,
+    speed: 450,
+    slidesPerView: 1,
+    spaceBetween: 16,
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 24,
+      },
+    },
+    pagination: {
+      el: '.swiper-pagination-guides',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next-guides',
+      prevEl: '.swiper-button-prev-guides',
+    },
+  })
+
   new Swiper('.swiper-news', {
     modules: [Pagination, Navigation],
     grabCursor: true,
@@ -104,7 +131,262 @@ onMounted(() => {
     </div>
   </section>
 
-  <!-- 4. SECCIÓN SWIPER 3D COVERFLOW: ÚLTIMAS NOTICIAS & ACTUALIDAD -->
+  <!-- 4. SECCIÓN SWIPER: ÚLTIMAS GUÍAS Y TUTORIALES TÉCNICOS -->
+  <section class="py-14 border-b border-slate-800/80 bg-slate-900/30">
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <div>
+          <div class="flex items-center gap-2 text-emerald-400 text-xs font-mono uppercase font-bold tracking-wider mb-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Tutoriales y Referencia Técnica
+          </div>
+          <h2 class="font-heading text-2xl sm:text-3xl font-black text-white tracking-tight">
+            Últimas Guías de Administración y Sistemas
+          </h2>
+        </div>
+        <a href="/guias" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 self-start sm:self-auto">
+          <span>Ver catálogo completo de guías</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <!-- CONTENEDOR SWIPER GUÍAS -->
+      <div class="relative py-4 px-2 sm:px-12">
+        <div class="swiper swiper-guides overflow-hidden pb-12">
+          <div class="swiper-wrapper items-stretch">
+            
+            <!-- GUÍA 1 -->
+            <div class="swiper-slide h-auto">
+              <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
+                <div class="p-5 pb-3">
+                  <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
+                    Comandos Indispensables para la Administración de Sistemas GNU/Linux
+                  </h3>
+                </div>
+                <div class="px-5 py-2">
+                  <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-slate-950 flex items-center justify-center border border-slate-800">
+                    <img src="/assets/img/covers/cover_guias.webp" alt="Comandos Indispensables" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500 text-slate-950 shadow-md">
+                      Comandos & CLI
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5 pt-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-slate-400 text-xs font-mono block mb-2">hace 3 días · 10 min de lectura</span>
+                    <p class="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                      Chuleta definitiva de comandos esenciales: diagnóstico de procesos, inspección de puertos en red, gestión de permisos y sintaxis recomendada para sysadmins.
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800">
+                    <span class="text-slate-400 text-xs flex items-center gap-1 font-mono">
+                      <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                      24 comentarios
+                    </span>
+                    <a href="/guia/comandos-indispensables" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                      Leer
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- GUÍA 2 -->
+            <div class="swiper-slide h-auto">
+              <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
+                <div class="p-5 pb-3">
+                  <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
+                    Badblocks: Analizar, Diagnosticar y Recuperar Sectores Defectuosos en Discos
+                  </h3>
+                </div>
+                <div class="px-5 py-2">
+                  <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-slate-950 flex items-center justify-center border border-slate-800">
+                    <img src="/assets/img/demo-clean-security.webp" alt="Diagnóstico de Discos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-teal-500 text-slate-950 shadow-md">
+                      Almacenamiento
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5 pt-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-slate-400 text-xs font-mono block mb-2">hace 5 días · 8 min de lectura</span>
+                    <p class="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                      Guía práctica de formateo de bajo nivel, análisis no destructivo de lectura/escritura y reubicación de bloques dañados con e2fsck en particiones ext4.
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800">
+                    <span class="text-slate-400 text-xs flex items-center gap-1 font-mono">
+                      <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                      18 comentarios
+                    </span>
+                    <a href="/guia/badblocks-analizar-recuperar" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                      Leer
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- GUÍA 3 -->
+            <div class="swiper-slide h-auto">
+              <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
+                <div class="p-5 pb-3">
+                  <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
+                    Optimización de Memoria Swap y Configuración de ZRAM en Servidores Debian
+                  </h3>
+                </div>
+                <div class="px-5 py-2">
+                  <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-slate-950 flex items-center justify-center border border-slate-800">
+                    <img src="/assets/img/banners/placeholder.webp" alt="Swap y ZRAM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500 text-slate-950 shadow-md">
+                      Rendimiento
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5 pt-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-slate-400 text-xs font-mono block mb-2">hace 1 semana · 7 min de lectura</span>
+                    <p class="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                      Ajuste óptimo del parámetro vm.swappiness, creación de particiones swap encriptadas y compresión de memoria volátil ultrarrápida con zram-tools.
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800">
+                    <span class="text-slate-400 text-xs flex items-center gap-1 font-mono">
+                      <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                      12 comentarios
+                    </span>
+                    <a href="/guia/optimizacion-swap-zram" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                      Leer
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- GUÍA 4 -->
+            <div class="swiper-slide h-auto">
+              <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
+                <div class="p-5 pb-3">
+                  <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
+                    Estrategias de Copias de Seguridad en Linux: BorgBackup y Snapshots Btrfs
+                  </h3>
+                </div>
+                <div class="px-5 py-2">
+                  <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-slate-950 flex items-center justify-center border border-slate-800">
+                    <img src="/assets/img/banners/reading.webp" alt="Backups Linux" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500 text-slate-950 shadow-md">
+                      Backups & Seguridad
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5 pt-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-slate-400 text-xs font-mono block mb-2">hace 2 semanas · 12 min de lectura</span>
+                    <p class="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                      Implementación de respaldos incrementales deduplicados y cifrados de forma remota por SSH con retención automática y validación de snapshots.
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800">
+                    <span class="text-slate-400 text-xs flex items-center gap-1 font-mono">
+                      <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                      35 comentarios
+                    </span>
+                    <a href="/guia/backups-borg-btrfs" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                      Leer
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- GUÍA 5 -->
+            <div class="swiper-slide h-auto">
+              <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
+                <div class="p-5 pb-3">
+                  <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
+                    Endurecimiento de SSH: Autenticación por Claves Ed25519 y Bloqueo Fail2ban
+                  </h3>
+                </div>
+                <div class="px-5 py-2">
+                  <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-slate-950 flex items-center justify-center border border-slate-800">
+                    <img src="/assets/img/covers/cover_herramientas.webp" alt="Seguridad SSH" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500 text-slate-950 shadow-md">
+                      Ciberseguridad
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5 pt-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-slate-400 text-xs font-mono block mb-2">hace 2 semanas · 9 min de lectura</span>
+                    <p class="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                      Desactivación de acceso root directo, rotación de claves criptográficas seguras Ed25519, protección contra ataques de fuerza bruta y túneles seguros.
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800">
+                    <span class="text-slate-400 text-xs flex items-center gap-1 font-mono">
+                      <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                      29 comentarios
+                    </span>
+                    <a href="/guia/ssh-ed25519-fail2ban" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                      Leer
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- GUÍA 6 -->
+            <div class="swiper-slide h-auto">
+              <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
+                <div class="p-5 pb-3">
+                  <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
+                    Gestión de Paquetes con APT y DPKG: Trucos Avanzados y Pinned Packages
+                  </h3>
+                </div>
+                <div class="px-5 py-2">
+                  <div class="relative rounded-xl overflow-hidden aspect-[16/10] bg-slate-950 flex items-center justify-center border border-slate-800">
+                    <img src="/assets/img/soft-skills/logotipo.webp" alt="Gestión de Paquetes APT" class="w-28 h-28 object-contain group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-teal-500 text-slate-950 shadow-md">
+                      Paquetes & Distros
+                    </span>
+                  </div>
+                </div>
+                <div class="p-5 pt-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span class="text-slate-400 text-xs font-mono block mb-2">hace 3 semanas · 6 min de lectura</span>
+                    <p class="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                      Solución de dependencias rotas, fijado de versiones en /etc/apt/preferences, limpieza profunda de kernels huérfanos y mantenimiento con debfoster.
+                    </p>
+                  </div>
+                  <div class="flex items-center justify-between pt-4 mt-4 border-t border-slate-800">
+                    <span class="text-slate-400 text-xs flex items-center gap-1 font-mono">
+                      <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                      16 comentarios
+                    </span>
+                    <a href="/guia/apt-dpkg-avanzado" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                      Leer
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </div>
+
+          <!-- Paginación Swiper -->
+          <div class="swiper-pagination swiper-pagination-guides mt-4"></div>
+        </div>
+
+        <!-- Botones de Navegación situados fuera del swiper con overflow:hidden -->
+        <button type="button" aria-label="Guía anterior" class="swiper-button-prev swiper-button-prev-guides !text-emerald-400 !w-10 !h-10 !bg-slate-900/90 hover:!bg-slate-800 rounded-full border border-slate-700/80 shadow-xl after:!text-sm !left-0 sm:!-left-2 transition-all flex items-center justify-center cursor-pointer"></button>
+        <button type="button" aria-label="Guía siguiente" class="swiper-button-next swiper-button-next-guides !text-emerald-400 !w-10 !h-10 !bg-slate-900/90 hover:!bg-slate-800 rounded-full border border-slate-700/80 shadow-xl after:!text-sm !right-0 sm:!-right-2 transition-all flex items-center justify-center cursor-pointer"></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. SECCIÓN SWIPER: ÚLTIMAS NOTICIAS & ACTUALIDAD -->
   <section class="py-14 border-b border-slate-800/80 bg-slate-900/30">
     <div class="max-w-7xl mx-auto px-4 lg:px-8">
       
