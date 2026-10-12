@@ -1,110 +1,30 @@
-<template>
-    <div id="app">
-        <AppHeader />
-
-        <div id="app-box-content">
-
-            <NuxtPage />
-        </div>
-
-        <AppFooter />
-
-        <CookieControl locale="es" />
-    </div>
-</template>
-
 <script setup lang="ts">
-const webTitle = 'La Guía Linux';
-const webDescription = 'La Guía Linux es un proyecto que pretende compartir conocimiento sobre Software Libre y Tecnología';
+const { platform } = usePlatform()
 
-useSeoMeta({
-    description: webDescription,
-    ogTitle: webTitle,
-    ogDescription: webDescription,
-    ogImage: '/logo_512x512.png',
-    ogUrl: 'https://laguialinux.com',
-    twitterTitle: webTitle,
-    twitterDescription: webDescription,
-    twitterImage: '/logo_512x512.png',
-    twitterCard: 'summary'
-})
-
+// Metadatos globales y título reactivo según la plataforma activa
 useHead({
-    htmlAttrs: {
-        lang: 'es'
-    },
-    link: [
-        {
-            rel: 'icon',
-            type: 'image/ico',
-            href: '/favicon.ico'
-        }
-    ]
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} · ${platform.value.name}` : `${platform.value.name} — ${platform.value.tagline}`
+  },
+  htmlAttrs: {
+    lang: 'es',
+    class: 'dark',
+  },
+  meta: [
+    { name: 'description', content: platform.value.tagline },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { charset: 'utf-8' },
+  ],
 })
-
-const scrollDisabled = useScrollDisabled();
-
-/**
- * Deshabilita el scroll en el body
- *
- * @param {boolean} disabled
- */
-function scrollToggle(disabled: boolean) {
-    if (disabled) {
-        document.body.classList.add('disable-scroll');
-    } else {
-        document.body.classList.remove('disable-scroll');
-    }
-}
-
-
-watch(scrollDisabled, (current) => {
-    scrollToggle(current);
-});
-
-/* Cookies */
-const {
-    cookiesEnabled,
-    cookiesEnabledIds,
-    isConsentGiven,
-    isModalActive,
-    moduleOptions,
-} = useCookieControl()
-
-watch(
-    () => cookiesEnabledIds.value,
-    (current, previous) => {
-        //console.log('cambia cookes');
-        if (
-            !previous?.includes('google-analytics') &&
-            current?.includes('google-analytics')
-        ) {
-            //console.log('se habilita google analytics');
-            // cookie con id `google-analytics` se ha añadido
-            //window.location.reload() // placeholder para tu manejador de cambios personalizado
-            const { gtag, initialize } = useGtag()
-            gtag('consent', 'update', {
-                ad_user_data: 'granted',
-                ad_personalization: 'granted',
-                ad_storage: 'granted',
-                analytics_storage: 'granted'
-            })
-
-            //initialize();
-        }
-    },
-    { deep: true },
-)
 </script>
 
-<style>
-body.disable-scroll {
-    height: 100vh;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-#app-box-content {
-    height: 100%;
-}
-</style>
+<template>
+  <div
+    :class="`theme-${platform.themeAccent}`"
+    class="min-h-screen bg-[#080c14] text-slate-100 antialiased selection:bg-emerald-500 selection:text-black"
+  >
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
+</template>
