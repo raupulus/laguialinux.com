@@ -72,7 +72,16 @@ pnpm preview
 
 ---
 
-## 5. Licencia
+## 5. Licenciamiento Dual
 
-- **Código**: GNU Affero General Public License v3.0 (GNU AGPLv3)
-- **Contenidos**: Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)
+- **Código y Software**: [GNU Affero General Public License v3.0 (GNU AGPLv3)](./LICENSE)
+- **Contenidos Editoriales**: [Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)](./LICENSE-CONTENT.md)
+
+*Mención canónica: "Código bajo GNU AGPLv3 · Contenidos bajo CC BY-SA 4.0"*
+
+---
+
+## 6. Documentación para Agentes y Referencia Técnica
+
+- **Directrices de desarrollo y arquitectura**: [`AGENTS.md`](./AGENTS.md)
+- **Análisis funcional, contratos de la API V2 y módulos**: Repositorio hermano `/Users/fryntiz/git/1-Projects/LaGuiaLinux/nueva-apps/`
