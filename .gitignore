@@ -23,3 +23,7 @@ logs
 .env.*
 !.env.example
 !.env.news.example
+
+# Documentación efímera (por desarrollador)
+/docs/planning/
+/docs/auditorias/
