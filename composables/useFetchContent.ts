@@ -339,9 +339,13 @@ async function fetchContentBySlug(type: string, slug: string, withPages = false)
                 currentContent.value = {
                     title: 'Contenido no encontrado',
                     slug: slug,
+                    type: type,
                     excerpt: `No se ha encontrado el contenido solicitado. El identificador "${slug}" no es válido o no existe.`,
-                    urlImageMedium: '',
-                    urlImage: ''
+                    images: {
+                        medium: '',
+                        small: '',
+                        large: ''
+                    }
                 };
             } else if (response.status === 404) {
                 // Error 404: Not Found - Contenido no encontrado
@@ -349,9 +353,13 @@ async function fetchContentBySlug(type: string, slug: string, withPages = false)
                 currentContent.value = {
                     title: 'Contenido no encontrado',
                     slug: slug,
+                    type: type,
                     excerpt: 'No se ha encontrado el contenido solicitado. Es posible que haya sido eliminado o movido.',
-                    urlImageMedium: '',
-                    urlImage: ''
+                    images: {
+                        medium: '',
+                        small: '',
+                        large: ''
+                    }
                 };
             } else {
                 // Otros errores HTTP
@@ -359,9 +367,13 @@ async function fetchContentBySlug(type: string, slug: string, withPages = false)
                 currentContent.value = {
                     title: 'Error al cargar el contenido',
                     slug: slug,
+                    type: type,
                     excerpt: 'Ha ocurrido un error al intentar cargar el contenido. Por favor, inténtalo de nuevo más tarde.',
-                    urlImageMedium: '',
-                    urlImage: ''
+                    images: {
+                        medium: '',
+                        small: '',
+                        large: ''
+                    }
                 };
             }
         }
@@ -371,9 +383,13 @@ async function fetchContentBySlug(type: string, slug: string, withPages = false)
         currentContent.value = {
             title: 'Error de conexión',
             slug: slug,
+            type: type,
             excerpt: 'Ha ocurrido un error al conectar con el servidor. Por favor, verifica tu conexión a internet e inténtalo de nuevo.',
-            urlImageMedium: '',
-            urlImage: ''
+            images: {
+                medium: '',
+                small: '',
+                large: ''
+            }
         };
     } finally {
         // Siempre liberamos el bloqueo y ocultamos el indicador de carga

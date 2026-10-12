@@ -1,6 +1,6 @@
 <template>
     <div class="blog-card">
-        <NuxtImg :src="content.urlImageMedium" :alt="content.title" class="blog-card-image" loading="lazy" />
+        <NuxtImg v-if="content.images" :src="content.images?.medium" :alt="content.title" class="blog-card-image" loading="lazy" />
 
         <div class="blog-card-content">
             <h2 class="blog-card-title">{{ content.title }}</h2>

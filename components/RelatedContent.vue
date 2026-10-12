@@ -1,5 +1,5 @@
 <template>
-  <div class="related-content-container">
+  <div class="related-content-container" v-if="relatedContent && relatedContent.length">
     <h3 class="related-content-title">Contenido relacionado</h3>
 
     <div v-if="loading" class="related-content-loading">
@@ -17,10 +17,11 @@
         :key="index" 
         class="related-content-item"
       >
-        <NuxtLink :to="`/${item.path}`" class="related-content-link">
+        <NuxtLink :to="item.url" class="related-content-link">
           <div class="related-content-image">
-            <NuxtImg 
-              :src="item.urlImageMedium" 
+            <NuxtImg
+                v-if="item.images"
+              :src="item.images?.medium || ''" 
               :alt="item.title" 
               width="80" 
               height="60" 

@@ -174,3 +174,8 @@ npm run generate
 
 Este proyecto está licenciado bajo la Licencia GPLv3. Consulta el archivo
 LICENSE para más detalles.
+
+## TODO
+
+- Añadir imágenes por defecto para el contenido, cuando no venga de la api usar la local como fallback?
+- Controlar dónde las imágenes no sean opcionales usando "has_image"

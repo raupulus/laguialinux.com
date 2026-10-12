@@ -1,6 +1,6 @@
 <template>
     <div class="grid-container">
-        <CardBlog v-for="(card, index) in data" :key="index" :title="card.title" :image="card.has_image ? card.urlImageMedium : '/images/banners/placeholder.webp'" :excerpt="card.excerpt"
+        <CardBlog v-for="(card, index) in data" :key="index" :title="card.title" :image="card.images?.medium ?? '/images/banners/placeholder.webp'" :excerpt="card.excerpt"
         :url="card.url" :date="card.updated_at" :categories="card.categories" :section="section"/>
     </div>
 </template>

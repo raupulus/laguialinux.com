@@ -2,7 +2,7 @@
   <div class="card-project-box">
     <div class="card-project-content">
       <div class="card-project-img">
-        <NuxtImg :src="currentImgSrc" width="440" height="300" :alt="data.title" :title="data.title" @load="onImageLoaded" />
+        <NuxtImg v-if="currentImgSrc" :src="currentImgSrc" width="440" height="300" :alt="data.title" :title="data.title" @load="onImageLoaded" />
       </div>
 
       <div class="card-project-info">
@@ -73,10 +73,10 @@ const props = defineProps({
   },
 });
 
-const currentImgSrc = ref(props.data.urlImageSmall);
+const currentImgSrc = ref(props.data.images?.small);
 
 const onImageLoaded = () => {
-  currentImgSrc.value = props.data.urlImage;
+  currentImgSrc.value = props.data.images?.large;
 };
 </script>
 

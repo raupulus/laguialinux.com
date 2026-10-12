@@ -1,5 +1,5 @@
 <template>
-    <div class="most-read-container">
+    <div class="most-read-container" v-if="loadingContentFeatured || mixedTrendContent.length">
         <h3 class="most-read-title">Lo más leído</h3>
 
         <div v-if="loadingContentFeatured" class="most-read-loading">
@@ -17,10 +17,11 @@
                 :key="index"
                 class="most-read-item"
             >
-                <NuxtLink :to="`/${item.path}`" class="most-read-link">
+                <NuxtLink :to="item.url" class="most-read-link">
                     <div class="most-read-image">
                         <NuxtImg
-                            :src="item.urlImageMedium"
+                            v-if="item.images"
+                            :src="item.images?.small"
                             :alt="item.title"
                             width="80"
                             height="60"

@@ -5,7 +5,7 @@
                 <template v-for="(type, idx) in contents" :key="idx">
                     <swiper-slide v-for="(content, idx) in type" :key="idx">
                         <Banner :title="content.title" :description="content.excerpt" :url="content.url"
-                            :image="content.has_image ? content.urlImageSmall : ''" />
+                            :image="content.images?.small ?? ''" />
                     </swiper-slide>
                 </template>
             </swiper-container>

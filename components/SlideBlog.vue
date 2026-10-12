@@ -4,7 +4,7 @@
             <swiper-container ref="containerRef" :init="false" :lazy="true">
                 <swiper-slide v-for="(card, idx) in data" :key="idx">
                     <CardBlog :title="card.title"
-                        :image="card.has_image ? card.urlImageMedium : '/images/banners/placeholder.webp'"
+                        :image="card.images?.medium ?? '/images/banners/placeholder.webp'"
                         :excerpt="card.excerpt" :section="section" :url="card.url" :date="card.updated_at"
                         :categories="card.categories" />
                 </swiper-slide>

@@ -130,9 +130,9 @@
                     >
                         <NuxtLink :to="guide.url || `/guides/${guide.path}`">
                             <div class="guide-card">
-                                <div class="guide-image" v-if="guide.urlImageMedium">
+                                <div class="guide-image" v-if="guide.images">
                                     <NuxtImg 
-                                        :src="guide.urlImageMedium" 
+                                        :src="guide.images?.medium"
                                         :alt="guide.title"
                                         width="300"
                                         height="200"

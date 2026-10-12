@@ -39,8 +39,9 @@
           <transition name="slide">
             <div v-if="currentContent" class="slider-item">
               <div class="slider-item-image">
-                <NuxtImg 
-                  :src="currentContent.urlImage" 
+                <NuxtImg
+                    v-if="currentContent.images"
+                  :src="currentContent.images?.medium"
                   :alt="currentContent.title" 
                   width="400" 
                   height="250" 

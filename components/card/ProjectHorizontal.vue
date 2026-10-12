@@ -73,10 +73,10 @@ const props = defineProps({
   },
 });
 
-const currentImgSrc = ref(props.data.urlImageSmall);
+const currentImgSrc = ref(props.data.images?.small);
 
 const onImageLoaded = () => {
-  currentImgSrc.value = props.data.urlImage;
+  currentImgSrc.value = props.data.images?.medium;
 };
 </script>
 

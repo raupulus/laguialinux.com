@@ -8,7 +8,8 @@
             <article class="nb-card" v-if="featuredItems.length && featuredItems[0]">
                 <div class="nb-card-image">
                     <NuxtImg
-                        :src="featuredItems[0]?.has_image ? featuredItems[0].urlImageMedium : '/images/banners/reading.webp'"
+                        v-if="featuredItems[0].images"
+                        :src="featuredItems[0].images?.medium ?? '/images/banners/reading.webp'"
                         :alt="featuredItems[0].title" style="width: 100%;" />
                 </div>
 
@@ -24,7 +25,9 @@
             <template v-for="(n, index) in featuredItems" :key="index">
                 <article class="nb-card" v-if="n && index > 0">
                     <div class="nb-card-image">
-                        <NuxtImg :src="n.has_image ? n.urlImageMedium : '/images/banners/reading.webp'" :alt="n.title" />
+                        <NuxtImg v-if="n.images"
+                                 :src="n.images?.medium ?? '/images/banners/reading.webp'"
+                                 :alt="n.title" />
                     </div>
 
                     <div class="nb-card-title">

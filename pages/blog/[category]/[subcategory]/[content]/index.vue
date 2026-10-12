@@ -41,7 +41,7 @@
 
                 <!-- Datos principales del contenido -->
                 <div>
-                    <NuxtImg v-if="currentContent?.has_image && currentContent?.urlImage" :src="currentContent?.urlImage" :alt="currentContent?.title" class="content-image"/>
+                    <NuxtImg v-if="currentContent?.images" :src="currentContent?.images?.large" :alt="currentContent?.title" class="content-image"/>
                     <p>{{currentContent?.excerpt}}</p>
 
                     <!-- En caso de tener vídeo de youtube -->
