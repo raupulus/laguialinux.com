@@ -49,9 +49,11 @@ Para cualquier consulta sobre análisis funcional, prototipos interactivos origi
 3. **Iconografía**:
    - Módulo oficial **`@nuxt/icon`** con colecciones Iconify on-demand (preferencia por `lucide:*` y `heroicons:*`).
    - Cero fuentes pesadas en runtime: generación SVG directa y ligera.
-4. **Gestión de Estado**:
+4. **Gestor de Paquetes Obligatorio**:
+   - Usar **SIEMPRE `pnpm`** (nunca `npm` ni `yarn`) para cualquier operación: instalación de dependencias (`pnpm add`), ejecución de scripts (`pnpm run ...`, `pnpm env:...`) o compilación (`pnpm run build`).
+5. **Gestión de Estado**:
    - **Pinia** (`@pinia/nuxt`, `pinia@4.0.3`) para estados globales (menú de navegación, modal de búsqueda, lectura de páginas, filtros).
-5. **Arquitectura Multi-Tenant Unificada**:
+6. **Arquitectura Multi-Tenant Unificada**:
    - Una única base de código que se parametriza al 100% mediante variables de entorno:
      - `NUXT_PUBLIC_PLATFORM_SLUG`: `laguialinux` o `news`.
      - `NUXT_PUBLIC_PLATFORM_DOMAIN`: `laguialinux.com` o `news.laguialinux.com`.
