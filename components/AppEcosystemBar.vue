@@ -11,9 +11,8 @@ const { isGuides, isNews } = usePlatform()
       <a
         v-if="isGuides"
         href="/"
-        class="text-emerald-400 font-bold flex items-center gap-1.5 text-xs"
+        class="text-emerald-400 font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-xs"
       >
-        <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50 animate-pulse" />
         laguialinux.com (Guías)
       </a>
       <a
@@ -21,9 +20,8 @@ const { isGuides, isNews } = usePlatform()
         href="https://laguialinux.com"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-slate-400 hover:text-emerald-400 transition-colors flex items-center gap-1.5 text-xs"
+        class="text-slate-400 hover:text-emerald-400 transition-colors text-xs px-1.5 py-0.5"
       >
-        <span class="w-2 h-2 rounded-full bg-slate-600" />
         laguialinux.com (Guías)
       </a>
 
@@ -31,9 +29,8 @@ const { isGuides, isNews } = usePlatform()
       <a
         v-if="isNews"
         href="/"
-        class="text-orange-400 font-bold flex items-center gap-1.5 text-xs"
+        class="text-orange-400 font-semibold px-2 py-0.5 rounded-md bg-orange-500/10 border border-orange-500/20 text-xs"
       >
-        <span class="w-2 h-2 rounded-full bg-orange-500 shadow-sm shadow-orange-500/50 animate-pulse" />
         news.laguialinux.com (Noticias)
       </a>
       <a
@@ -41,9 +38,8 @@ const { isGuides, isNews } = usePlatform()
         href="https://news.laguialinux.com"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-slate-400 hover:text-orange-400 transition-colors flex items-center gap-1.5 text-xs"
+        class="text-slate-400 hover:text-orange-400 transition-colors text-xs px-1.5 py-0.5"
       >
-        <span class="w-2 h-2 rounded-full bg-slate-600" />
         news.laguialinux.com (Noticias)
       </a>
     </div>

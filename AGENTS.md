@@ -66,7 +66,7 @@ Para cualquier consulta sobre análisis funcional, prototipos interactivos origi
 ## 4. Reglas Globales de Seguridad, Privacidad y Licenciamiento
 
 ### 🔒 Protección Estricta de Datos Personales
-- **PROHIBICIÓN ABSOLUTA**: NUNCA publicar, compartir, incluir en código, commits, variables de entorno, metadatos ni documentación el correo personal privado `raupulus@gmail.com` ni ningún otro dato personal no autorizado.
+- **PROHIBICIÓN ABSOLUTA**: NUNCA publicar, compartir, incluir en código, commits, variables de entorno, metadatos ni documentación ningún correo personal o privado del autor ni ningún otro dato personal no autorizado.
 - **Correos públicos oficiales autorizados**:
   - **Autor**: `public@raupulus.dev`
   - **Plataforma / Contacto**: `public@laguialinux.com`
@@ -143,6 +143,7 @@ Para cualquier consulta sobre análisis funcional, prototipos interactivos origi
 2. **Respetar la arquitectura multitenant**: No introducir valores hardcodeados para títulos, colores o slugs de plataforma. Usa siempre `usePlatform()` para que la misma vista funcione tanto en `laguialinux.com` como en `news.laguialinux.com`.
 3. **Calidad de Código**: Escribe componentes limpios con Composition API (`<script setup lang="ts">`), nombres semánticos y CSS utilitario de Tailwind v4.
 4. **Privacidad Primero**: Antes de cualquier commit o respuesta, verifica que no se filtre ningún correo privado ni credencial.
+5. **Indexación y Salida a Producción**: La web está configurada intencionadamente con bloqueo total de indexación (`noindex, nofollow`, `robots.txt` disallow y `X-Robots-Tag`) para la fase de subida y pruebas en servidor. **Antes del lanzamiento público definitivo, se debe seguir estrictamente el checklist de reactivación SEO documentado en [`docs/deploys/README.md`](docs/deploys/README.md#4-checklist-crítico-pre-publicación-definitiva-reactivar-indexación-seo)**.
 
 ---
 

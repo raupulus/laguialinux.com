@@ -76,12 +76,6 @@ const nav = useNavigationStore()
               <NuxtLink to="/guias" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors flex items-center gap-1.5">
                 <span class="text-emerald-400">📚</span> Guías
               </NuxtLink>
-              <NuxtLink to="/categoria/comandos" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
-                Comandos
-              </NuxtLink>
-              <NuxtLink to="/categoria/almacenamiento" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
-                Discos
-              </NuxtLink>
               <NuxtLink to="/herramientas" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold hover:bg-emerald-500/20 transition-colors flex items-center gap-1">
                 <span>🛠️</span> Herramientas
               </NuxtLink>
@@ -140,8 +134,9 @@ const nav = useNavigationStore()
           <button
             type="button"
             @click="nav.toggleMobileDrawer()"
-            class="md:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors"
+            class="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors cursor-pointer"
             title="Abrir menú de navegación"
+            aria-label="Abrir menú de navegación"
           >
             <Icon name="lucide:menu" class="w-5 h-5" />
           </button>

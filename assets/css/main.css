@@ -143,47 +143,40 @@ code, pre, .font-mono {
 .anim-footer-heart {
   animation: lglHeartPulse 1.2s ease-in-out infinite;
   transform-origin: center;
-  transform-box: fill-box;
 }
 @keyframes lglHeartPulse {
-  0% { transform: scale(1); }
-  20% { transform: scale(1.35); }
-  40% { transform: scale(1.15); }
-  60% { transform: scale(1.35); }
-  80% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.25); }
 }
 
 .anim-footer-laravel {
   animation: lglLaravelRotate 4s ease-in-out infinite;
   transform-origin: center;
-  transform-box: fill-box;
 }
 @keyframes lglLaravelRotate {
-  0% { transform: rotate(-15deg); }
-  50% { transform: rotate(15deg); }
-  100% { transform: rotate(-15deg); }
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
 }
 
 .anim-footer-vue {
-  animation: lglVueBounce 2s ease-in-out infinite;
+  animation: lglVueBounce 2.4s ease-in-out infinite;
   transform-origin: center;
-  transform-box: fill-box;
 }
 @keyframes lglVueBounce {
   0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-8px); }
-  50% { transform: translateY(-5px); }
-  75% { transform: translateY(-2px); }
+  30% { transform: translateY(-5px); }
+  60% { transform: translateY(-2px); }
 }
 
+.anim-footer-postgres,
 .anim-footer-php {
-  animation: lglPhpRotate 4s ease-in-out infinite;
+  animation: lglPostgresSway 4s ease-in-out infinite;
   transform-origin: center;
-  transform-box: fill-box;
 }
-@keyframes lglPhpRotate {
-  0% { transform: rotate(15deg); }
-  50% { transform: rotate(-15deg); }
-  100% { transform: rotate(15deg); }
+@keyframes lglPostgresSway {
+  0%, 100% { transform: rotate(8deg); }
+  50% { transform: rotate(-8deg); }
 }
+

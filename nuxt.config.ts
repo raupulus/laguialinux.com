@@ -13,6 +13,25 @@ export default defineNuxtConfig({
     '@nuxt/icon',
   ],
 
+  // Cabeceras HTTP de bloqueo de indexación a nivel de servidor (Nitro)
+  routeRules: {
+    '/**': {
+      headers: {
+        'X-Robots-Tag': 'noindex, nofollow, noarchive, nosnippet',
+      },
+    },
+  },
+
+  // Metaetiquetas globales para evitar indexación en motores de búsqueda
+  app: {
+    head: {
+      meta: [
+        { name: 'robots', content: 'noindex, nofollow, noarchive, nosnippet' },
+        { name: 'googlebot', content: 'noindex, nofollow, noarchive, nosnippet' },
+      ],
+    },
+  },
+
   // Tailwind CSS v4 con Vite
   vite: {
     plugins: [
@@ -51,6 +70,21 @@ export default defineNuxtConfig({
       featuresTools: process.env.NUXT_PUBLIC_FEATURES_TOOLS !== 'false',
       featuresCveAlerts: process.env.NUXT_PUBLIC_FEATURES_CVE_ALERTS === 'true',
       featuresKernelWatcher: process.env.NUXT_PUBLIC_FEATURES_KERNEL_WATCHER === 'true',
+    },
+  },
+
+  // Configuración Nitro para generación estática (SSG)
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      failOnError: false,
+      routes: [
+        '/sitemap.xml',
+        '/feed.xml',
+        '/robots.txt',
+        '/200.html',
+        '/404.html',
+      ],
     },
   },
 

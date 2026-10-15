@@ -1,16 +1,15 @@
 <script setup lang="ts">
 const { platform, isGuides, isNews } = usePlatform()
 
-// Metadatos SEO dinámicos según el contexto de portada activo
-useSeoMeta({
+// Metadatos SEO dinámicos y esquema WebSite con useSeoEngine
+useSeoEngine(() => ({
   title: isGuides.value
-    ? 'La Guía Linux · Guías, Tutoriales, Comandos y Referencia Técnica para Sysadmins'
-    : 'Noticias La Guía Linux · Actualidad, Distribuciones, Ciberseguridad y Open Source',
+    ? 'Guías, Tutoriales, Comandos y Referencia Técnica para Sysadmins'
+    : 'Actualidad, Distribuciones, Ciberseguridad y Open Source',
   description: platform.value.tagline,
-  ogTitle: platform.value.name,
-  ogDescription: platform.value.tagline,
-  ogImage: isGuides.value ? '/img/covers/hero_laguialinux.webp' : '/img/covers/hero_news.webp',
-})
+  imageUrl: isGuides.value ? '/assets/img/covers/hero_laguialinux.webp' : '/assets/img/covers/hero_news.webp',
+  schemaType: 'WebSite',
+}))
 </script>
 
 <template>

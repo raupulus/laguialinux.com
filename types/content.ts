@@ -139,3 +139,15 @@ export interface ContentDetailResource extends ContentResource {
   }>
   related?: ContentResource[]
 }
+
+
+export type ContentFormatType = 'editorjs' | 'markdown' | 'html'
+
+export interface GetContentBySlugOptions {
+  include?: string
+  format?: ContentFormatType
+}
+
+export interface GetContentPageOptions {
+  format?: ContentFormatType
+}

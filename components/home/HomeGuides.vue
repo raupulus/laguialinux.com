@@ -1,6 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import Swiper from 'swiper'
 import { Pagination, Navigation } from 'swiper/modules'
+
+const heroQuery = ref('')
+
+const handleHeroSearch = () => {
+  const q = heroQuery.value.trim()
+  if (q) {
+    navigateTo(`/buscar?q=${encodeURIComponent(q)}`)
+  }
+}
 
 onMounted(() => {
   new Swiper('.swiper-guides', {
@@ -94,7 +104,6 @@ onMounted(() => {
     <div class="max-w-7xl mx-auto px-4 lg:px-8 relative z-10 text-center">
       
       <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs mb-6 shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
         <span>Ecosistema de Software Libre y Administración GNU/Linux</span>
       </div>
 
@@ -108,24 +117,28 @@ onMounted(() => {
 
       <!-- BUSCADOR CENTRAL CON SUGERENCIAS POPULARES -->
       <div class="max-w-2xl mx-auto mb-6">
-        <div class="relative flex items-center shadow-2xl rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-900/90 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition-all">
-          <span class="pl-4 text-slate-500 font-mono text-lg">$</span>
-          <input type="text" placeholder="Ej: systemctl status, fdisk -l, iptables, umask..." 
-            class="w-full bg-transparent py-4 pl-3 pr-28 text-white placeholder-slate-500 focus:outline-none font-mono text-sm">
-          <button type="button" class="absolute right-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow">
+        <form @submit.prevent="handleHeroSearch" class="relative flex items-center shadow-2xl rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-900/90 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition-all">
+          <span class="pl-4 text-slate-400 font-mono text-lg">$</span>
+          <input
+            v-model="heroQuery"
+            type="text"
+            placeholder="Ej: systemctl status, fdisk -l, iptables, umask..." 
+            class="w-full bg-transparent py-4 pl-3 pr-28 text-white placeholder-slate-400 focus:outline-none font-mono text-sm"
+          >
+          <button type="submit" class="absolute right-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow cursor-pointer">
             Buscar
           </button>
-        </div>
+        </form>
       </div>
 
       <!-- PÍLDORAS DE COMANDOS FRECUENTES -->
       <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400">
-        <span class="text-slate-500">Comandos rápidos:</span>
-        <a href="/categoria/comandos" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">systemctl</a>
-        <a href="/categoria/almacenamiento" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">fdisk</a>
-        <a href="/categoria/redes" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">iptables</a>
-        <a href="/herramientas" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">chmod calc</a>
-        <a href="/categoria/almacenamiento" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">btrfs snapshot</a>
+        <span class="text-slate-400 font-medium">Comandos rápidos:</span>
+        <NuxtLink to="/categoria/comandos" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">systemctl</NuxtLink>
+        <NuxtLink to="/categoria/almacenamiento" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">fdisk</NuxtLink>
+        <NuxtLink to="/categoria/redes" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">iptables</NuxtLink>
+        <NuxtLink to="/herramientas" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">chmod calc</NuxtLink>
+        <NuxtLink to="/categoria/almacenamiento" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 hover:text-emerald-400 border border-slate-700/60 transition-colors">btrfs snapshot</NuxtLink>
       </div>
 
     </div>
@@ -137,18 +150,17 @@ onMounted(() => {
       
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <div class="flex items-center gap-2 text-emerald-400 text-xs font-mono uppercase font-bold tracking-wider mb-1">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <div class="text-emerald-400 text-xs font-mono uppercase font-bold tracking-wider mb-1">
             Tutoriales y Referencia Técnica
           </div>
           <h2 class="font-heading text-2xl sm:text-3xl font-black text-white tracking-tight">
             Últimas Guías de Administración y Sistemas
           </h2>
         </div>
-        <a href="/guias" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 self-start sm:self-auto">
+        <NuxtLink to="/guias" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 self-start sm:self-auto">
           <span>Ver catálogo completo de guías</span>
           <span>→</span>
-        </a>
+        </NuxtLink>
       </div>
 
       <!-- CONTENEDOR SWIPER GUÍAS -->
@@ -161,7 +173,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Comandos Indispensables para la Administración de Sistemas GNU/Linux
+                    <NuxtLink to="/guia/comandos-linux-gestionar-archivos-y-directorios">
+                      Comandos Indispensables para la Administración de Sistemas GNU/Linux
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -184,9 +198,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       24 comentarios
                     </span>
-                    <a href="/guia/comandos-indispensables" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/guia/comandos-linux-gestionar-archivos-y-directorios" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -197,7 +211,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Badblocks: Analizar, Diagnosticar y Recuperar Sectores Defectuosos en Discos
+                    <NuxtLink to="/guia/diagnostico-discos-reparacion-sistemas-ficheros-e2fsck-badblocks">
+                      Badblocks: Analizar, Diagnosticar y Recuperar Sectores Defectuosos en Discos
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -220,9 +236,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       18 comentarios
                     </span>
-                    <a href="/guia/badblocks-analizar-recuperar" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/guia/diagnostico-discos-reparacion-sistemas-ficheros-e2fsck-badblocks" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -233,7 +249,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Optimización de Memoria Swap y Configuración de ZRAM en Servidores Debian
+                    <NuxtLink to="/guia/optimizacion-memoria-swap-swappiness-servidores-linux">
+                      Optimización de Memoria Swap y Configuración de ZRAM en Servidores Debian
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -256,9 +274,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       12 comentarios
                     </span>
-                    <a href="/guia/optimizacion-swap-zram" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/guia/optimizacion-memoria-swap-swappiness-servidores-linux" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -269,7 +287,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Estrategias de Copias de Seguridad en Linux: BorgBackup y Snapshots Btrfs
+                    <NuxtLink to="/guia/manual-particionado-fdisk-gdisk-formateo-reparacion-e2fsck">
+                      Estrategias de Copias de Seguridad en Linux: BorgBackup y Snapshots Btrfs
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -292,9 +312,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       35 comentarios
                     </span>
-                    <a href="/guia/backups-borg-btrfs" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/guia/manual-particionado-fdisk-gdisk-formateo-reparacion-e2fsck" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -305,7 +325,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Endurecimiento de SSH: Autenticación por Claves Ed25519 y Bloqueo Fail2ban
+                    <NuxtLink to="/guia/configuracion-ssh-seguro-sin-clave-ed25519">
+                      Endurecimiento de SSH: Autenticación por Claves Ed25519 y Bloqueo Fail2ban
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -328,9 +350,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       29 comentarios
                     </span>
-                    <a href="/guia/ssh-ed25519-fail2ban" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/guia/configuracion-ssh-seguro-sin-clave-ed25519" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -341,7 +363,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Gestión de Paquetes con APT y DPKG: Trucos Avanzados y Pinned Packages
+                    <NuxtLink to="/guia/comandos-indispensables-para-dpkg-y-apt-limpieza">
+                      Gestión de Paquetes con APT y DPKG: Trucos Avanzados y Pinned Packages
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -364,9 +388,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       16 comentarios
                     </span>
-                    <a href="/guia/apt-dpkg-avanzado" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/guia/comandos-indispensables-para-dpkg-y-apt-limpieza" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -392,8 +416,7 @@ onMounted(() => {
       
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <div class="flex items-center gap-2 text-amber-400 text-xs font-mono uppercase font-bold tracking-wider mb-1">
-            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          <div class="text-amber-400 text-xs font-mono uppercase font-bold tracking-wider mb-1">
             Actualidad y Lanzamientos
           </div>
           <h2 class="font-heading text-2xl sm:text-3xl font-black text-white tracking-tight">
@@ -416,7 +439,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-amber-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
-                    Lanzamiento del Kernel Linux 6.12 LTS con mejoras de rendimiento y soporte extendido
+                    <NuxtLink to="/noticia/linux-kernel-6-12-lanzado-real-time">
+                      Lanzamiento del Kernel Linux 6.12 LTS con mejoras de rendimiento y soporte extendido
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -439,9 +464,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       12 comentarios
                     </span>
-                    <a href="/noticia" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/noticia/linux-kernel-6-12-lanzado-real-time" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -452,7 +477,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-amber-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
-                    Debian 13 Trixie inicia su fase de congelación de paquetes en repositorios
+                    <NuxtLink to="/noticia/debian-13-trixie-primera-fase-congelamiento">
+                      Debian 13 Trixie inicia su fase de congelación de paquetes en repositorios
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -475,9 +502,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       8 comentarios
                     </span>
-                    <a href="/noticia" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/noticia/debian-13-trixie-primera-fase-congelamiento" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -488,7 +515,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-amber-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
-                    Vulnerabilidad crítica en OpenSSH (CVE-2024-6387): Parche y mitigación inmediata
+                    <NuxtLink to="/noticia/alerta-seguridad-cve-2024-6387-regresshion-openssh">
+                      Vulnerabilidad crítica en OpenSSH (CVE-2024-6387): Parche y mitigación inmediata
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -511,9 +540,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       19 comentarios
                     </span>
-                    <a href="/noticia" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/noticia/alerta-seguridad-cve-2024-6387-regresshion-openssh" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -524,7 +553,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-amber-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
-                    Fedora 41 llega con gestor DNF5 por defecto y soporte mejorado Wayland
+                    <NuxtLink to="/noticia/fedora-41-gestor-dnf5-soporte-wayland">
+                      Fedora 41 llega con gestor DNF5 por defecto y soporte mejorado Wayland
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -547,9 +578,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       6 comentarios
                     </span>
-                    <a href="/noticia" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/noticia/fedora-41-gestor-dnf5-soporte-wayland" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -560,7 +591,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-amber-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
-                    Arch Linux adopta soporte para compresión multihilo zstd en empaquetado oficial
+                    <NuxtLink to="/noticia/arch-linux-adopta-zstandard-nivel-19">
+                      Arch Linux adopta soporte para compresión multihilo zstd en empaquetado oficial
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -583,9 +616,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       15 comentarios
                     </span>
-                    <a href="/noticia" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/noticia/arch-linux-adopta-zstandard-nivel-19" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -596,7 +629,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-amber-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-amber-400 transition-colors leading-snug line-clamp-2">
-                    Proxmox VE 8.3 introduce migración en caliente mejorada y soporte Ceph Reef
+                    <NuxtLink to="/noticia/proxmox-ve-8-3-migracion-caliente-ceph-reef">
+                      Proxmox VE 8.3 introduce migración en caliente mejorada y soporte Ceph Reef
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -619,9 +654,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       9 comentarios
                     </span>
-                    <a href="/noticia" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/noticia/proxmox-ve-8-3-migracion-caliente-ceph-reef" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -683,9 +718,9 @@ onMounted(() => {
               </p>
             </div>
             <div class="mt-6 text-center">
-              <a href="/guias" class="inline-block w-full py-2.5 px-4 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white font-semibold text-xs transition-all border border-rose-500/30">
+              <NuxtLink to="/guias" class="inline-block w-full py-2.5 px-4 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white font-semibold text-xs transition-all border border-rose-500/30">
                 Explorar Guías
-              </a>
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -749,9 +784,9 @@ onMounted(() => {
               </p>
             </div>
             <div class="mt-6 text-center">
-              <a href="/blog" class="inline-block w-full py-2.5 px-4 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white font-semibold text-xs transition-all border border-rose-500/30">
+              <NuxtLink to="/blog" class="inline-block w-full py-2.5 px-4 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white font-semibold text-xs transition-all border border-rose-500/30">
                 Leer Blog del Autor
-              </a>
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -848,10 +883,10 @@ onMounted(() => {
             Últimas Entradas en Nuestro Blog
           </h2>
         </div>
-        <a href="/blog" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 self-start sm:self-auto">
+        <NuxtLink to="/blog" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 self-start sm:self-auto">
           <span>Ver todas las entradas del blog</span>
           <span>→</span>
-        </a>
+        </NuxtLink>
       </div>
 
       <!-- CONTENEDOR SWIPER BLOG -->
@@ -864,7 +899,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Mi setup de desarrollo en Linux para 2026: Neovim, Tmux y Alacritty
+                    <NuxtLink to="/blog/setup-desarrollo-linux-neovim-tmux">
+                      Mi setup de desarrollo en Linux para 2026: Neovim, Tmux y Alacritty
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -887,9 +924,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       14 comentarios
                     </span>
-                    <a href="/blog" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/blog/setup-desarrollo-linux-neovim-tmux" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -900,7 +937,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Por qué migré de Docker a Podman en todos mis servidores locales
+                    <NuxtLink to="/blog/migracion-docker-a-podman-servidores">
+                      Por qué migré de Docker a Podman en todos mis servidores locales
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -923,9 +962,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       11 comentarios
                     </span>
-                    <a href="/blog" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/blog/migracion-docker-a-podman-servidores" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -936,7 +975,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Reflexiones sobre 25 años usando software libre y GNU/Linux
+                    <NuxtLink to="/blog/reflexiones-25-anos-software-libre">
+                      Reflexiones sobre 25 años usando software libre y GNU/Linux
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -959,9 +1000,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       27 comentarios
                     </span>
-                    <a href="/blog" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/blog/reflexiones-25-anos-software-libre" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -972,7 +1013,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Automatizando copias de seguridad inmutables con Restic y Backblaze B2
+                    <NuxtLink to="/blog/automatizando-backups-restic-backblaze">
+                      Automatizando copias de seguridad inmutables con Restic y Backblaze B2
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -995,9 +1038,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       18 comentarios
                     </span>
-                    <a href="/blog" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/blog/automatizando-backups-restic-backblaze" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -1008,7 +1051,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    De Zsh a Fish y de vuelta a Bash: Mis aprendizajes sobre portabilidad en scripts
+                    <NuxtLink to="/blog/de-zsh-a-fish-y-bash-portabilidad">
+                      De Zsh a Fish y de vuelta a Bash: Mis aprendizajes sobre portabilidad en scripts
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -1031,9 +1076,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       22 comentarios
                     </span>
-                    <a href="/blog" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/blog/de-zsh-a-fish-y-bash-portabilidad" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>
@@ -1044,7 +1089,9 @@ onMounted(() => {
               <article class="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col h-full hover:border-emerald-500/50 transition-colors group">
                 <div class="p-5 pb-3">
                   <h3 class="font-heading font-bold text-lg text-white group-hover:text-emerald-400 transition-colors leading-snug line-clamp-2">
-                    Montando un Home Server silencioso y de bajo consumo con Debian 12
+                    <NuxtLink to="/blog/home-server-silencioso-debian-12">
+                      Montando un Home Server silencioso y de bajo consumo con Debian 12
+                    </NuxtLink>
                   </h3>
                 </div>
                 <div class="px-5 py-2">
@@ -1067,9 +1114,9 @@ onMounted(() => {
                       <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                       31 comentarios
                     </span>
-                    <a href="/blog" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
+                    <NuxtLink to="/blog/home-server-silencioso-debian-12" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors shadow">
                       Leer
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
               </article>

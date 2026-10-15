@@ -8,8 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "env:guias": "cp .env-guias .env && npx nuxi cleanup",
-    "env:noticias": "cp .env-noticias .env && npx nuxi cleanup"
+    "env:guias": "cp .env-guias .env",
+    "env:noticias": "cp .env-noticias .env"
   },
   "dependencies": {
     "@pinia/nuxt": "^1.0.2",

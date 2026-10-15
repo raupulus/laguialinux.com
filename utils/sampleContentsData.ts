@@ -1,0 +1,1095 @@
+import type { ContentResource } from '~/types'
+
+/**
+ * Dataset maestro de muestra para contingencia offline y desarrollo sin API backend.
+ * Extraído de la taxonomía histórica y prototipos de La Guía Linux.
+ */
+export interface ExtendedSampleContent extends ContentResource {
+  categorySlug: string
+  categoryName: string
+  subcategorySlug?: string
+  subcategoryName?: string
+  tagsList: string[]
+  readingTime: string
+  commandSnippet?: string
+  metadata?: Record<string, any>
+  pages?: Array<{
+    id: number
+    order: number
+    title: string
+    slug: string
+    body?: string
+  }>
+}
+
+export const SAMPLE_GUIDES: ExtendedSampleContent[] = [
+  {
+    id: 1,
+    title: 'Comandos Linux para Gestionar Archivos y Directorios',
+    slug: 'comandos-linux-gestionar-archivos-y-directorios',
+    excerpt: 'Guía completa de comandos esenciales: ls, cp, mv, rm, find y rsync con ejemplos prácticos y banderas útiles para la terminal.',
+    type: { id: 1, slug: 'command', name: 'Comando', plural_name: 'Comandos' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: true,
+    image: {
+      url: '/assets/img/covers/cover_guias.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Comandos Archivos y Directorios',
+    },
+    seo_title: 'Comandos Linux para Gestionar Archivos y Directorios',
+    seo_description: 'Guía completa de comandos esenciales en terminal GNU/Linux.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 3,
+    views_count: 2450,
+    published_at: '2026-09-15T10:00:00Z',
+    created_at: '2026-09-10T10:00:00Z',
+    updated_at: '2026-09-15T10:00:00Z',
+    categorySlug: 'comandos',
+    categoryName: 'Comandos y Chuletas',
+    subcategorySlug: 'archivos-directorios',
+    subcategoryName: 'Archivos y Directorios',
+    tagsList: ['archivos', 'terminal', 'bash', 'directorios'],
+    readingTime: '7 min',
+    commandSnippet: "find . -type f -name '*.log' -mtime +30 -exec rm {} \\;",
+  },
+  {
+    id: 2,
+    title: 'Comandos para comprimir y descomprimir archivos con tar, gzip y bzip2',
+    slug: 'comandos-linux-para-comprimir-archivos-y-directorios',
+    excerpt: 'Aprende a empaquetar y comprimir colecciones de ficheros en formatos .tar.gz, .tar.bz2 y .tar.xz optimizando espacio y velocidad.',
+    type: { id: 1, slug: 'command', name: 'Comando', plural_name: 'Comandos' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/covers/cover_guias.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Comprimir Archivos con Tar',
+    },
+    seo_title: 'Comprimir y descomprimir con tar en Linux',
+    seo_description: 'Empaquetado y compresión con tar, gzip y bzip2.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: false, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 2,
+    views_count: 1890,
+    published_at: '2026-09-12T10:00:00Z',
+    created_at: '2026-09-08T10:00:00Z',
+    updated_at: '2026-09-12T10:00:00Z',
+    categorySlug: 'comandos',
+    categoryName: 'Comandos y Chuletas',
+    subcategorySlug: 'archivos-directorios',
+    subcategoryName: 'Archivos y Directorios',
+    tagsList: ['tar', 'gzip', 'compresion', 'backup', 'bash'],
+    readingTime: '5 min',
+    commandSnippet: 'tar -czvf respaldo-$(date +%F).tar.gz /var/www/html',
+  },
+  {
+    id: 3,
+    title: 'Comandos Linux para modificar Permisos en Ficheros y Directorios',
+    slug: 'comandos-linux-para-modificar-permisos-en-ficheros-y-directorios',
+    excerpt: 'Domina el modelo de permisos Unix octal y simbólico con chmod, chown, chgrp y comprende el cálculo de máscaras umask.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: true,
+    image: null,
+    seo_title: 'Permisos en Linux: chmod, chown y umask',
+    seo_description: 'Control de permisos y usuarios en sistemas operativos Linux.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 3,
+    views_count: 3100,
+    published_at: '2026-09-10T10:00:00Z',
+    created_at: '2026-09-05T10:00:00Z',
+    updated_at: '2026-09-10T10:00:00Z',
+    categorySlug: 'comandos',
+    categoryName: 'Comandos y Chuletas',
+    subcategorySlug: 'administracion-usuarios',
+    subcategoryName: 'Usuarios y Permisos',
+    tagsList: ['permisos', 'chmod', 'chown', 'seguridad', 'bash'],
+    readingTime: '6 min',
+    commandSnippet: 'chmod -R 750 /srv/datos && chown -R www-data:www-data /srv/datos',
+  },
+  {
+    id: 4,
+    title: 'Comandos Linux para Monitorizar y Depurar el Sistema',
+    slug: 'comandos-linux-monitorizar-depurar-sistema-linux',
+    excerpt: 'Inspección en tiempo real del uso de CPU, memoria, I/O de disco y procesos colgados mediante top, htop, vmstat e iostat.',
+    type: { id: 1, slug: 'command', name: 'Comando', plural_name: 'Comandos' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: null,
+    seo_title: 'Monitorización y depuración de sistemas Linux',
+    seo_description: 'Herramientas de inspección de rendimiento para sysadmins.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: false, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 4,
+    views_count: 4200,
+    published_at: '2026-09-08T10:00:00Z',
+    created_at: '2026-09-01T10:00:00Z',
+    updated_at: '2026-09-08T10:00:00Z',
+    categorySlug: 'comandos',
+    categoryName: 'Comandos y Chuletas',
+    subcategorySlug: 'procesos-servicios',
+    subcategoryName: 'Procesos y Systemd',
+    tagsList: ['monitorizacion', 'htop', 'rendimiento', 'procesos', 'systemd'],
+    readingTime: '8 min',
+    commandSnippet: 'ps aux --sort=-%mem | head -n 10',
+  },
+  {
+    id: 5,
+    title: 'Comandos indispensables para DPKG y APT: Limpieza y reparación',
+    slug: 'comandos-indispensables-para-dpkg-y-apt-limpieza',
+    excerpt: 'Resuelve bloqueos de dependencias rotas, purga configuraciones residuales y limpia paquetes huérfanos sin romper el sistema Debian.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: true,
+    image: null,
+    seo_title: 'DPKG y APT en Debian y Ubuntu',
+    seo_description: 'Comandos avanzados de resolución de dependencias y limpieza en Debian.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 3,
+    views_count: 2890,
+    published_at: '2026-09-05T10:00:00Z',
+    created_at: '2026-08-28T10:00:00Z',
+    updated_at: '2026-09-05T10:00:00Z',
+    categorySlug: 'comandos',
+    categoryName: 'Comandos y Chuletas',
+    subcategorySlug: 'gestion-paquetes',
+    subcategoryName: 'Gestión de Paquetes',
+    tagsList: ['debian', 'apt', 'dpkg', 'paquetes'],
+    readingTime: '5 min',
+    commandSnippet: 'sudo apt-get autoremove --purge && sudo dpkg --configure -a',
+  },
+  {
+    id: 6,
+    title: 'Manual definitivo de particionado GPT, formateo y reparación con Fdisk, Gdisk y e2fsck',
+    slug: 'manual-particionado-fdisk-gdisk-formateo-reparacion-e2fsck',
+    excerpt: 'Domina la creación de tablas GPT, alineación de sectores de 4096 bytes para SSD/NVMe, escaneo con badblocks y formateo ext4/btrfs.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: true,
+    image: null,
+    seo_title: 'Particionado y formateo seguro en Linux',
+    seo_description: 'Guía de almacenamiento, fdisk, gdisk y e2fsck.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 5,
+    views_count: 5120,
+    published_at: '2026-09-02T10:00:00Z',
+    created_at: '2026-08-25T10:00:00Z',
+    updated_at: '2026-09-02T10:00:00Z',
+    categorySlug: 'almacenamiento',
+    categoryName: 'Discos y Almacenamiento',
+    subcategorySlug: 'particionado-formateo',
+    subcategoryName: 'Particionado y Formateo',
+    tagsList: ['discos', 'fdisk', 'particiones', 'formateo', 'almacenamiento'],
+    readingTime: '12 min',
+    commandSnippet: 'fdisk -l && mkfs.ext4 -L "Datos" /dev/sdb1',
+  },
+  {
+    id: 7,
+    title: 'Diagnóstico de Discos y Reparación de Sistemas de Ficheros con e2fsck y badblocks',
+    slug: 'diagnostico-discos-reparacion-sistemas-ficheros-e2fsck-badblocks',
+    excerpt: 'Chequeo de integridad de superbloques ext4, reparación interactiva y detección de sectores defectuosos en discos mecánicos y SSDs.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: null,
+    seo_title: 'Reparación de discos con e2fsck y badblocks',
+    seo_description: 'Cómo diagnosticar y reparar errores de disco en Linux.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: false, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 3,
+    views_count: 3410,
+    published_at: '2026-08-30T10:00:00Z',
+    created_at: '2026-08-22T10:00:00Z',
+    updated_at: '2026-08-30T10:00:00Z',
+    categorySlug: 'almacenamiento',
+    categoryName: 'Discos y Almacenamiento',
+    subcategorySlug: 'reparacion-diagnostico',
+    subcategoryName: 'Reparación y Diagnóstico',
+    tagsList: ['discos', 'e2fsck', 'badblocks', 'smartctl', 'almacenamiento'],
+    readingTime: '9 min',
+    commandSnippet: 'e2fsck -fvy /dev/sdb1',
+  },
+  {
+    id: 8,
+    title: 'Configuración de SSH seguro sin contraseña mediante claves Ed25519',
+    slug: 'configuracion-ssh-seguro-sin-clave-ed25519',
+    excerpt: 'Genera pares de claves elípticas de máxima seguridad, transfiérelas a tu servidor remoto con ssh-copy-id y deshabilita el acceso root y contraseñas.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: true,
+    image: null,
+    seo_title: 'Configuración SSH con claves Ed25519',
+    seo_description: 'Seguridad en servidores Linux con autenticación por clave.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 3,
+    views_count: 4890,
+    published_at: '2026-08-25T10:00:00Z',
+    created_at: '2026-08-18T10:00:00Z',
+    updated_at: '2026-08-25T10:00:00Z',
+    categorySlug: 'seguridad',
+    categoryName: 'Ciberseguridad y Hardening',
+    subcategorySlug: 'servicios-seguros',
+    subcategoryName: 'SSH y Bastionado',
+    tagsList: ['seguridad', 'ssh', 'ed25519', 'servidores', 'debian'],
+    readingTime: '8 min',
+    commandSnippet: 'ssh-keygen -t ed25519 -C "admin" && ssh-copy-id user@servidor',
+  },
+  {
+    id: 9,
+    title: 'Cortafuegos en Linux con Iptables y NFTables: Reglas indispensables',
+    slug: 'cortafuegos-linux-iptables-nftables-reglas-indispensables',
+    excerpt: 'Configura un cortafuegos robusto desde cero: filtrado de paquetes, mitigación de escaneos SYN y protección de servicios expuestos.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: null,
+    seo_title: 'Cortafuegos en Linux con Iptables',
+    seo_description: 'Reglas esenciales de seguridad perimetral.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: false, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 4,
+    views_count: 3780,
+    published_at: '2026-08-20T10:00:00Z',
+    created_at: '2026-08-12T10:00:00Z',
+    updated_at: '2026-08-20T10:00:00Z',
+    categorySlug: 'seguridad',
+    categoryName: 'Ciberseguridad y Hardening',
+    subcategorySlug: 'firewalls-filtrado',
+    subcategoryName: 'Cortafuegos y Filtros',
+    tagsList: ['seguridad', 'iptables', 'nftables', 'redes', 'firewall'],
+    readingTime: '11 min',
+    commandSnippet: 'iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT',
+  },
+  {
+    id: 10,
+    title: 'Diagnóstico de Redes con Nmap: Escaneo de Puertos y Detección de Servicios',
+    slug: 'diagnostico-redes-nmap-escaneo-puertos-servicios',
+    excerpt: 'Aprende a mapear la red local, identificar puertos abiertos, versiones de demonios y vulnerabilidades potenciales con la herramienta Nmap.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: null,
+    seo_title: 'Escaneo de puertos con Nmap en Linux',
+    seo_description: 'Manual práctico de auditoría de red con Nmap.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: false, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 3,
+    views_count: 2950,
+    published_at: '2026-08-15T10:00:00Z',
+    created_at: '2026-08-08T10:00:00Z',
+    updated_at: '2026-08-15T10:00:00Z',
+    categorySlug: 'redes',
+    categoryName: 'Redes y Comunicaciones',
+    subcategorySlug: 'auditoria-red',
+    subcategoryName: 'Auditoría y Diagnóstico',
+    tagsList: ['redes', 'nmap', 'seguridad', 'puertos', 'servidores'],
+    readingTime: '7 min',
+    commandSnippet: 'nmap -sV -sC -p- -T4 192.168.1.100',
+  },
+  {
+    id: 11,
+    title: 'Optimización de Memoria Swap y Valor Swappiness en Servidores Linux',
+    slug: 'optimizacion-memoria-swap-swappiness-servidores-linux',
+    excerpt: 'Ajusta el parámetro vm.swappiness en /etc/sysctl.conf para evitar thrashing y mejorar la latencia en bases de datos y servidores web.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: null,
+    seo_title: 'Optimización de swap y swappiness en Linux',
+    seo_description: 'Cómo ajustar swappiness para máxima velocidad de respuesta.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: false, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 2,
+    views_count: 2210,
+    published_at: '2026-08-10T10:00:00Z',
+    created_at: '2026-08-02T10:00:00Z',
+    updated_at: '2026-08-10T10:00:00Z',
+    categorySlug: 'optimizacion-software',
+    categoryName: 'Optimización y Mantenimiento',
+    subcategorySlug: 'kernel-memoria',
+    subcategoryName: 'Memoria y Kernel',
+    tagsList: ['rendimiento', 'swap', 'kernel', 'servidores', 'debian'],
+    readingTime: '5 min',
+    commandSnippet: 'sysctl -w vm.swappiness=10 && echo "vm.swappiness=10" >> /etc/sysctl.d/99-sysctl.conf',
+  },
+  {
+    id: 12,
+    title: 'Guía Completa de Equivalencias: De Windows a Software Libre en GNU/Linux',
+    slug: 'guia-equivalencias-windows-software-libre-linux',
+    excerpt: 'Tabla exhaustiva de programas de oficina, edición de audio/vídeo, navegadores y herramientas de desarrollo para migrar sin fricción.',
+    type: { id: 2, slug: 'guide', name: 'Guía', plural_name: 'Guías' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: true,
+    image: null,
+    seo_title: 'Equivalencias de software Windows a Linux',
+    seo_description: 'Alternativas de código abierto a programas de Windows.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 4,
+    views_count: 4500,
+    published_at: '2026-08-05T10:00:00Z',
+    created_at: '2026-07-28T10:00:00Z',
+    updated_at: '2026-08-05T10:00:00Z',
+    categorySlug: 'equivalencias',
+    categoryName: 'Equivalencias Windows ↔ Linux',
+    subcategorySlug: 'ofimatica-multimedia',
+    subcategoryName: 'Ofimática y Multimedia',
+    tagsList: ['equivalencias', 'migracion', 'software-libre', 'escritorio'],
+    readingTime: '10 min',
+    commandSnippet: 'sudo apt install libreoffice gimp vlc kdenlive',
+  },
+]
+
+export const SAMPLE_TAGS = [
+  { id: 1, slug: 'debian', name: 'Debian', color: '#d70a53', contents_count: 32 },
+  { id: 2, slug: 'systemd', name: 'Systemd', color: '#000000', contents_count: 14 },
+  { id: 3, slug: 'bash', name: 'Bash', color: '#4eaa25', contents_count: 28 },
+  { id: 4, slug: 'seguridad', name: 'Seguridad', color: '#ef4444', contents_count: 24 },
+  { id: 5, slug: 'discos', name: 'Discos', color: '#0d9488', contents_count: 18 },
+  { id: 6, slug: 'redes', name: 'Redes', color: '#0284c7', contents_count: 19 },
+  { id: 7, slug: 'docker', name: 'Docker', color: '#2496ed', contents_count: 11 },
+  { id: 8, slug: 'arch', name: 'Arch Linux', color: '#1793d1', contents_count: 15 },
+  { id: 9, slug: 'servidores', name: 'Servidores', color: '#6366f1', contents_count: 22 },
+  { id: 10, slug: 'iptables', name: 'Iptables', color: '#e11d48', contents_count: 9 },
+  { id: 11, slug: 'particiones', name: 'Particiones', color: '#f59e0b', contents_count: 16 },
+  { id: 12, slug: 'rendimiento', name: 'Rendimiento', color: '#10b981', contents_count: 12 },
+]
+
+export interface ExtendedSampleNews {
+  id: number
+  title: string
+  slug: string
+  excerpt: string
+  published_at: string
+  updated_at: string
+  views_count: number
+  categorySlug: string
+  categoryName: string
+  categoryColor: string
+  readingTime: string
+  image: {
+    url: string
+    caption?: string
+    credits?: string
+  }
+  sources: Array<{ title: string; url: string }>
+  sections: Array<{
+    id: number
+    order: number
+    title?: string
+    body: string
+  }>
+}
+
+export const SAMPLE_NEWS: ExtendedSampleNews[] = [
+  {
+    id: 101,
+    title: 'Linux Kernel 6.12 lanzado con soporte oficial para Real-Time (PREEMPT_RT)',
+    slug: 'linux-kernel-6-12-lanzado-real-time',
+    excerpt: 'Linus Torvalds anuncia el lanzamiento de Linux 6.12, marcando un hito histórico con la integración completa del parche de tiempo real tras dos décadas de desarrollo externo.',
+    published_at: '2026-10-11T14:30:00Z',
+    updated_at: '2026-10-11T15:00:00Z',
+    views_count: 3420,
+    categorySlug: 'kernel',
+    categoryName: 'Kernel Linux',
+    categoryColor: '#ea580c',
+    readingTime: '3 min',
+    image: {
+      url: '/assets/img/covers/hero_news.webp',
+      caption: 'El kernel Linux alcanza soporte de tiempo real determinista nativo sin parches externos.',
+      credits: 'La Guía Linux News',
+    },
+    sources: [
+      { title: 'Anuncio oficial de Linus Torvalds en LKML', url: 'https://lore.kernel.org' },
+      { title: 'Árbol Git oficial del kernel en kernel.org', url: 'https://git.kernel.org' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Un hito de dos décadas para la industria de sistemas embebidos e industriales',
+        body: '<p>Tras casi 20 años de desarrollo independiente liderado por Ingo Molnar, Thomas Gleixner y Peter Zijlstra, el soporte para computación de tiempo real determinista (<code>CONFIG_PREEMPT_RT</code>) forma parte del árbol principal del kernel de Linux de forma nativa.</p><p>Esto permite que Linux compita directamente con sistemas operativos de tiempo real dedicados (RTOS) en áreas críticas como automoción, aviónica, robótica médica y automatización industrial, sin sacrificar la compatibilidad del ecosistema general.</p>'
+      },
+      {
+        id: 2,
+        order: 2,
+        title: 'Otras novedades destacadas en Linux 6.12',
+        body: '<p>Junto a PREEMPT_RT, esta versión introduce optimizaciones de alto impacto en arquitecturas modernas:</p><ul><li><strong>Soporte inicial de GPU Intel Xe2:</strong> habilitado para procesadores Lunar Lake y Battlemage.</li><li><strong>Optimizaciones de Rust en el Kernel:</strong> nuevas abstracciones estables para controladores de red y memoria física.</li><li><strong>Mejoras en el programador EEVDF:</strong> ajuste de latencia en cargas de trabajo de servidores multinúcleo.</li><li><strong>Diagnóstico de fallos:</strong> nueva función de volcado rápido de memoria en pánicos del kernel sin reinicio ciego.</li></ul>'
+      }
+    ]
+  },
+  {
+    id: 102,
+    title: 'Debian 13 "Trixie" entra en su primera fase de congelamiento con base Linux 6.12',
+    slug: 'debian-13-trixie-primera-fase-congelamiento',
+    excerpt: 'El equipo de lanzamiento de Debian detalla el cronograma hacia la versión estable, confirmando arquitectura RISC-V de 64 bits como objetivo oficial.',
+    published_at: '2026-10-10T11:00:00Z',
+    updated_at: '2026-10-10T12:00:00Z',
+    views_count: 2150,
+    categorySlug: 'distribuciones',
+    categoryName: 'Distribuciones',
+    categoryColor: '#6366f1',
+    readingTime: '4 min',
+    image: {
+      url: '/assets/img/covers/hero_news.webp',
+      caption: 'Debian GNU/Linux prepara su próximo gran hito con Trixie.',
+      credits: 'Debian Project',
+    },
+    sources: [
+      { title: 'Boletín oficial Debian Release Team', url: 'https://lists.debian.org/debian-devel-announce/' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Calendario de congelamiento y arquitecturas soportadas',
+        body: '<p>Debian 13 "Trixie" ha iniciado la fase preliminar de transición de paquetes clave. El soporte para la arquitectura RISC-V de 64 bits (riscv64) ha sido promovido a arquitectura de primera clase, garantizando paquetes oficiales precompilados.</p>'
+      }
+    ]
+  },
+  {
+    id: 103,
+    title: 'Vulnerabilidad Zero-Day detectada en servidores de impresión CUPS: parches listos',
+    slug: 'vulnerabilidad-zero-day-servidores-cups-parches',
+    excerpt: 'Múltiples distribuciones lanzan actualizaciones urgentes para neutralizar paquetes maliciosos enviados por el puerto 631 UDP.',
+    published_at: '2026-10-09T08:00:00Z',
+    updated_at: '2026-10-09T09:00:00Z',
+    views_count: 4120,
+    categorySlug: 'ciberseguridad',
+    categoryName: 'Ciberseguridad',
+    categoryColor: '#ef4444',
+    readingTime: '3 min',
+    image: {
+      url: '/assets/img/covers/hero_news.webp',
+      caption: 'Aviso de seguridad urgente para administradores de sistemas y servidores CUPS.',
+      credits: 'OpenPrinting CUPS Security Team',
+    },
+    sources: [
+      { title: 'OpenPrinting Advisory en GitHub', url: 'https://github.com/OpenPrinting/cups-browsed/security/advisories' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Análisis de la cadena de explotación en cups-browsed',
+        body: '<p>La vulnerabilidad permite a atacantes remotos enviar paquetes UDP manipulados hacia el demonio cups-browsed en el puerto 631, forzando la creación de impresoras ficticias que ejecutan comandos arbitrarios en la fase de renderizado PostScript.</p>'
+      }
+    ]
+  },
+  {
+    id: 104,
+    title: 'KDE Plasma 6.2 introduce mejoras de escalado fraccional y gestión de color HDR',
+    slug: 'kde-plasma-6-2-escalado-fraccional-hdr',
+    excerpt: 'La nueva actualización del entorno de escritorio perfecciona el renderizado en Wayland para paneles multimonitor de alta densidad.',
+    published_at: '2026-10-08T16:00:00Z',
+    updated_at: '2026-10-08T17:00:00Z',
+    views_count: 1840,
+    categorySlug: 'software',
+    categoryName: 'Software y Apps',
+    categoryColor: '#0ea5e9',
+    readingTime: '3 min',
+    image: {
+      url: '/assets/img/covers/hero_news.webp',
+      caption: 'KDE Plasma 6.2 refina la experiencia de escritorio moderno sobre Wayland.',
+      credits: 'KDE Community',
+    },
+    sources: [
+      { title: 'Anuncio de lanzamiento oficial de KDE', url: 'https://kde.org/announcements/plasma/6/6.2.0/' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Wayland nativo y precisión cromática',
+        body: '<p>KDE Plasma 6.2 continúa consolidando la transición definitiva hacia Wayland, añadiendo soporte para curvas de calibración ICC y metadatos HDR dinámicos.</p>'
+      }
+    ]
+  },
+  {
+    id: 105,
+    title: 'Raspberry Pi Foundation presenta la Raspberry Pi 5 con 2GB de RAM a precio reducido',
+    slug: 'raspberry-pi-5-2gb-ram-precio-reducido',
+    excerpt: 'La nueva variante de bajo coste reduce el precio de entrada a la quinta generación manteniendo el procesador Broadcom BCM2712 a 2.4 GHz, con bus PCIe 2.0 y soporte oficial de Raspberry Pi OS de 64 bits.',
+    published_at: '2026-10-07T12:00:00Z',
+    updated_at: '2026-10-07T13:00:00Z',
+    views_count: 2790,
+    categorySlug: 'hardware',
+    categoryName: 'Hardware y ARM',
+    categoryColor: '#10b981',
+    readingTime: '3 min',
+    image: {
+      url: '/assets/img/covers/hero_news.webp',
+      caption: 'La placa monoplaca más popular estrena variante accesible de 2GB de RAM.',
+      credits: 'Raspberry Pi Ltd',
+    },
+    sources: [
+      { title: 'Boletín técnico oficial Raspberry Pi', url: 'https://www.raspberrypi.com/news/' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Rendimiento idéntico en CPU y GPU con consumo optimizado',
+        body: '<p>El silicio Broadcom BCM2712 stepping D0 optimiza el consumo térmico al deshabilitar circuitería no utilizada, manteniendo toda la potencia para proyectos domésticos y homelabs ligeros.</p>'
+      }
+    ]
+  },
+  {
+    id: 106,
+    title: 'Alerta de Seguridad: CVE-2024-6387 (RegreSSHion) en servidores OpenSSH',
+    slug: 'alerta-seguridad-cve-2024-6387-regresshion-openssh',
+    excerpt: 'Condición de carrera en el manejador de señales de OpenSSH (sshd) que permite ejecución remota de código con privilegios root sin autenticación previa.',
+    published_at: '2026-10-06T10:00:00Z',
+    updated_at: '2026-10-06T11:00:00Z',
+    views_count: 5320,
+    categorySlug: 'ciberseguridad',
+    categoryName: 'Ciberseguridad',
+    categoryColor: '#ef4444',
+    readingTime: '5 min',
+    image: {
+      url: '/assets/img/covers/hero_news.webp',
+      caption: 'Alerta crítica CVSS 9.8 sobre servidores OpenSSH en distribuciones Linux basadas en glibc.',
+      credits: 'Qualys Threat Research Unit',
+    },
+    sources: [
+      { title: 'Qualys Security Advisory (CVE-2024-6387)', url: 'https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt' },
+      { title: 'Anuncio oficial OpenSSH 9.8p1', url: 'https://www.openssh.com/txt/release-9.8' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Detalles de la vulnerabilidad y versiones afectadas',
+        body: '<p>RegreSSHion es una regresión de la vulnerabilidad CVE-2006-5051 que reapareció en OpenSSH 8.5p1 debido a una modificación en el manejo de SIGALRM. Afecta a sistemas Linux con biblioteca GNU C (glibc).</p>'
+      },
+      {
+        id: 2,
+        order: 2,
+        title: 'Mitigación inmediata y actualización',
+        body: '<p>Para mitigar inmediatamente sin reiniciar el servicio si no es posible actualizar a OpenSSH 9.8p1, configure en <code>/etc/ssh/sshd_config</code> el parámetro <code>LoginGraceTime 0</code> y recargue la configuración con <code>systemctl reload sshd</code>.</p>'
+      }
+    ]
+  },
+  {
+    id: 107,
+    title: 'Abre el registro de charlas para FOSDEM 2027: devrooms de Rust, Kernel y Sysadmin',
+    slug: 'registro-charlas-fosdem-2027',
+    excerpt: 'El mayor encuentro europeo de desarrolladores de software libre en Bruselas abre su convocatoria de propuestas (CfP). Se esperan más de 8.000 asistentes.',
+    published_at: '2026-10-08T14:15:00Z',
+    updated_at: '2026-10-08T15:00:00Z',
+    views_count: 1980,
+    categorySlug: 'software-libre',
+    categoryName: 'Software Libre y Open Source',
+    categoryColor: '#16a34a',
+    readingTime: '4 min',
+    image: {
+      url: '/assets/img/soft-skills/gnu_linux.webp',
+      caption: 'FOSDEM reúne anualmente a miles de desarrolladores de software libre en Bruselas.',
+      credits: 'FOSDEM Team',
+    },
+    sources: [
+      { title: 'Convocatoria oficial FOSDEM CfP', url: 'https://fosdem.org' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Salas temáticas y fechas clave del CfP',
+        body: '<p>La organización de FOSDEM ha publicado las directrices para la presentación de ponencias en las salas de desarrollo (devrooms) de Rust, virtualización, contenedores y seguridad del kernel de Linux.</p>'
+      }
+    ]
+  },
+  {
+    id: 108,
+    title: 'Arch Linux adopta Zstandard con nivel 19 como compresión estándar para repositorios',
+    slug: 'arch-linux-adopta-zstandard-nivel-19',
+    excerpt: 'La medida optimiza el ancho de banda global de los servidores réplica y acelera de forma dramática la descompresión de paquetes en instalaciones limpias y actualizaciones con pacman.',
+    published_at: '2026-10-09T09:00:00Z',
+    updated_at: '2026-10-09T10:00:00Z',
+    views_count: 2310,
+    categorySlug: 'distribuciones',
+    categoryName: 'Distribuciones GNU/Linux',
+    categoryColor: '#6366f1',
+    readingTime: '5 min',
+    image: {
+      url: '/assets/img/soft-skills/logotipo.webp',
+      caption: 'Arch Linux mejora la eficiencia de distribución de paquetes binarios con zstd.',
+      credits: 'Arch Linux Team',
+    },
+    sources: [
+      { title: 'Anuncio técnico en Arch Linux News', url: 'https://archlinux.org/news/' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Ventajas de compresión y descompresión con Zstandard nivel 19',
+        body: '<p>Tras extensas pruebas de rendimiento y ratio de compresión, los mantenedores de paquetes han fijado zstd -19 como estándar para todos los repositorios oficiales core, extra y multilib.</p>'
+      }
+    ]
+  },
+  {
+    id: 109,
+    title: 'Auditoría de elevación de privilegios: nuevos vectores de ataque en configuraciones de Sudo y Polkit',
+    slug: 'auditoria-elevacion-privilegios-sudo-polkit',
+    excerpt: 'Investigadores de seguridad detallan cómo reglas permisivas en sudoers y tokens mal configurados en polkit permiten escapes locales a root en servidores desatendidos.',
+    published_at: '2026-10-07T11:00:00Z',
+    updated_at: '2026-10-07T12:00:00Z',
+    views_count: 3120,
+    categorySlug: 'ciberseguridad',
+    categoryName: 'Ciberseguridad y Privacidad',
+    categoryColor: '#ef4444',
+    readingTime: '6 min',
+    image: {
+      url: '/assets/img/banners/placeholder.webp',
+      caption: 'Análisis detallado de configuraciones de sudoers y directivas polkit vulnerables.',
+      credits: 'Seclists Disclosure',
+    },
+    sources: [
+      { title: 'Informe de seguridad en Seclists', url: 'https://seclists.org' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Análisis de directivas permisivas en sudoers y polkit',
+        body: '<p>Revisión técnica de vectores de ataque basados en configuración errónea de directivas de sudo y polkit en entornos desatendidos.</p>'
+      }
+    ]
+  },
+  {
+    id: 110,
+    title: 'Fedora 41 llega con gestor DNF5 por defecto y soporte mejorado Wayland',
+    slug: 'fedora-41-gestor-dnf5-soporte-wayland',
+    excerpt: 'Descubre cómo la reescritura en C++ de DNF5 reduce el consumo de memoria en un 60% y acelera drásticamente la resolución de dependencias.',
+    published_at: '2026-10-01T10:00:00Z',
+    updated_at: '2026-10-01T11:00:00Z',
+    views_count: 2450,
+    categorySlug: 'distribuciones',
+    categoryName: 'Distribuciones GNU/Linux',
+    categoryColor: '#6366f1',
+    readingTime: '5 min',
+    image: {
+      url: '/assets/img/soft-skills/cloud.webp',
+      caption: 'Fedora 41 introduce DNF5 y mejoras en sesiones Wayland.',
+      credits: 'Fedora Project',
+    },
+    sources: [
+      { title: 'Anuncio oficial Fedora 41', url: 'https://fedoraproject.org' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Novedades de DNF5 y rendimiento del gestor de paquetes',
+        body: '<p>La adopción de DNF5 marca un salto cuantitativo en rendimiento. La eliminación de la capa Python en el motor principal reduce el consumo de RAM hasta un 60% y elimina retrasos en la actualización de metadatos.</p>'
+      }
+    ]
+  },
+  {
+    id: 111,
+    title: 'Proxmox VE 8.3 introduce migración en caliente mejorada y soporte Ceph Reef',
+    slug: 'proxmox-ve-8-3-migracion-caliente-ceph-reef',
+    excerpt: 'Nuevas capacidades de replicación SDN para centros de datos y aislamiento reforzado para contenedores LXC no privilegiados.',
+    published_at: '2026-09-24T12:00:00Z',
+    updated_at: '2026-09-24T13:00:00Z',
+    views_count: 2680,
+    categorySlug: 'distribuciones',
+    categoryName: 'Virtualización y Sysadmin',
+    categoryColor: '#ea580c',
+    readingTime: '5 min',
+    image: {
+      url: '/assets/img/banners/1.webp',
+      caption: 'Proxmox Virtual Environment 8.3 amplía la resiliencia en clústeres.',
+      credits: 'Proxmox Server Solutions',
+    },
+    sources: [
+      { title: 'Notas de la versión Proxmox VE 8.3', url: 'https://pve.proxmox.com' }
+    ],
+    sections: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Mejoras en redes definidas por software (SDN) y Ceph',
+        body: '<p>Proxmox VE 8.3 facilita la integración de redes VLAN/VxLAN avanzadas mediante la interfaz web y actualiza la pila de almacenamiento distribuido Ceph a la versión Reef con soporte de auto-reparación acelerada.</p>'
+      }
+    ]
+  }
+]
+
+export const SAMPLE_BLOG_POSTS: ExtendedSampleContent[] = [
+  {
+    id: 201,
+    title: 'Analizando Debian: Estabilidad, Filosofía y Experiencia',
+    slug: 'analizando-debian',
+    excerpt: 'Reflexiones personales sobre más de una década utilizando Debian como sistema principal: virtudes del ciclo de lanzamiento, gestión de paquetes y puntos de fricción para usuarios noveles.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: true,
+    image: {
+      url: '/assets/img/covers/cover_blog.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Analizando Debian',
+    },
+    seo_title: 'Analizando Debian: Estabilidad, Filosofía y Experiencia',
+    seo_description: 'Reflexiones sobre más de una década con Debian como sistema operativo principal.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: true, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 3820,
+    published_at: '2026-08-15T12:00:00Z',
+    created_at: '2026-08-10T12:00:00Z',
+    updated_at: '2026-08-15T12:00:00Z',
+    categorySlug: 'opinion',
+    categoryName: 'Opinión y Filosofía',
+    tagsList: ['debian', 'filosofia', 'gnulinux', 'estabilidad'],
+    readingTime: '8 min',
+    pages: [
+      {
+        id: 1,
+        order: 1,
+        title: 'Analizando Debian',
+        slug: 'principal',
+        body: '<p>Debian representa para muchos la roca fundacional del ecosistema GNU/Linux moderno. Con más de treinta años de historia ininterrumpida, su contrato social y su modelo comunitario son un faro de gobernanza abierta.</p><p>La estabilidad de Debian no es fruto de la casualidad, sino de un riguroso período de congelación donde miles de desarrolladores pulen bugs hasta conseguir un sistema operativo sobre el que levantar centros de datos enteros con absoluta confianza.</p>',
+      },
+    ],
+  },
+  {
+    id: 202,
+    title: 'Listado de Podcasts de Tecnología, Software Libre y GNU/Linux',
+    slug: 'listado-podcasts-tecnologia-software-libre-gnu-linux',
+    excerpt: 'Recopilatorio exhaustivo de los mejores canales y episodios de podcast dedicados al ecosistema Linux, administración de sistemas, desarrollo y cultura open source en español.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/covers/cover_blog.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Podcasts Open Source',
+    },
+    seo_title: 'Podcasts de Tecnología y GNU/Linux en español',
+    seo_description: 'Los mejores podcasts sobre Linux, software libre y sysadmin en castellano.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 2940,
+    published_at: '2026-09-01T10:00:00Z',
+    created_at: '2026-08-28T10:00:00Z',
+    updated_at: '2026-09-01T10:00:00Z',
+    categorySlug: 'comunidad',
+    categoryName: 'Comunidad y Enlaces',
+    tagsList: ['podcasts', 'audio', 'comunidad', 'cultura-libre'],
+    readingTime: '6 min',
+    pages: [
+      {
+        id: 2,
+        order: 1,
+        title: 'Listado de Podcasts',
+        slug: 'principal',
+        body: '<p>El podcasting ha sido históricamente uno de los canales más activos y enriquecedores para la comunidad del software libre. A través de conversaciones informales, entrevistas a mantenedores y debates técnicos, el audio nos acompaña mientras trabajamos o viajamos.</p><p>En este artículo recopilamos aquellos espacios imprescindibles en castellano que continúan emitiendo con constancia y calidad técnica.</p>',
+      },
+    ],
+  },
+  {
+    id: 203,
+    title: 'Principios y Ética del Software Libre: Más Allá del Código',
+    slug: 'principios-del-software-libre',
+    excerpt: 'Un análisis sobre las cuatro libertades esenciales del software libre y por qué la soberanía tecnológica individual y colectiva es más urgente hoy que nunca.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/covers/cover_blog.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Principios Software Libre',
+    },
+    seo_title: 'Principios y Ética del Software Libre',
+    seo_description: 'Las 4 libertades esenciales y la soberanía tecnológica.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 2150,
+    published_at: '2026-08-20T14:00:00Z',
+    created_at: '2026-08-18T14:00:00Z',
+    updated_at: '2026-08-20T14:00:00Z',
+    categorySlug: 'opinion',
+    categoryName: 'Opinión y Filosofía',
+    tagsList: ['software-libre', 'etica', 'gnu', 'soberania'],
+    readingTime: '7 min',
+    pages: [
+      {
+        id: 3,
+        order: 1,
+        title: 'Principios del Software Libre',
+        slug: 'principal',
+        body: '<p>Cuando Richard Stallman formuló las cuatro libertades esenciales del software en 1986, sentó las bases no solo de un modelo de licenciamiento (la GNU GPL), sino de un movimiento ético por el control del usuario sobre su propia tecnología.</p><p>En una era marcada por el software como servicio (SaaS) cerrado y la telemetría invasiva, el software libre se erige como el único garante de la privacidad y el conocimiento humano compartido.</p>',
+      },
+    ],
+  },
+  {
+    id: 204,
+    title: 'Mi setup de desarrollo en Linux para 2026: Neovim, Tmux y Alacritty',
+    slug: 'setup-desarrollo-linux-neovim-tmux',
+    excerpt: 'Configuración declarativa basada en Lua, atajos de teclado sin despegar los dedos del home row y sincronización de dotfiles con Git bare repo.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/banners/placeholder.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Setup Neovim',
+    },
+    seo_title: 'Setup de desarrollo en Linux 2026',
+    seo_description: 'Neovim, Tmux y Alacritty en GNU/Linux.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 3200,
+    published_at: '2026-08-10T10:00:00Z',
+    created_at: '2026-08-08T10:00:00Z',
+    updated_at: '2026-08-10T10:00:00Z',
+    categorySlug: 'productividad',
+    categoryName: 'Entorno y Productividad',
+    tagsList: ['neovim', 'tmux', 'alacritty', 'dotfiles'],
+    readingTime: '8 min',
+    pages: [
+      {
+        id: 4,
+        order: 1,
+        title: 'Mi setup de desarrollo en Linux para 2026',
+        slug: 'principal',
+        body: '<p>A lo largo de los años he probado decenas de editores e IDEs, pero la combinación de Neovim con Lazy.nvim, Tmux como multiplexor de terminal y Alacritty con aceleración por GPU ofrece un entorno inigualable en ligereza y control.</p>',
+      },
+    ],
+  },
+  {
+    id: 205,
+    title: 'Por qué migré de Docker a Podman en todos mis servidores locales',
+    slug: 'migracion-docker-a-podman-servidores',
+    excerpt: 'Ventajas de la arquitectura rootless sin demonio central, compatibilidad con docker-compose y generación nativa de unidades systemd con quadlets.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/banners/reading.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Podman Servidores',
+    },
+    seo_title: 'Migración de Docker a Podman en servidores Linux',
+    seo_description: 'Rootless containers y systemd quadlets con Podman.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 2750,
+    published_at: '2026-08-05T10:00:00Z',
+    created_at: '2026-08-01T10:00:00Z',
+    updated_at: '2026-08-05T10:00:00Z',
+    categorySlug: 'contenedores',
+    categoryName: 'Contenedores y Virtualización',
+    tagsList: ['podman', 'docker', 'contenedores', 'systemd'],
+    readingTime: '7 min',
+    pages: [
+      {
+        id: 5,
+        order: 1,
+        title: 'Migración a Podman',
+        slug: 'principal',
+        body: '<p>La seguridad de no ejecutar un demonio en segundo plano con privilegios root (dockerd) es el principal argumento para dar el salto a Podman. Con las unidades Quadlet integradas en systemd, la gestión de contenedores se vuelve parte integral del sistema operativo.</p>',
+      },
+    ],
+  },
+  {
+    id: 206,
+    title: 'Reflexiones sobre 25 años usando software libre y GNU/Linux',
+    slug: 'reflexiones-25-anos-software-libre',
+    excerpt: 'Desde los primeros disquetes de Slackware hasta la nube moderna. Lecciones aprendidas, evolución del kernel y el valor incalculable de la comunidad.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/soft-skills/gnu_linux.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Reflexiones Linux',
+    },
+    seo_title: '25 años con GNU/Linux y Software Libre',
+    seo_description: 'Evolución de Linux desde Slackware hasta hoy.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 4100,
+    published_at: '2026-07-25T12:00:00Z',
+    created_at: '2026-07-20T12:00:00Z',
+    updated_at: '2026-07-25T12:00:00Z',
+    categorySlug: 'opinion',
+    categoryName: 'Opinión y Filosofía',
+    tagsList: ['historia', 'filosofia', 'gnulinux', 'comunidad'],
+    readingTime: '10 min',
+    pages: [
+      {
+        id: 6,
+        order: 1,
+        title: 'Reflexiones sobre 25 años con GNU/Linux',
+        slug: 'principal',
+        body: '<p>Mirar atrás hacia finales de los años 90 e instalar Linux mediante disquetes de 3.5 pulgadas parece de otra era. Sin embargo, los principios esenciales de cooperación comunitaria y soberanía tecnológica se mantienen intactos.</p>',
+      },
+    ],
+  },
+  {
+    id: 207,
+    title: 'Automatizando copias de seguridad inmutables con Restic y Backblaze B2',
+    slug: 'automatizando-backups-restic-backblaze',
+    excerpt: 'Estrategia 3-2-1 con cifrado en reposo del lado cliente, deduplicación a nivel de bloques y ejecución periódica desatendida mediante systemd timers.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/banners/placeholder.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Backups Restic',
+    },
+    seo_title: 'Copias de seguridad con Restic y Backblaze B2',
+    seo_description: 'Backups cifrados y deduplicados en la nube con Restic.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 1890,
+    published_at: '2026-07-15T10:00:00Z',
+    created_at: '2026-07-10T10:00:00Z',
+    updated_at: '2026-07-15T10:00:00Z',
+    categorySlug: 'almacenamiento',
+    categoryName: 'Sysadmin y Almacenamiento',
+    tagsList: ['restic', 'backups', 'b2', 'systemd'],
+    readingTime: '6 min',
+    pages: [
+      {
+        id: 7,
+        order: 1,
+        title: 'Automatizando con Restic',
+        slug: 'principal',
+        body: '<p>Restic simplifica radicalmente los backups remotos con repositorios cifrados mediante AES-256 en repositorios S3 o B2, garantizando snapshots inmutables ante ransomware.</p>',
+      },
+    ],
+  },
+  {
+    id: 208,
+    title: 'De Zsh a Fish y de vuelta a Bash: Mis aprendizajes sobre portabilidad en scripts',
+    slug: 'de-zsh-a-fish-y-bash-portabilidad',
+    excerpt: 'Por qué la comodidad interactiva no debe comprometer la estricta compatibilidad POSIX cuando redactas automatizaciones críticas de servidores.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/soft-skills/cloud.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Shell Scripting',
+    },
+    seo_title: 'Portabilidad en Shell: De Zsh y Fish a Bash',
+    seo_description: 'Aprendizajes sobre compatibilidad POSIX y scripts.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 2340,
+    published_at: '2026-07-01T10:00:00Z',
+    created_at: '2026-06-28T10:00:00Z',
+    updated_at: '2026-07-01T10:00:00Z',
+    categorySlug: 'comandos',
+    categoryName: 'Terminal y Shell',
+    tagsList: ['bash', 'zsh', 'fish', 'posix'],
+    readingTime: '9 min',
+    pages: [
+      {
+        id: 8,
+        order: 1,
+        title: 'Portabilidad de Scripts Shell',
+        slug: 'principal',
+        body: '<p>La tentación de escribir scripts aprovechando sintaxis moderna de zsh o fish suele pagarse caro cuando el script debe desplegarse en entornos mínimos Alpine o servidores remotos Debian.</p>',
+      },
+    ],
+  },
+  {
+    id: 209,
+    title: 'Montando un Home Server silencioso y de bajo consumo con Debian 12',
+    slug: 'home-server-silencioso-debian-12',
+    excerpt: 'Elección de hardware N100 con 6W de TDP, gestión de almacenamiento con pools ZFS en espejo y servicios esenciales para el hogar inteligente.',
+    type: { id: 3, slug: 'blog', name: 'Blog', plural_name: 'Blogs' },
+    status: { id: 3, slug: 'published', name: 'Publicado' },
+    is_featured: false,
+    image: {
+      url: '/assets/img/banners/placeholder.webp',
+      width: 1280,
+      height: 720,
+      type: 'image/webp',
+      alt: 'Home Server Debian',
+    },
+    seo_title: 'Home Server de bajo consumo con Debian 12',
+    seo_description: 'Montaje de mini PC Intel N100 con Debian 12 y ZFS.',
+    platform: { id: 1, slug: 'laguialinux', title: 'La Guía Linux' },
+    visibility: { home: true, menu: true, footer: false, sidebar: true, search: true, archive: true, rss: true, sitemap: true, sitemap_news: false },
+    copyright_valid: true,
+    pages_count: 1,
+    views_count: 3600,
+    published_at: '2026-06-15T10:00:00Z',
+    created_at: '2026-06-10T10:00:00Z',
+    updated_at: '2026-06-15T10:00:00Z',
+    categorySlug: 'almacenamiento',
+    categoryName: 'Hardware y Self-Hosting',
+    tagsList: ['homeserver', 'debian', 'zfs', 'selfhosting'],
+    readingTime: '12 min',
+    pages: [
+      {
+        id: 9,
+        order: 1,
+        title: 'Home Server con Debian 12',
+        slug: 'principal',
+        body: '<p>Los procesadores Intel N100 han revolucionado el mercado de servidores domésticos, ofreciendo transcodificación por hardware y suficiente potencia para decenas de servicios consumiendo menos de 10 vatios en reposo.</p>',
+      },
+    ],
+  }
+]
+
+

@@ -25,11 +25,15 @@ logs
 .DS_Store
 Thumbs.db
 
+# Internal agent teamwork
+.agents/teamwork/
+
 # Local env files
 .env
 .env.*
 .env-*
 !.env.example
+!.env.example.production
 !.env.news.example
 !.env-guias.example
 !.env-noticias.example

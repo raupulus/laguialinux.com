@@ -1,10 +1,31 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const { platform } = usePlatform()
+
+const copiedSlug = ref<string | null>(null)
+
+const handleCopyNewsLink = async (slug: string) => {
+  if (import.meta.client && navigator.clipboard) {
+    const url = `${window.location.origin}/noticia/${slug}`
+    try {
+      await navigator.clipboard.writeText(url)
+      copiedSlug.value = slug
+      setTimeout(() => {
+        if (copiedSlug.value === slug) {
+          copiedSlug.value = null
+        }
+      }, 2000)
+    } catch {
+      // Fallback si clipboard falla
+    }
+  }
+}
 </script>
 
 <template>
   <div>
-<!-- BANNER ÚLTIMA HORA (BREAKING NEWS TICKER) -->
+  <!-- BANNER ÚLTIMA HORA (BREAKING NEWS TICKER) -->
   <div class="bg-slate-900/90 border-b border-slate-800 text-xs px-4 py-2">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
       <div class="flex items-center gap-2 overflow-hidden">
@@ -15,42 +36,26 @@ const { platform } = usePlatform()
           Publicada actualización de seguridad crítica para OpenSSH (CVE-2026-...) frente a posibles ataques de denegación de servicio.
         </span>
       </div>
-      <a href="/noticia" class="shrink-0 text-red-300 hover:text-white font-bold underline font-mono text-[11px]">
+      <NuxtLink to="/noticia/alerta-seguridad-cve-2024-6387-regresshion-openssh" class="shrink-0 text-red-300 hover:text-white font-bold underline font-mono text-[11px]">
         Leer comunicado →
-      </a>
+      </NuxtLink>
     </div>
   </div>
-  <!-- MONITOR DE ALERTAS CVE CRÍTICAS (4.13) -->
-  <div id="lgl-cve-alert" class="max-w-7xl mx-auto w-full px-4 mt-4">
-    <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-900/90 border border-red-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-lg">
-      <div class="flex items-start sm:items-center gap-2.5">
-        <span class="px-2 py-0.5 rounded-md bg-red-600 text-white font-mono font-black text-[10px] tracking-wider uppercase shrink-0 shadow-sm">
-          ALERTA CVE CRÍTICA
-        </span>
-        <div class="space-y-0.5">
-          <span class="font-mono text-red-300 font-bold">CVE-2024-6387 (RegreSSHion):</span>
-          <span class="text-slate-300">Vulnerabilidad de ejecución remota de código en OpenSSH (CVSS 9.8). Afecta a servidores con glibc.</span>
-        </div>
-      </div>
-      <div class="flex items-center gap-3 shrink-0 self-end sm:self-center">
-        <a href="/noticia" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold font-mono text-[11px] transition-colors shadow">
-          Ver Mitigación y Parche →
-        </a>
-        <button type="button" onclick="dismissCveAlert()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-red-900/40 transition-colors" title="Descartar alerta">✕</button>
-      </div>
-    </div>
+
+  <!-- MONITOR DE ALERTAS CVE CRÍTICAS REACTIVO (4.13) -->
+  <div class="mt-4">
+    <CveAlertBanner />
   </div>
 
   <!-- WIDGET KERNEL WATCHER (4.12 - CLIENT-SIDE AUTOMATIZADO SIN NODEJS) -->
   <div class="max-w-7xl mx-auto w-full px-4 mt-3">
     <div class="px-4 py-2.5 rounded-2xl bg-slate-900 border border-slate-800/90 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs font-mono shadow-md">
       <div class="flex items-center gap-2 text-slate-300">
-        <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
         <span class="font-bold text-white flex items-center gap-1.5">
           <svg class="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
           Kernel Watcher:
         </span>
-        <span class="text-slate-500 hidden lg:inline">Versiones oficiales activas de kernel.org</span>
+        <span class="text-slate-400 hidden lg:inline font-medium">Versiones oficiales activas de kernel.org</span>
       </div>
 
       <div class="flex flex-wrap items-center gap-2.5 text-[11px]" id="kernel-releases-container">
@@ -63,7 +68,7 @@ const { platform } = usePlatform()
         <span class="px-2.5 py-1 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-300">
           LTS: <strong id="k-lts" class="font-bold">6.6.77 · 6.1.128</strong>
         </span>
-        <a href="https://www.kernel.org" target="_blank" rel="noopener" class="text-slate-500 hover:text-slate-300 text-[10px] underline ml-1 font-sans">
+        <a href="https://www.kernel.org" target="_blank" rel="noopener" class="text-slate-400 hover:text-slate-200 text-[10px] underline ml-1 font-sans">
           kernel.org ↗
         </a>
       </div>
@@ -72,10 +77,7 @@ const { platform } = usePlatform()
 
   <!-- BANNER ADSENSE TOP DISPLAY (728x90) -->
   <div class="max-w-7xl mx-auto w-full px-4 mt-4">
-    <div class="w-full min-h-[90px] rounded-xl border border-dashed border-slate-800 bg-slate-900/40 flex flex-col items-center justify-center text-xs text-slate-500">
-      <span class="font-semibold text-slate-400 uppercase tracking-widest text-[10px]">Espacio Publicitario</span>
-      <span>Google AdSense — Top Leaderboard (728x90 / 320x100)</span>
-    </div>
+    <AdSlot type="header-leaderboard" slot-id="1000000001" />
   </div>
 
   <!-- MAIN CONTENT -->
@@ -100,18 +102,18 @@ const { platform } = usePlatform()
         </div>
 
         <div class="p-6 sm:p-8 space-y-4">
-          <div class="flex items-center gap-3 text-xs text-slate-400 font-mono">
+          <div class="flex items-center gap-3 text-xs text-slate-300 font-mono font-medium">
             <span>⏱️ 3 min de lectura</span>
-            <span>·</span>
+            <span class="text-slate-500">·</span>
             <span class="text-orange-400 font-bold">Hace 45 minutos</span>
-            <span>·</span>
+            <span class="text-slate-500">·</span>
             <span>Por Raúl Caro Pastorino</span>
           </div>
 
           <h1 class="font-heading text-2xl sm:text-4xl font-black text-white group-hover:text-orange-400 transition-colors leading-tight">
-            <a href="/noticia">
+            <NuxtLink to="/noticia/linux-kernel-6-12-lanzado-real-time">
               Linux Kernel 6.12 lanzado con soporte oficial para Real-Time (PREEMPT_RT)
-            </a>
+            </NuxtLink>
           </h1>
 
           <p class="text-slate-300 text-sm sm:text-base leading-relaxed line-clamp-3 font-normal">
@@ -124,10 +126,10 @@ const { platform } = usePlatform()
               <span class="text-slate-400 bg-slate-950 border border-slate-800/80 px-2.5 py-1 rounded-lg">#realtime</span>
               <span class="text-slate-400 bg-slate-950 border border-slate-800/80 px-2.5 py-1 rounded-lg">#preempt-rt</span>
             </div>
-            <a href="/noticia" class="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs transition-colors flex items-center gap-1.5 shadow-md">
+            <NuxtLink to="/noticia/linux-kernel-6-12-lanzado-real-time" class="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs transition-colors flex items-center gap-1.5 shadow-md">
               <span>Leer Noticia Completa</span>
               <span>→</span>
-            </a>
+            </NuxtLink>
           </div>
         </div>
       </article>
@@ -145,12 +147,12 @@ const { platform } = usePlatform()
             <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/20 text-[10px] font-mono">
               Distribuciones
             </span>
-            <span class="text-[11px] text-slate-500 font-mono">Hace 2 horas</span>
+            <span class="text-[11px] text-slate-300 font-mono font-medium">Hace 2 horas</span>
           </div>
           <h3 class="font-heading text-base font-bold text-white group-hover:text-orange-400 transition-colors leading-snug mb-2">
-            <a href="/noticia">
+            <NuxtLink to="/noticia/debian-13-trixie-primera-fase-congelamiento">
               Debian 13 "Trixie" entra en su primera fase de congelamiento con base Linux 6.12
-            </a>
+            </NuxtLink>
           </h3>
           <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed font-normal">
             El equipo de lanzamiento de Debian detalla el cronograma hacia la versión estable, confirmando arquitectura RISC-V de 64 bits como objetivo oficial.
@@ -163,12 +165,12 @@ const { platform } = usePlatform()
             <span class="px-2 py-0.5 rounded bg-red-500/10 text-red-400 font-bold border border-red-500/20 text-[10px] font-mono">
               Ciberseguridad
             </span>
-            <span class="text-[11px] text-slate-500 font-mono">Hace 4 horas</span>
+            <span class="text-[11px] text-slate-300 font-mono font-medium">Hace 4 horas</span>
           </div>
           <h3 class="font-heading text-base font-bold text-white group-hover:text-orange-400 transition-colors leading-snug mb-2">
-            <a href="/noticia">
+            <NuxtLink to="/noticia/vulnerabilidad-zero-day-servidores-cups-parches">
               Vulnerabilidad Zero-Day detectada en servidores de impresión CUPS: parches listos
-            </a>
+            </NuxtLink>
           </h3>
           <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed font-normal">
             Múltiples distribuciones lanzan actualizaciones urgentes para neutralizar paquetes maliciosos enviados por el puerto 631 UDP.
@@ -181,12 +183,12 @@ const { platform } = usePlatform()
             <span class="px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 font-bold border border-sky-500/20 text-[10px] font-mono">
               Software
             </span>
-            <span class="text-[11px] text-slate-500 font-mono">Hace 6 horas</span>
+            <span class="text-[11px] text-slate-300 font-mono font-medium">Hace 6 horas</span>
           </div>
           <h3 class="font-heading text-base font-bold text-white group-hover:text-orange-400 transition-colors leading-snug mb-2">
-            <a href="/noticia">
+            <NuxtLink to="/noticia/kde-plasma-6-2-escalado-fraccional-hdr">
               KDE Plasma 6.2 introduce mejoras de escalado fraccional y gestión de color HDR
-            </a>
+            </NuxtLink>
           </h3>
           <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed font-normal">
             La nueva actualización del entorno de escritorio perfecciona el renderizado en Wayland para paneles multimonitor de alta densidad.
@@ -198,14 +200,13 @@ const { platform } = usePlatform()
 
     <!-- 2. PÍLDORAS DE FILTRADO RÁPIDO POR SECCIÓN -->
     <div class="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-800 text-xs">
-      <span class="text-slate-500 font-semibold uppercase tracking-wider text-[11px] whitespace-nowrap mr-1">Filtrar flujo:</span>
-      <a href="/categoria" class="px-3.5 py-1.5 rounded-full bg-orange-600 text-white font-bold whitespace-nowrap shadow-sm shadow-orange-500/20">Todas las noticias</a>
-      <a href="/categoria/kernel-desarrollo" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition-colors border border-slate-800">Kernel Linux</a>
-      <a href="/categoria/distribuciones" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition-colors border border-slate-800">Distribuciones</a>
-      <a href="/categoria/ciberseguridad" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap transition-colors">Ciberseguridad</a>
-      <a href="/categoria/software-apps" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap transition-colors">Software y Apps</a>
-      <a href="/categoria/hardware-dispositivos" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap transition-colors">Hardware y ARM</a>
-      <a href="/categoria/comunidad-open-source" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap transition-colors">Comunidad</a>
+      <span class="text-slate-300 font-semibold uppercase tracking-wider text-[11px] whitespace-nowrap mr-1">Filtrar flujo:</span>
+      <NuxtLink to="/" class="px-3.5 py-1.5 rounded-full bg-orange-600 text-white font-bold whitespace-nowrap shadow-sm shadow-orange-500/20">Todas las noticias</NuxtLink>
+      <NuxtLink to="/categoria/kernel-linux" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition-colors border border-slate-800">Kernel Linux</NuxtLink>
+      <NuxtLink to="/categoria/distribuciones" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white whitespace-nowrap transition-colors border border-slate-800">Distribuciones</NuxtLink>
+      <NuxtLink to="/categoria/ciberseguridad" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap transition-colors">Ciberseguridad</NuxtLink>
+      <NuxtLink to="/categoria/software-libre" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap transition-colors">Software Libre</NuxtLink>
+      <NuxtLink to="/categoria/hardware" class="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 whitespace-nowrap transition-colors">Hardware y ARM</NuxtLink>
     </div>
 
     <!-- 3. FEED DE NOTICIAS CRONOLÓGICAS (LATEST) + SIDEBAR TENDENCIAS -->
@@ -240,15 +241,15 @@ const { platform } = usePlatform()
                   <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                     Hardware y ARM
                   </span>
-                  <span class="text-slate-400 text-xs italic font-serif">Ayer a las 18:30</span>
-                  <span class="text-slate-600">•</span>
-                  <span class="text-slate-400 text-xs font-mono">3 min lectura</span>
+                  <span class="text-slate-300 text-xs italic font-serif font-medium">Ayer a las 18:30</span>
+                  <span class="text-slate-500">•</span>
+                  <span class="text-slate-300 text-xs font-mono font-medium">3 min lectura</span>
                 </div>
 
                 <h3 class="font-heading font-black text-xl lg:text-2xl text-white group-hover:text-orange-400 transition-colors leading-snug mb-3">
-                  <a href="/noticia">
+                  <NuxtLink to="/noticia/raspberry-pi-5-2gb-ram-precio-reducido">
                     Raspberry Pi Foundation presenta la Raspberry Pi 5 con 2GB de RAM a precio reducido
-                  </a>
+                  </NuxtLink>
                 </h3>
 
                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5 font-normal line-clamp-3">
@@ -256,14 +257,14 @@ const { platform } = usePlatform()
                 </p>
 
                 <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
-                  <a href="/noticia" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md transition-colors">
+                  <NuxtLink to="/noticia/raspberry-pi-5-2gb-ram-precio-reducido" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md transition-colors">
                     <span>Leer noticia completa</span>
                     <span>→</span>
-                  </a>
-                  <div class="flex items-center gap-3 text-xs text-slate-400 font-mono">
-                    <span class="text-slate-500">Fuente:</span>
-                    <span class="text-slate-300 font-semibold">raspberrypi.com</span>
-                    <span>·</span>
+                  </NuxtLink>
+                  <div class="flex items-center gap-3 text-xs text-slate-300 font-mono font-medium">
+                    <span class="text-slate-400">Fuente:</span>
+                    <span class="text-slate-200 font-semibold">raspberrypi.com</span>
+                    <span class="text-slate-500">·</span>
                     <span>💬 14</span>
                   </div>
                 </div>
@@ -271,18 +272,26 @@ const { platform } = usePlatform()
 
               <!-- COLUMNA DERECHA: SIDEBAR DE ACCIONES / FUENTE OFICIAL -->
               <aside aria-label="Acciones de la noticia" class="bg-slate-950/80 border-t md:border-t-0 md:border-l border-slate-800/80 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl px-3 py-6 flex md:flex-col items-center justify-around gap-4 text-slate-400">
-                <a href="https://www.raspberrypi.com/news/" target="_blank" rel="noopener noreferrer" title="Ir a la fuente original externa" class="p-2 rounded-xl hover:bg-slate-800 hover:text-orange-400 transition-all text-base" aria-label="Fuente original">
+                <a href="https://www.raspberrypi.com/news/" target="_blank" rel="noopener noreferrer" title="Ir a la fuente original externa" class="p-2 rounded-xl hover:bg-slate-800 hover:text-orange-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Fuente original">
                   🌐
                 </a>
-                <button type="button" onclick="copyNewsLink(this, '/noticia')" title="Copiar enlace" class="p-2 rounded-xl hover:bg-slate-800 hover:text-white transition-all text-base" aria-label="Copiar enlace">
-                  🔗
+                <button
+                  type="button"
+                  @click="handleCopyNewsLink('raspberry-pi-5-2gb-ram-precio-reducido')"
+                  :title="copiedSlug === 'raspberry-pi-5-2gb-ram-precio-reducido' ? '¡Enlace copiado!' : 'Copiar enlace'"
+                  class="p-2 rounded-xl hover:bg-slate-800 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                  :class="copiedSlug === 'raspberry-pi-5-2gb-ram-precio-reducido' ? 'text-emerald-400 bg-emerald-500/10' : 'hover:text-white'"
+                  aria-label="Copiar enlace"
+                >
+                  <span v-if="copiedSlug === 'raspberry-pi-5-2gb-ram-precio-reducido'">✓</span>
+                  <span v-else>🔗</span>
                 </button>
-                <a href="../feeds.html" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-amber-400 transition-all text-base" aria-label="Canal RSS">
+                <NuxtLink to="/feeds" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-amber-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Canal RSS">
                   📡
-                </a>
-                <a href="/noticia" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base" aria-label="Comentarios">
+                </NuxtLink>
+                <NuxtLink to="/noticia/raspberry-pi-5-2gb-ram-precio-reducido" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Comentarios">
                   💬
-                </a>
+                </NuxtLink>
               </aside>
 
             </div>
@@ -305,15 +314,15 @@ const { platform } = usePlatform()
                   <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
                     Comunidad Open Source
                   </span>
-                  <span class="text-slate-400 text-xs italic font-serif">Ayer a las 14:15</span>
-                  <span class="text-slate-600">•</span>
-                  <span class="text-slate-400 text-xs font-mono">4 min lectura</span>
+                  <span class="text-slate-300 text-xs italic font-serif font-medium">Ayer a las 14:15</span>
+                  <span class="text-slate-500">•</span>
+                  <span class="text-slate-300 text-xs font-mono font-medium">4 min lectura</span>
                 </div>
 
                 <h3 class="font-heading font-black text-xl lg:text-2xl text-white group-hover:text-amber-400 transition-colors leading-snug mb-3">
-                  <a href="/noticia">
+                  <NuxtLink to="/noticia/registro-charlas-fosdem-2027">
                     Abre el registro de charlas para FOSDEM 2027: devrooms de Rust, Kernel y Sysadmin
-                  </a>
+                  </NuxtLink>
                 </h3>
 
                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5 font-normal line-clamp-3">
@@ -321,14 +330,14 @@ const { platform } = usePlatform()
                 </p>
 
                 <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
-                  <a href="/noticia" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-md transition-colors">
+                  <NuxtLink to="/noticia/registro-charlas-fosdem-2027" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-md transition-colors">
                     <span>Leer noticia completa</span>
                     <span>→</span>
-                  </a>
-                  <div class="flex items-center gap-3 text-xs text-slate-400 font-mono">
-                    <span class="text-slate-500">Fuente:</span>
-                    <span class="text-slate-300 font-semibold">fosdem.org</span>
-                    <span>·</span>
+                  </NuxtLink>
+                  <div class="flex items-center gap-3 text-xs text-slate-300 font-mono font-medium">
+                    <span class="text-slate-400">Fuente:</span>
+                    <span class="text-slate-200 font-semibold">fosdem.org</span>
+                    <span class="text-slate-500">·</span>
                     <span>💬 28</span>
                   </div>
                 </div>
@@ -336,27 +345,34 @@ const { platform } = usePlatform()
 
               <!-- COLUMNA DERECHA: SIDEBAR DE ACCIONES -->
               <aside aria-label="Acciones de la noticia" class="bg-slate-950/80 border-t md:border-t-0 md:border-l border-slate-800/80 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl px-3 py-6 flex md:flex-col items-center justify-around gap-4 text-slate-400">
-                <a href="https://fosdem.org" target="_blank" rel="noopener noreferrer" title="Ir a la web de FOSDEM" class="p-2 rounded-xl hover:bg-slate-800 hover:text-amber-400 transition-all text-base" aria-label="Web oficial">
+                <a href="https://fosdem.org" target="_blank" rel="noopener noreferrer" title="Ir a la web de FOSDEM" class="p-2 rounded-xl hover:bg-slate-800 hover:text-amber-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Web oficial">
                   🌐
                 </a>
-                <button type="button" onclick="copyNewsLink(this, '/noticia')" title="Copiar enlace" class="p-2 rounded-xl hover:bg-slate-800 hover:text-white transition-all text-base" aria-label="Copiar enlace">
-                  🔗
+                <button
+                  type="button"
+                  @click="handleCopyNewsLink('registro-charlas-fosdem-2027')"
+                  :title="copiedSlug === 'registro-charlas-fosdem-2027' ? '¡Enlace copiado!' : 'Copiar enlace'"
+                  class="p-2 rounded-xl hover:bg-slate-800 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                  :class="copiedSlug === 'registro-charlas-fosdem-2027' ? 'text-emerald-400 bg-emerald-500/10' : 'hover:text-white'"
+                  aria-label="Copiar enlace"
+                >
+                  <span v-if="copiedSlug === 'registro-charlas-fosdem-2027'">✓</span>
+                  <span v-else>🔗</span>
                 </button>
-                <a href="../feeds.html" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-amber-400 transition-all text-base" aria-label="Canal RSS">
+                <NuxtLink to="/feeds" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-amber-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Canal RSS">
                   📡
-                </a>
-                <a href="/noticia" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base" aria-label="Comentarios">
+                </NuxtLink>
+                <NuxtLink to="/noticia/registro-charlas-fosdem-2027" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Comentarios">
                   💬
-                </a>
+                </NuxtLink>
               </aside>
 
             </div>
           </article>
 
           <!-- BANNER ADSENSE IN-FEED (ANTI-CLS) -->
-          <div class="w-full min-h-[100px] rounded-2xl border border-dashed border-slate-800 bg-slate-900/40 p-4 flex flex-col items-center justify-center text-xs text-slate-500 shadow-inner">
-            <span class="font-semibold text-slate-400 uppercase tracking-widest text-[10px] mb-1">Espacio Publicitario</span>
-            <span>Google AdSense — In-Feed Native Editorial (Adaptable)</span>
+          <div class="my-6">
+            <AdSlot type="ad-in-feed" slot-id="1000000003" />
           </div>
 
           <!-- Noticia Pop-Out 3: Distribuciones -->
@@ -376,15 +392,15 @@ const { platform } = usePlatform()
                   <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
                     Distribuciones
                   </span>
-                  <span class="text-slate-400 text-xs italic font-serif">09 Oct 2026</span>
-                  <span class="text-slate-600">•</span>
-                  <span class="text-slate-400 text-xs font-mono">5 min lectura</span>
+                  <span class="text-slate-300 text-xs italic font-serif font-medium">09 Oct 2026</span>
+                  <span class="text-slate-500">•</span>
+                  <span class="text-slate-300 text-xs font-mono font-medium">5 min lectura</span>
                 </div>
 
                 <h3 class="font-heading font-black text-xl lg:text-2xl text-white group-hover:text-indigo-400 transition-colors leading-snug mb-3">
-                  <a href="/noticia">
+                  <NuxtLink to="/noticia/arch-linux-adopta-zstandard-nivel-19">
                     Arch Linux adopta Zstandard con nivel 19 como compresión estándar para repositorios
-                  </a>
+                  </NuxtLink>
                 </h3>
 
                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5 font-normal line-clamp-3">
@@ -392,14 +408,14 @@ const { platform } = usePlatform()
                 </p>
 
                 <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
-                  <a href="/noticia" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition-colors">
+                  <NuxtLink to="/noticia/arch-linux-adopta-zstandard-nivel-19" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition-colors">
                     <span>Leer noticia completa</span>
                     <span>→</span>
-                  </a>
-                  <div class="flex items-center gap-3 text-xs text-slate-400 font-mono">
-                    <span class="text-slate-500">Fuente:</span>
-                    <span class="text-slate-300 font-semibold">archlinux.org</span>
-                    <span>·</span>
+                  </NuxtLink>
+                  <div class="flex items-center gap-3 text-xs text-slate-300 font-mono font-medium">
+                    <span class="text-slate-400">Fuente:</span>
+                    <span class="text-slate-200 font-semibold">archlinux.org</span>
+                    <span class="text-slate-500">·</span>
                     <span>💬 19</span>
                   </div>
                 </div>
@@ -407,18 +423,26 @@ const { platform } = usePlatform()
 
               <!-- COLUMNA DERECHA: SIDEBAR DE ACCIONES -->
               <aside aria-label="Acciones de la noticia" class="bg-slate-950/80 border-t md:border-t-0 md:border-l border-slate-800/80 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl px-3 py-6 flex md:flex-col items-center justify-around gap-4 text-slate-400">
-                <a href="https://archlinux.org/news/" target="_blank" rel="noopener noreferrer" title="Ir a la web de Arch Linux" class="p-2 rounded-xl hover:bg-slate-800 hover:text-indigo-400 transition-all text-base" aria-label="Web oficial">
+                <a href="https://archlinux.org/news/" target="_blank" rel="noopener noreferrer" title="Ir a la web de Arch Linux" class="p-2 rounded-xl hover:bg-slate-800 hover:text-indigo-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Web oficial">
                   🌐
                 </a>
-                <button type="button" onclick="copyNewsLink(this, '/noticia')" title="Copiar enlace" class="p-2 rounded-xl hover:bg-slate-800 hover:text-white transition-all text-base" aria-label="Copiar enlace">
-                  🔗
+                <button
+                  type="button"
+                  @click="handleCopyNewsLink('arch-linux-adopta-zstandard-nivel-19')"
+                  :title="copiedSlug === 'arch-linux-adopta-zstandard-nivel-19' ? '¡Enlace copiado!' : 'Copiar enlace'"
+                  class="p-2 rounded-xl hover:bg-slate-800 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                  :class="copiedSlug === 'arch-linux-adopta-zstandard-nivel-19' ? 'text-emerald-400 bg-emerald-500/10' : 'hover:text-white'"
+                  aria-label="Copiar enlace"
+                >
+                  <span v-if="copiedSlug === 'arch-linux-adopta-zstandard-nivel-19'">✓</span>
+                  <span v-else>🔗</span>
                 </button>
-                <a href="../feeds.html" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-indigo-400 transition-all text-base" aria-label="Canal RSS">
+                <NuxtLink to="/feeds" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-indigo-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Canal RSS">
                   📡
-                </a>
-                <a href="/noticia" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base" aria-label="Comentarios">
+                </NuxtLink>
+                <NuxtLink to="/noticia/arch-linux-adopta-zstandard-nivel-19" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Comentarios">
                   💬
-                </a>
+                </NuxtLink>
               </aside>
 
             </div>
@@ -441,15 +465,15 @@ const { platform } = usePlatform()
                   <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-red-500/20 text-red-400 border border-red-500/30">
                     Ciberseguridad & Sysadmin
                   </span>
-                  <span class="text-slate-400 text-xs italic font-serif">07 Oct 2026</span>
-                  <span class="text-slate-600">•</span>
-                  <span class="text-slate-400 text-xs font-mono">6 min lectura</span>
+                  <span class="text-slate-300 text-xs italic font-serif font-medium">07 Oct 2026</span>
+                  <span class="text-slate-500">•</span>
+                  <span class="text-slate-300 text-xs font-mono font-medium">6 min lectura</span>
                 </div>
 
                 <h3 class="font-heading font-black text-xl lg:text-2xl text-white group-hover:text-red-400 transition-colors leading-snug mb-3">
-                  <a href="/noticia">
+                  <NuxtLink to="/noticia/auditoria-elevacion-privilegios-sudo-polkit">
                     Auditoría de elevación de privilegios: nuevos vectores de ataque en configuraciones de Sudo y Polkit
-                  </a>
+                  </NuxtLink>
                 </h3>
 
                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5 font-normal line-clamp-3">
@@ -457,14 +481,14 @@ const { platform } = usePlatform()
                 </p>
 
                 <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80">
-                  <a href="/noticia" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs shadow-md transition-colors">
+                  <NuxtLink to="/noticia/auditoria-elevacion-privilegios-sudo-polkit" class="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs shadow-md transition-colors">
                     <span>Leer noticia completa</span>
                     <span>→</span>
-                  </a>
-                  <div class="flex items-center gap-3 text-xs text-slate-400 font-mono">
-                    <span class="text-slate-500">Fuente:</span>
-                    <span class="text-slate-300 font-semibold">seclists.org</span>
-                    <span>·</span>
+                  </NuxtLink>
+                  <div class="flex items-center gap-3 text-xs text-slate-300 font-mono font-medium">
+                    <span class="text-slate-400">Fuente:</span>
+                    <span class="text-slate-200 font-semibold">seclists.org</span>
+                    <span class="text-slate-500">·</span>
                     <span>💬 31</span>
                   </div>
                 </div>
@@ -472,18 +496,26 @@ const { platform } = usePlatform()
 
               <!-- COLUMNA DERECHA: SIDEBAR DE ACCIONES -->
               <aside aria-label="Acciones de la noticia" class="bg-slate-950/80 border-t md:border-t-0 md:border-l border-slate-800/80 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl px-3 py-6 flex md:flex-col items-center justify-around gap-4 text-slate-400">
-                <a href="https://seclists.org" target="_blank" rel="noopener noreferrer" title="Ir a seclists" class="p-2 rounded-xl hover:bg-slate-800 hover:text-red-400 transition-all text-base" aria-label="Web oficial">
+                <a href="https://seclists.org" target="_blank" rel="noopener noreferrer" title="Ir a seclists" class="p-2 rounded-xl hover:bg-slate-800 hover:text-red-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Web oficial">
                   🌐
                 </a>
-                <button type="button" onclick="copyNewsLink(this, '/noticia')" title="Copiar enlace" class="p-2 rounded-xl hover:bg-slate-800 hover:text-white transition-all text-base" aria-label="Copiar enlace">
-                  🔗
+                <button
+                  type="button"
+                  @click="handleCopyNewsLink('auditoria-elevacion-privilegios-sudo-polkit')"
+                  :title="copiedSlug === 'auditoria-elevacion-privilegios-sudo-polkit' ? '¡Enlace copiado!' : 'Copiar enlace'"
+                  class="p-2 rounded-xl hover:bg-slate-800 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                  :class="copiedSlug === 'auditoria-elevacion-privilegios-sudo-polkit' ? 'text-emerald-400 bg-emerald-500/10' : 'hover:text-white'"
+                  aria-label="Copiar enlace"
+                >
+                  <span v-if="copiedSlug === 'auditoria-elevacion-privilegios-sudo-polkit'">✓</span>
+                  <span v-else>🔗</span>
                 </button>
-                <a href="../feeds.html" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-red-400 transition-all text-base" aria-label="Canal RSS">
+                <NuxtLink to="/feeds" title="Canal RSS" class="p-2 rounded-xl hover:bg-slate-800 hover:text-red-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Canal RSS">
                   📡
-                </a>
-                <a href="/noticia" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base" aria-label="Comentarios">
+                </NuxtLink>
+                <NuxtLink to="/noticia/auditoria-elevacion-privilegios-sudo-polkit" title="Comentar" class="p-2 rounded-xl hover:bg-slate-800 hover:text-emerald-400 transition-all text-base min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Comentarios">
                   💬
-                </a>
+                </NuxtLink>
               </aside>
 
             </div>
@@ -505,45 +537,45 @@ const { platform } = usePlatform()
           </div>
 
           <div class="space-y-4 text-xs">
-            <a href="/noticia" class="flex items-start gap-3 group">
+            <NuxtLink to="/noticia/linux-kernel-6-12-lanzado-real-time" class="flex items-start gap-3 group">
               <span class="font-mono font-black text-orange-500 text-base">01</span>
               <div>
                 <h4 class="font-heading font-semibold text-slate-200 group-hover:text-orange-400 transition-colors leading-snug">
                   Linux Kernel 6.12 lanzado con soporte oficial PREEMPT_RT
                 </h4>
-                <div class="text-[11px] text-slate-400 font-mono mt-0.5">hace 45 min · 2,410 lecturas</div>
+                <div class="text-[11px] text-slate-300 font-mono mt-0.5">hace 45 min · 2,410 lecturas</div>
               </div>
-            </a>
+            </NuxtLink>
 
-            <a href="/noticia" class="flex items-start gap-3 group">
-              <span class="font-mono font-black text-slate-500 group-hover:text-orange-400 transition-colors text-base">02</span>
+            <NuxtLink to="/noticia/vulnerabilidad-zero-day-servidores-cups-parches" class="flex items-start gap-3 group">
+              <span class="font-mono font-black text-slate-400 group-hover:text-orange-400 transition-colors text-base">02</span>
               <div>
                 <h4 class="font-heading font-semibold text-slate-200 group-hover:text-orange-400 transition-colors leading-snug">
                   Vulnerabilidad Zero-Day en CUPS: cómo verificar si tu servidor está expuesto
                 </h4>
-                <div class="text-[11px] text-slate-400 font-mono mt-0.5">hace 4 h · 1,930 lecturas</div>
+                <div class="text-[11px] text-slate-300 font-mono mt-0.5">hace 4 h · 1,930 lecturas</div>
               </div>
-            </a>
+            </NuxtLink>
 
-            <a href="/noticia" class="flex items-start gap-3 group">
-              <span class="font-mono font-black text-slate-500 group-hover:text-orange-400 transition-colors text-base">03</span>
+            <NuxtLink to="/noticia/debian-13-trixie-primera-fase-congelamiento" class="flex items-start gap-3 group">
+              <span class="font-mono font-black text-slate-400 group-hover:text-orange-400 transition-colors text-base">03</span>
               <div>
                 <h4 class="font-heading font-semibold text-slate-200 group-hover:text-orange-400 transition-colors leading-snug">
                   Debian 13 "Trixie" congela sus paquetes base
                 </h4>
-                <div class="text-[11px] text-slate-400 font-mono mt-0.5">hace 2 h · 1,220 lecturas</div>
+                <div class="text-[11px] text-slate-300 font-mono mt-0.5">hace 2 h · 1,220 lecturas</div>
               </div>
-            </a>
+            </NuxtLink>
 
-            <a href="/noticia" class="flex items-start gap-3 group">
-              <span class="font-mono font-black text-slate-500 group-hover:text-orange-400 transition-colors text-base">04</span>
+            <NuxtLink to="/noticia/kde-plasma-6-2-escalado-fraccional-hdr" class="flex items-start gap-3 group">
+              <span class="font-mono font-black text-slate-400 group-hover:text-orange-400 transition-colors text-base">04</span>
               <div>
                 <h4 class="font-heading font-semibold text-slate-200 group-hover:text-orange-400 transition-colors leading-snug">
                   Lanzamiento de KDE Plasma 6.2 con Wayland perfeccionado
                 </h4>
-                <div class="text-[11px] text-slate-400 font-mono mt-0.5">hace 6 h · 980 lecturas</div>
+                <div class="text-[11px] text-slate-300 font-mono mt-0.5">hace 6 h · 980 lecturas</div>
               </div>
-            </a>
+            </NuxtLink>
           </div>
         </div>
 
@@ -557,18 +589,15 @@ const { platform } = usePlatform()
             Cada viernes un boletín condensado con los parches del kernel, lanzamientos de distros y alertas de seguridad. Sin spam.
           </p>
           <form class="space-y-3" onsubmit="event.preventDefault(); alert('Suscripción a News recibida.');">
-            <input type="email" required placeholder="tu-correo@ejemplo.com" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-orange-500 font-mono">
-            <button type="submit" class="w-full py-2.5 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl text-xs transition-colors font-mono uppercase tracking-wider shadow-md">
+            <input type="email" required placeholder="tu-correo@ejemplo.com" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:border-orange-500 font-mono">
+            <button type="submit" class="w-full py-2.5 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl text-xs transition-colors font-mono uppercase tracking-wider shadow-md cursor-pointer">
               Suscribirme a News
             </button>
           </form>
         </div>
 
         <!-- ESPACIO PUBLICITARIO SIDEBAR (300x250) -->
-        <div class="w-full min-h-[250px] rounded-2xl border border-dashed border-slate-800 bg-slate-900/40 p-4 flex flex-col items-center justify-center text-xs text-slate-500 shadow-inner">
-          <span class="font-semibold text-slate-400 uppercase tracking-widest text-[10px] mb-1">Espacio Publicitario</span>
-          <span>Google AdSense — Sidebar Sticky (300x250)</span>
-        </div>
+        <AdSlot type="sidebar-rectangle" slot-id="1000000002" :sticky="true" />
 
       </aside>
 

@@ -12,6 +12,9 @@
       <slot />
     </main>
 
+    <!-- Modal de Búsqueda Global (Cmd+K / Ctrl+K) -->
+    <SearchModal />
+
     <!-- Pie de Página Oficial con Licenciamiento Dual -->
     <AppFooter />
   </div>

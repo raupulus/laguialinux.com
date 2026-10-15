@@ -3,7 +3,9 @@ const { platform, isGuides } = usePlatform()
 
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} · ${platform.value.name}` : `${platform.value.name} — ${platform.value.tagline}`
+    if (!titleChunk) return `${platform.value.name} — ${platform.value.tagline}`
+    if (titleChunk.includes(platform.value.name)) return titleChunk
+    return `${titleChunk} · ${platform.value.name}`
   },
   htmlAttrs: {
     lang: 'es',
@@ -13,6 +15,8 @@ useHead({
     { name: 'description', content: platform.value.tagline },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     { charset: 'utf-8' },
+    { name: 'robots', content: 'noindex, nofollow, noarchive, nosnippet' },
+    { name: 'googlebot', content: 'noindex, nofollow, noarchive, nosnippet' },
   ],
   link: [
     {
