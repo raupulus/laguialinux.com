@@ -10,8 +10,10 @@ RELEASES_DIR="$DEPLOY_BASE/releases"
 
 ## Cargar variables desde .env si no vienen en el entorno
 if [[ -f .env ]]; then
-    # shellcheck disable=SC2046
-    export $(grep -v '^#' .env | xargs -0 2>/dev/null || true)
+    set -a
+    # shellcheck disable=SC1091
+    source .env
+    set +a
 fi
 
 PATHNAME="${PATHNAME:-www.laguialinux.com}"
@@ -145,7 +147,11 @@ if [[ "$FAILED_TESTS" -eq 0 ]]; then
     
     ## Limpieza: mantener solo las 5 releases más recientes
     echo "🧹 Purgando releases antiguas (manteniendo las 5 más recientes)..."
-    ls -dt "$RELEASES_DIR"/${PATHNAME}_* 2>/dev/null | tail -n +6 | xargs rm -rf 2>/dev/null || true
+    ls -dt "$RELEASES_DIR"/${PATHNAME}_* 2>/dev/null | tail -n +6 | while read -r old_rel; do
+        if [[ -n "$old_rel" && -d "$old_rel" ]]; then
+            rm -rf "$old_rel"
+        fi
+    done
     
     echo "✨ Despliegue completado con éxito: $PATHNAME -> $RELEASE_PATH"
     echo "========================================================================"
